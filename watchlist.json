@@ -1,0 +1,70 @@
+[
+  {
+    "asin": "B0D4B1S9G3",
+    "title": "Ariel Automatic Detergent Powder Lavender - 8 Kilograms",
+    "currentPrice": "EGP 472.45",
+    "currentPriceNum": 472.45,
+    "oldPrice": "EGP 636.00",
+    "oldPriceNum": 636,
+    "realDiscountPct": 26,
+    "targetPrice": 400,
+    "targetDiscountPct": 30,
+    "lowestPriceObserved": 472.45,
+    "highestPriceObserved": 472.45,
+    "availability": "متوفر",
+    "productUrl": "https://www.amazon.eg/dp/B0D4B1S9G3",
+    "imgSrc": "https://m.media-amazon.com/images/I/41R3vbG6-VL._AC_SL500_.jpg",
+    "lastChecked": "2026-11-21T16:16:42.774Z",
+    "targetReached": false,
+    "history": [
+      {
+        "date": "2026-11-21T14:44:52.909Z",
+        "price": 472.45
+      },
+      {
+        "date": "2026-11-21T16:13:58.524Z",
+        "price": 472.45,
+        "discountPct": 26
+      },
+      {
+        "date": "2026-11-21T16:16:42.774Z",
+        "price": 472.45,
+        "discountPct": 26
+      }
+    ]
+  },
+  {
+    "asin": "B0CT8S41V8",
+    "title": "Downy Fabric Conditioner Concentrate, Vanilla & Musk 1L",
+    "currentPrice": "EGP 173.24",
+    "currentPriceNum": 173.24,
+    "oldPrice": "EGP 251.00",
+    "oldPriceNum": 251,
+    "realDiscountPct": 31,
+    "targetPrice": 180,
+    "targetDiscountPct": 25,
+    "lowestPriceObserved": 173.24,
+    "highestPriceObserved": 173.24,
+    "availability": "متوفر",
+    "productUrl": "https://www.amazon.eg/dp/B0CT8S41V8",
+    "imgSrc": "https://m.media-amazon.com/images/I/31o64hRrcUL._AC_SL500_.jpg",
+    "lastChecked": "2026-11-21T16:16:42.778Z",
+    "targetReached": true,
+    "history": [
+      {
+        "date": "2026-11-21T14:45:01.341Z",
+        "price": 173.24
+      },
+      {
+        "date": "2026-11-21T16:13:58.529Z",
+        "price": 173.24,
+        "discountPct": 31
+      },
+      {
+        "date": "2026-11-21T16:16:42.778Z",
+        "price": 173.24,
+        "discountPct": 31
+      }
+    ]
+  }
+]

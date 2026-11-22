@@ -1,0 +1,47 @@
+{
+  "name": "amazon_eg_scraper",
+  "version": "1.0.0",
+  "description": "Amazon Egypt Tez / Quick Commerce Web Scraper & Catalog Dashboard",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node full_store_scraper.js",
+    "scrape:full": "node full_store_scraper.js",
+    "scrape:search": "node full_store_scraper.js --search-file search_keywords.json",
+    "scrape:home": "node scraper.js",
+    "track": "node track_product.js",
+    "track:check": "node track_product.js --check",
+    "track:list": "node track_product.js --list",
+    "deals": "node deals_tracker.js",
+    "export": "node export_data.js",
+    "build:deals": "node src/build_deals_page.js",
+    "build:brands": "node src/build_brand_pages.js",
+    "build:site": "node src/build_deals_page.js && node src/build_brand_pages.js",
+    "bot": "node bot.js",
+    "alerts": "node src/alerts.js",
+    "db:migrate": "node migrate_from_json.js",
+    "db:stats": "node src/stats.js",
+    "db:purge-seed": "node scripts/purge_seed_history.js",
+    "test": "node --test test/*.test.js",
+    "test:normalize": "node --test test/normalize.test.js",
+    "channel:post": "node scripts/post_channel.js",
+    "channel:dry-run": "node scripts/post_channel.js --dry-run --force-now --schedule --limit 5",
+    "audit:unit-price": "node src/pricing.js --unit-price-audit",
+    "report:brand": "node scripts/brand_report.js",
+    "report:lead": "node scripts/lead_report.js",
+    "prospects": "node scripts/prospect_list.js",
+    "weekly:digest": "node scripts/weekly_digest.js",
+    "healthcheck": "node scripts/healthcheck.js"
+  },
+  "keywords": [
+    "scraper",
+    "amazon-egypt",
+    "ecommerce",
+    "tez"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^13.2.0",
+    "playwright": "^1.65.1"
+  }
+}

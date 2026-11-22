@@ -1,0 +1,218 @@
+name: Scrape Amazon Egypt Tez Catalog
+
+on:
+  schedule:
+    # Runs every 6 hours at 00:00, 06:00, 12:00, 18:00 UTC
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Limit number of categories to scrape (e.g. 2 for testing)"
+        required: false
+        default: ""
+        type: string
+      resume:
+        description: "Resume incomplete scrape, skipping recently scraped categories"
+        required: false
+        default: false
+        type: boolean
+      skip_search:
+        description: "Skip the keyword search crawl (coverage backfill)"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  scrape:
+    name: Scrape Catalog & Track Deals
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    env:
+      AMAZON_AFFILIATE_TAG: ${{ secrets.AMAZON_AFFILIATE_TAG }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Test Suite (data-integrity guards)
+        run: npm test
+
+      # -----------------------------------------------------------
+      # Database Restore (Cache -> Artifact Fallback -> R2/S3 Optional)
+      # -----------------------------------------------------------
+      - name: Ensure Data Directory Exists
+        run: mkdir -p data
+
+      - name: Restore SQLite Database from Cache
+        id: db-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/catalog.db
+          key: catalog-db-${{ github.run_id }}
+          restore-keys: |
+            catalog-db-
+
+      - name: Restore SQLite Database from Artifact (Fallback)
+        if: steps.db-cache.outputs.cache-hit != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -f data/catalog.db ]; then
+            echo "[*] Cache missed. Attempting to download latest snapshot artifact from previous runs..."
+            gh run download --name catalog-db-snapshot --dir data || true
+            if [ -f data/catalog.db.gz ]; then
+              echo "[+] Found catalog.db.gz from artifact. Decompressing..."
+              gunzip -f data/catalog.db.gz
+            fi
+          fi
+          if [ -f data/catalog.db ]; then
+            echo "[✔] SQLite database successfully restored."
+          else
+            echo "[i] No previous database found. A fresh database will be initialized."
+          fi
+
+      - name: Restore SQLite Database from Cloudflare R2 / S3 (Optional)
+        if: steps.db-cache.outputs.cache-hit != 'true' && secrets.R2_BUCKET_NAME != '' && secrets.AWS_ACCESS_KEY_ID != ''
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          if [ ! -f data/catalog.db ]; then
+            echo "[*] Attempting restore from S3 / Cloudflare R2 bucket: ${{ secrets.R2_BUCKET_NAME }}..."
+            ENDPOINT_FLAG=""
+            if [ -n "${{ secrets.R2_ENDPOINT_URL }}" ]; then
+              ENDPOINT_FLAG="--endpoint-url ${{ secrets.R2_ENDPOINT_URL }}"
+            fi
+            aws s3 cp s3://${{ secrets.R2_BUCKET_NAME }}/catalog.db.gz data/catalog.db.gz $ENDPOINT_FLAG || true
+            if [ -f data/catalog.db.gz ]; then
+              gunzip -f data/catalog.db.gz
+              echo "[✔] Successfully restored catalog.db from R2/S3."
+            fi
+          fi
+
+      # -----------------------------------------------------------
+      # Scrape & Pipeline Steps
+      # -----------------------------------------------------------
+      - name: Run Full Store Scraper
+        id: run-scraper
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.limit }}" ]; then
+            ARGS="$ARGS --limit ${{ inputs.limit }}"
+          fi
+          if [ "${{ inputs.resume }}" = "true" ]; then
+            ARGS="$ARGS --resume"
+          fi
+          echo "[*] Executing: node full_store_scraper.js $ARGS"
+          node full_store_scraper.js $ARGS
+
+      # Keyword search is the reliable coverage path because many category
+      # nodeIds are guessed/mis-mapped. Failures here must not fail the run.
+      - name: Run Keyword Search Crawler (Coverage Backfill)
+        if: inputs.skip_search != true
+        continue-on-error: true
+        run: |
+          if [ -f search_keywords.json ]; then
+            echo "[*] Executing: node full_store_scraper.js --search-file search_keywords.json"
+            node full_store_scraper.js --search-file search_keywords.json
+          else
+            echo "[i] search_keywords.json not found, skipping keyword crawl."
+          fi
+
+      - name: Run Deals & Price Drops Tracker
+        run: node deals_tracker.js
+
+      - name: Export Catalog Data (CSV, Excel XML, HTML)
+        run: node export_data.js
+
+      - name: Build Static Deals & Brand Site
+        run: npm run build:site
+
+      - name: Run Catalog Healthcheck
+        id: healthcheck
+        run: node scripts/healthcheck.js
+
+      # -----------------------------------------------------------
+      # Database Checkpoint, Compression & Caching
+      # -----------------------------------------------------------
+      - name: Checkpoint and Compress SQLite Database
+        if: always()
+        run: |
+          echo "[*] Checkpointing SQLite WAL..."
+          node -e "try { const db = require('./src/db'); db.pragma('wal_checkpoint(TRUNCATE)'); db.close(); console.log('[✔] WAL Checkpoint finished.'); } catch(e) { console.warn('[-] Checkpoint note:', e.message); }"
+          if [ -f data/catalog.db ]; then
+            gzip -k -f data/catalog.db
+            echo "[✔] Compressed data/catalog.db -> data/catalog.db.gz"
+          fi
+
+      - name: Save SQLite Database to Cache
+        uses: actions/cache/save@v4
+        if: always() && steps.healthcheck.outcome == 'success'
+        with:
+          path: data/catalog.db
+          key: catalog-db-${{ github.run_id }}
+
+      - name: Backup to Cloudflare R2 / S3 (Optional)
+        if: always() && steps.healthcheck.outcome == 'success' && secrets.R2_BUCKET_NAME != '' && secrets.AWS_ACCESS_KEY_ID != ''
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          if [ -f data/catalog.db.gz ]; then
+            ENDPOINT_FLAG=""
+            if [ -n "${{ secrets.R2_ENDPOINT_URL }}" ]; then
+              ENDPOINT_FLAG="--endpoint-url ${{ secrets.R2_ENDPOINT_URL }}"
+            fi
+            echo "[*] Uploading snapshot to R2/S3..."
+            aws s3 cp data/catalog.db.gz s3://${{ secrets.R2_BUCKET_NAME }}/catalog.db.gz $ENDPOINT_FLAG
+            echo "[✔] Backup to R2/S3 completed."
+          fi
+
+      # -----------------------------------------------------------
+      # Upload Artifacts (14-day retention)
+      # -----------------------------------------------------------
+      - name: Upload Compressed DB Snapshot Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: catalog-db-snapshot
+          path: data/catalog.db.gz
+          retention-days: 14
+
+      - name: Upload Reports and Catalog Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scraper-reports
+          path: |
+            data/catalog.db
+            deals_report.json
+            products.json
+            amazon_tez_products.csv
+            amazon_tez_products.xls
+            index.html
+            dist/**
+          retention-days: 14

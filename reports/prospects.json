@@ -1,0 +1,222 @@
+[
+  {
+    "brand": "Almarai",
+    "product_count": 19,
+    "priced_count": 1,
+    "stockout_count": 20,
+    "price_changes": 0,
+    "priority_score": 257,
+    "priority_tier": "أولوية قصوى",
+    "categories": "Dairy, Eggs & Cheese / Milk",
+    "sample_trigger": "Almarai: 19 منتج مرصود، 20 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Juhayna",
+    "product_count": 15,
+    "priced_count": 2,
+    "stockout_count": 14,
+    "price_changes": 0,
+    "priority_score": 185,
+    "priority_tier": "أولوية قصوى",
+    "categories": "Milk / Dairy, Eggs & Cheese",
+    "sample_trigger": "Juhayna: 15 منتج مرصود، 14 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Domty",
+    "product_count": 46,
+    "priced_count": 46,
+    "stockout_count": 2,
+    "price_changes": 5,
+    "priority_score": 183,
+    "priority_tier": "أولوية قصوى",
+    "categories": "Bakery / Water and Beverages",
+    "sample_trigger": "Domty: 46 منتج مرصود، 2 رصد نفاد مخزون، 5 تقلبات سعرية"
+  },
+  {
+    "brand": "الأصدقاء",
+    "product_count": 8,
+    "priced_count": 0,
+    "stockout_count": 11,
+    "price_changes": 0,
+    "priority_score": 134,
+    "priority_tier": "أولوية قصوى",
+    "categories": "Butter & Margarine / Dairy, Eggs & Cheese",
+    "sample_trigger": "الأصدقاء: 8 منتج مرصود، 11 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Danone",
+    "product_count": 8,
+    "priced_count": 1,
+    "stockout_count": 7,
+    "price_changes": 0,
+    "priority_score": 94,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Dairy, Eggs & Cheese / Yogurt",
+    "sample_trigger": "Danone: 8 منتج مرصود، 7 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Dina Farms",
+    "product_count": 5,
+    "priced_count": 0,
+    "stockout_count": 6,
+    "price_changes": 0,
+    "priority_score": 75,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Dairy, Eggs & Cheese / Yogurt",
+    "sample_trigger": "Dina Farms: 5 منتج مرصود، 6 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Lamar",
+    "product_count": 4,
+    "priced_count": 1,
+    "stockout_count": 3,
+    "price_changes": 0,
+    "priority_score": 42,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Frozen Food / Milk",
+    "sample_trigger": "Lamar: 4 منتج مرصود، 3 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "La Vache qui rit",
+    "product_count": 3,
+    "priced_count": 2,
+    "stockout_count": 3,
+    "price_changes": 0,
+    "priority_score": 39,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Cheese",
+    "sample_trigger": "La Vache qui rit: 3 منتج مرصود، 3 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Kiri",
+    "product_count": 3,
+    "priced_count": 0,
+    "stockout_count": 3,
+    "price_changes": 0,
+    "priority_score": 39,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Cheese / Eggs",
+    "sample_trigger": "Kiri: 3 منتج مرصود، 3 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Abu El Walad",
+    "product_count": 2,
+    "priced_count": 1,
+    "stockout_count": 3,
+    "price_changes": 0,
+    "priority_score": 36,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Cheese / Dairy, Eggs & Cheese",
+    "sample_trigger": "Abu El Walad: 2 منتج مرصود، 3 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "زبدة",
+    "product_count": 2,
+    "priced_count": 0,
+    "stockout_count": 2,
+    "price_changes": 0,
+    "priority_score": 26,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Butter & Margarine",
+    "sample_trigger": "زبدة: 2 منتج مرصود، 2 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Crystal",
+    "product_count": 2,
+    "priced_count": 0,
+    "stockout_count": 2,
+    "price_changes": 0,
+    "priority_score": 26,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Butter & Margarine",
+    "sample_trigger": "Crystal: 2 منتج مرصود، 2 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Nestlé",
+    "product_count": 2,
+    "priced_count": 0,
+    "stockout_count": 2,
+    "price_changes": 0,
+    "priority_score": 26,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Dairy, Eggs & Cheese",
+    "sample_trigger": "Nestlé: 2 منتج مرصود، 2 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "لبنة",
+    "product_count": 2,
+    "priced_count": 0,
+    "stockout_count": 2,
+    "price_changes": 0,
+    "priority_score": 26,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Eggs",
+    "sample_trigger": "لبنة: 2 منتج مرصود، 2 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Fresh",
+    "product_count": 4,
+    "priced_count": 4,
+    "stockout_count": 0,
+    "price_changes": 1,
+    "priority_score": 17,
+    "priority_tier": "أولوية متوسطة",
+    "categories": "Meat & Poultry / Make Your Home Better, For Less",
+    "sample_trigger": "Fresh: 4 منتج مرصود، 0 رصد نفاد مخزون، 1 تقلبات سعرية"
+  },
+  {
+    "brand": "Dobella",
+    "product_count": 2,
+    "priced_count": 2,
+    "stockout_count": 0,
+    "price_changes": 2,
+    "priority_score": 16,
+    "priority_tier": "أولوية متوسطة",
+    "categories": "Dried Food",
+    "sample_trigger": "Dobella: 2 منتج مرصود، 0 رصد نفاد مخزون، 2 تقلبات سعرية"
+  },
+  {
+    "brand": "Oreo",
+    "product_count": 2,
+    "priced_count": 2,
+    "stockout_count": 0,
+    "price_changes": 2,
+    "priority_score": 16,
+    "priority_tier": "أولوية متوسطة",
+    "categories": "Ice Cream",
+    "sample_trigger": "Oreo: 2 منتج مرصود، 0 رصد نفاد مخزون، 2 تقلبات سعرية"
+  },
+  {
+    "brand": "Limitless",
+    "product_count": 3,
+    "priced_count": 3,
+    "stockout_count": 0,
+    "price_changes": 1,
+    "priority_score": 14,
+    "priority_tier": "أولوية متوسطة",
+    "categories": "Lifestyle",
+    "sample_trigger": "Limitless: 3 منتج مرصود، 0 رصد نفاد مخزون، 1 تقلبات سعرية"
+  },
+  {
+    "brand": "Pampers",
+    "product_count": 3,
+    "priced_count": 3,
+    "stockout_count": 0,
+    "price_changes": 1,
+    "priority_score": 14,
+    "priority_tier": "أولوية متوسطة",
+    "categories": "Home & Personal Care",
+    "sample_trigger": "Pampers: 3 منتج مرصود، 0 رصد نفاد مخزون، 1 تقلبات سعرية"
+  },
+  {
+    "brand": "Safi",
+    "product_count": 1,
+    "priced_count": 0,
+    "stockout_count": 1,
+    "price_changes": 0,
+    "priority_score": 13,
+    "priority_tier": "أولوية متوسطة",
+    "categories": "Butter & Margarine",
+    "sample_trigger": "Safi: 1 منتج مرصود، 1 رصد نفاد مخزون، 0 تقلبات سعرية"
+  }
+]

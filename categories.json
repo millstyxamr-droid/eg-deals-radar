@@ -1,0 +1,882 @@
+[
+  {
+    "id": "dairy-eggs",
+    "parent_id": null,
+    "name": "Dairy, Eggs & Cheese",
+    "nodeId": "215052334031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052334031&title=Dairy%2C+Eggs+%26+Cheese",
+    "depth": 0
+  },
+  {
+    "id": "dairy-cheese",
+    "parent_id": "dairy-eggs",
+    "name": "Cheese",
+    "nodeId": "223598260031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598260031&title=Cheese",
+    "depth": 1
+  },
+  {
+    "id": "dairy-milk",
+    "parent_id": "dairy-eggs",
+    "name": "Milk",
+    "nodeId": "223598268031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598268031&title=Milk",
+    "depth": 1
+  },
+  {
+    "id": "dairy-yogurt",
+    "parent_id": "dairy-eggs",
+    "name": "Yogurt",
+    "nodeId": "223598264031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598264031&title=Yogurt",
+    "depth": 1
+  },
+  {
+    "id": "dairy-butter",
+    "parent_id": "dairy-eggs",
+    "name": "Butter & Margarine",
+    "nodeId": "223598262031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598262031&title=Butter+%26+Margarine",
+    "depth": 1
+  },
+  {
+    "id": "dairy-fresh-eggs",
+    "parent_id": "dairy-eggs",
+    "name": "Eggs",
+    "nodeId": "223598261031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598261031&title=Eggs",
+    "depth": 1
+  },
+  {
+    "id": "dairy-cream",
+    "parent_id": "dairy-eggs",
+    "name": "Fresh Cream & Labneh",
+    "nodeId": "223598263031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598263031&title=Fresh+Cream+%26+Labneh",
+    "depth": 1
+  },
+  {
+    "id": "dairy-condensed",
+    "parent_id": "dairy-eggs",
+    "name": "Condensed & Evaporated Milk",
+    "nodeId": "223598265031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598265031&title=Condensed+%26+Evaporated+Milk",
+    "depth": 1
+  },
+  {
+    "id": "dairy-plant-milk",
+    "parent_id": "dairy-eggs",
+    "name": "Plant-Based & Almond Milk",
+    "nodeId": "223598266031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223598266031&title=Plant-Based+%26+Almond+Milk",
+    "depth": 1
+  },
+  {
+    "id": "fruits-vegetables",
+    "parent_id": null,
+    "name": "Fruits & Vegetables",
+    "nodeId": "214841697031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214841697031&title=Fruits+%26+Vegetables",
+    "depth": 0
+  },
+  {
+    "id": "vegetables",
+    "parent_id": "fruits-vegetables",
+    "name": "Fresh Vegetables",
+    "nodeId": "214899312031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899312031&title=Fresh+Vegetables",
+    "depth": 1
+  },
+  {
+    "id": "fruits",
+    "parent_id": "fruits-vegetables",
+    "name": "Fresh Fruits",
+    "nodeId": "214899311031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899311031&title=Fresh+Fruits",
+    "depth": 1
+  },
+  {
+    "id": "fruits-citrus",
+    "parent_id": "fruits-vegetables",
+    "name": "Citrus & Oranges",
+    "nodeId": "214899313031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899313031&title=Citrus+%26+Oranges",
+    "depth": 1
+  },
+  {
+    "id": "fruits-bananas-apples",
+    "parent_id": "fruits-vegetables",
+    "name": "Apples & Bananas",
+    "nodeId": "214899314031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899314031&title=Apples+%26+Bananas",
+    "depth": 1
+  },
+  {
+    "id": "vegetables-potatoes-onions",
+    "parent_id": "fruits-vegetables",
+    "name": "Potatoes, Onions & Garlic",
+    "nodeId": "214899315031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899315031&title=Potatoes%2C+Onions+%26+Garlic",
+    "depth": 1
+  },
+  {
+    "id": "vegetables-tomatoes-cucumbers",
+    "parent_id": "fruits-vegetables",
+    "name": "Tomatoes & Cucumbers",
+    "nodeId": "214899317031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899317031&title=Tomatoes+%26+Cucumbers",
+    "depth": 1
+  },
+  {
+    "id": "vegetables-leafy-herbs",
+    "parent_id": "fruits-vegetables",
+    "name": "Fresh Herbs & Leafy Greens",
+    "nodeId": "214899318031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899318031&title=Fresh+Herbs+%26+Leafy+Greens",
+    "depth": 1
+  },
+  {
+    "id": "fruits-organic",
+    "parent_id": "fruits-vegetables",
+    "name": "Organic Fruits & Vegetables",
+    "nodeId": "214899321031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899321031&title=Organic+Fruits+%26+Vegetables",
+    "depth": 1
+  },
+  {
+    "id": "meat-chicken-fish",
+    "parent_id": null,
+    "name": "Chicken, Meat & Fish",
+    "nodeId": "214841696031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214841696031&title=Chicken%2C+Meat+%26+Fish",
+    "depth": 0
+  },
+  {
+    "id": "meat",
+    "parent_id": "meat-chicken-fish",
+    "name": "Fresh Beef & Meat",
+    "nodeId": "214899316031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899316031&title=Fresh+Beef+%26+Meat",
+    "depth": 1
+  },
+  {
+    "id": "chicken",
+    "parent_id": "meat-chicken-fish",
+    "name": "Fresh Poultry & Chicken",
+    "nodeId": "214899320031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899320031&title=Fresh+Poultry+%26+Chicken",
+    "depth": 1
+  },
+  {
+    "id": "seafood",
+    "parent_id": "meat-chicken-fish",
+    "name": "Fresh & Frozen Fish & Seafood",
+    "nodeId": "214899319031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899319031&title=Fresh+%26+Frozen+Fish+%26+Seafood",
+    "depth": 1
+  },
+  {
+    "id": "meat-minced",
+    "parent_id": "meat-chicken-fish",
+    "name": "Minced Meat & Cubes",
+    "nodeId": "214899322031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899322031&title=Minced+Meat+%26+Cubes",
+    "depth": 1
+  },
+  {
+    "id": "meat-cold-cuts",
+    "parent_id": "meat-chicken-fish",
+    "name": "Cold Cuts & Deli Pastrami",
+    "nodeId": "214899323031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899323031&title=Cold+Cuts+%26+Deli+Pastrami",
+    "depth": 1
+  },
+  {
+    "id": "meat-sausages-burgers",
+    "parent_id": "meat-chicken-fish",
+    "name": "Sausages, Franks & Burgers",
+    "nodeId": "214899324031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899324031&title=Sausages%2C+Franks+%26+Burgers",
+    "depth": 1
+  },
+  {
+    "id": "chicken-fillet-strips",
+    "parent_id": "meat-chicken-fish",
+    "name": "Chicken Breast & Strips",
+    "nodeId": "214899325031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899325031&title=Chicken+Breast+%26+Strips",
+    "depth": 1
+  },
+  {
+    "id": "meat-marinated",
+    "parent_id": "meat-chicken-fish",
+    "name": "Marinated Ready-to-Cook Meat",
+    "nodeId": "214899326031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=214899326031&title=Marinated+Ready-to-Cook+Meat",
+    "depth": 1
+  },
+  {
+    "id": "bakery",
+    "parent_id": null,
+    "name": "Bakery & Bread",
+    "nodeId": "215052333031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052333031&title=Bakery+%26+Bread",
+    "depth": 0
+  },
+  {
+    "id": "bread",
+    "parent_id": "bakery",
+    "name": "Bread & Toast",
+    "nodeId": "215052339031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052339031&title=Bread+%26+Toast",
+    "depth": 1
+  },
+  {
+    "id": "bakery-baladi-fino",
+    "parent_id": "bakery",
+    "name": "Baladi & Fino Bread",
+    "nodeId": "215052335031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052335031&title=Baladi+%26+Fino+Bread",
+    "depth": 1
+  },
+  {
+    "id": "bakery-croissants-pastries",
+    "parent_id": "bakery",
+    "name": "Croissants, Danish & Pastries",
+    "nodeId": "215052336031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052336031&title=Croissants%2C+Danish+%26+Pastries",
+    "depth": 1
+  },
+  {
+    "id": "bakery-cakes-muffins",
+    "parent_id": "bakery",
+    "name": "Cakes, Cupcakes & Muffins",
+    "nodeId": "215052337031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052337031&title=Cakes%2C+Cupcakes+%26+Muffins",
+    "depth": 1
+  },
+  {
+    "id": "bakery-rusks-pate",
+    "parent_id": "bakery",
+    "name": "Rusks, Grissini & Crackers",
+    "nodeId": "215052338031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052338031&title=Rusks%2C+Grissini+%26+Crackers",
+    "depth": 1
+  },
+  {
+    "id": "bakery-tortilla-wraps",
+    "parent_id": "bakery",
+    "name": "Tortilla, Lebanese & Flatbread",
+    "nodeId": "215052340031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052340031&title=Tortilla%2C+Lebanese+%26+Flatbread",
+    "depth": 1
+  },
+  {
+    "id": "bakery-oriental-sweets",
+    "parent_id": "bakery",
+    "name": "Oriental Sweets & Baklava",
+    "nodeId": "215052341031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215052341031&title=Oriental+Sweets+%26+Baklava",
+    "depth": 1
+  },
+  {
+    "id": "cooking-baking",
+    "parent_id": null,
+    "name": "Cooking & Baking",
+    "nodeId": "212925568031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925568031&title=Cooking+%26+Baking",
+    "depth": 0
+  },
+  {
+    "id": "oil-ghee",
+    "parent_id": "cooking-baking",
+    "name": "Oil & Ghee",
+    "nodeId": "215093304031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093304031&title=Oil+%26+Ghee",
+    "depth": 1
+  },
+  {
+    "id": "rice-pasta",
+    "parent_id": "cooking-baking",
+    "name": "Rice & Pasta",
+    "nodeId": "215093302031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093302031&title=Rice+%26+Pasta",
+    "depth": 1
+  },
+  {
+    "id": "spices",
+    "parent_id": "cooking-baking",
+    "name": "Spices & Herbs",
+    "nodeId": "215093300031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093300031&title=Spices+%26+Herbs",
+    "depth": 1
+  },
+  {
+    "id": "cooking-sauces-tomato",
+    "parent_id": "cooking-baking",
+    "name": "Tomato Paste & Pasta Sauces",
+    "nodeId": "215093301031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093301031&title=Tomato+Paste+%26+Pasta+Sauces",
+    "depth": 1
+  },
+  {
+    "id": "cooking-flour-sugar",
+    "parent_id": "cooking-baking",
+    "name": "Flour, Sugar & Baking Mixes",
+    "nodeId": "215093303031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093303031&title=Flour%2C+Sugar+%26+Baking+Mixes",
+    "depth": 1
+  },
+  {
+    "id": "cooking-canned-food",
+    "parent_id": "cooking-baking",
+    "name": "Canned Beans, Tuna & Corn",
+    "nodeId": "215093305031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093305031&title=Canned+Beans%2C+Tuna+%26+Corn",
+    "depth": 1
+  },
+  {
+    "id": "cooking-vinegar-dressings",
+    "parent_id": "cooking-baking",
+    "name": "Vinegar, Mayo & Salad Dressings",
+    "nodeId": "215093306031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093306031&title=Vinegar%2C+Mayo+%26+Salad+Dressings",
+    "depth": 1
+  },
+  {
+    "id": "cooking-legumes-pulses",
+    "parent_id": "cooking-baking",
+    "name": "Lentils, Beans & Pulses",
+    "nodeId": "215093307031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093307031&title=Lentils%2C+Beans+%26+Pulses",
+    "depth": 1
+  },
+  {
+    "id": "cooking-stock-bouillon",
+    "parent_id": "cooking-baking",
+    "name": "Bouillon & Soup Mixes",
+    "nodeId": "215093308031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093308031&title=Bouillon+%26+Soup+Mixes",
+    "depth": 1
+  },
+  {
+    "id": "cooking-salt-seasoning",
+    "parent_id": "cooking-baking",
+    "name": "Salt & Specialized Seasoning",
+    "nodeId": "215093309031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093309031&title=Salt+%26+Specialized+Seasoning",
+    "depth": 1
+  },
+  {
+    "id": "cooking-noodles",
+    "parent_id": "cooking-baking",
+    "name": "Instant Noodles & Ramen",
+    "nodeId": "215093310031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093310031&title=Instant+Noodles+%26+Ramen",
+    "depth": 1
+  },
+  {
+    "id": "beverages",
+    "parent_id": null,
+    "name": "Water & Beverages",
+    "nodeId": "212925566031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925566031&title=Water+%26+Beverages",
+    "depth": 0
+  },
+  {
+    "id": "coffee-tea",
+    "parent_id": "beverages",
+    "name": "Coffee & Tea",
+    "nodeId": "212925569031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925569031&title=Coffee+%26+Tea",
+    "depth": 1
+  },
+  {
+    "id": "beverages-bottled-water",
+    "parent_id": "beverages",
+    "name": "Bottled Water & Gallons",
+    "nodeId": "212925570031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925570031&title=Bottled+Water+%26+Gallons",
+    "depth": 1
+  },
+  {
+    "id": "beverages-sparkling-water",
+    "parent_id": "beverages",
+    "name": "Sparkling & Flavored Water",
+    "nodeId": "212925571031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925571031&title=Sparkling+%26+Flavored+Water",
+    "depth": 1
+  },
+  {
+    "id": "beverages-soft-drinks",
+    "parent_id": "beverages",
+    "name": "Carbonated Soft Drinks & Soda",
+    "nodeId": "212925572031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925572031&title=Carbonated+Soft+Drinks+%26+Soda",
+    "depth": 1
+  },
+  {
+    "id": "beverages-juices",
+    "parent_id": "beverages",
+    "name": "Packaged Juices & Nectars",
+    "nodeId": "212925573031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925573031&title=Packaged+Juices+%26+Nectars",
+    "depth": 1
+  },
+  {
+    "id": "beverages-energy-drinks",
+    "parent_id": "beverages",
+    "name": "Energy & Sports Drinks",
+    "nodeId": "212925574031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925574031&title=Energy+%26+Sports+Drinks",
+    "depth": 1
+  },
+  {
+    "id": "beverages-malt-nonalcoholic",
+    "parent_id": "beverages",
+    "name": "Malt Beverages",
+    "nodeId": "212925575031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925575031&title=Malt+Beverages",
+    "depth": 1
+  },
+  {
+    "id": "beverages-herbal-tea",
+    "parent_id": "beverages",
+    "name": "Herbal & Green Teas",
+    "nodeId": "212925576031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925576031&title=Herbal+%26+Green+Teas",
+    "depth": 1
+  },
+  {
+    "id": "snacks-sweets",
+    "parent_id": null,
+    "name": "Snacks & Sweets",
+    "nodeId": "215093298031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093298031&title=Snacks+%26+Sweets",
+    "depth": 0
+  },
+  {
+    "id": "chocolate",
+    "parent_id": "snacks-sweets",
+    "name": "Chocolates & Bars",
+    "nodeId": "215093316031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093316031&title=Chocolates+%26+Bars",
+    "depth": 1
+  },
+  {
+    "id": "chips",
+    "parent_id": "snacks-sweets",
+    "name": "Potato Chips & Pretzels",
+    "nodeId": "223316837031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=223316837031&title=Potato+Chips+%26+Pretzels",
+    "depth": 1
+  },
+  {
+    "id": "snacks-biscuits-cookies",
+    "parent_id": "snacks-sweets",
+    "name": "Biscuits, Wafers & Cookies",
+    "nodeId": "215093317031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093317031&title=Biscuits%2C+Wafers+%26+Cookies",
+    "depth": 1
+  },
+  {
+    "id": "snacks-candy-gum",
+    "parent_id": "snacks-sweets",
+    "name": "Candies, Lollipops & Gum",
+    "nodeId": "215093318031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093318031&title=Candies%2C+Lollipops+%26+Gum",
+    "depth": 1
+  },
+  {
+    "id": "snacks-nuts-seeds",
+    "parent_id": "snacks-sweets",
+    "name": "Nuts, Seeds & Trail Mix",
+    "nodeId": "215093319031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093319031&title=Nuts%2C+Seeds+%26+Trail+Mix",
+    "depth": 1
+  },
+  {
+    "id": "snacks-dried-fruits",
+    "parent_id": "snacks-sweets",
+    "name": "Dried Fruits & Dates",
+    "nodeId": "215093320031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093320031&title=Dried+Fruits+%26+Dates",
+    "depth": 1
+  },
+  {
+    "id": "snacks-popcorn",
+    "parent_id": "snacks-sweets",
+    "name": "Popcorn & Extruded Snacks",
+    "nodeId": "215093321031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093321031&title=Popcorn+%26+Extruded+Snacks",
+    "depth": 1
+  },
+  {
+    "id": "snacks-protein-bars",
+    "parent_id": "snacks-sweets",
+    "name": "Protein & Granola Bars",
+    "nodeId": "215093322031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093322031&title=Protein+%26+Granola+Bars",
+    "depth": 1
+  },
+  {
+    "id": "snacks-halawa-tahina",
+    "parent_id": "snacks-sweets",
+    "name": "Halawa & Sweet Spreads",
+    "nodeId": "215093323031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215093323031&title=Halawa+%26+Sweet+Spreads",
+    "depth": 1
+  },
+  {
+    "id": "frozen-food",
+    "parent_id": null,
+    "name": "Frozen Food",
+    "nodeId": "212925567031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925567031&title=Frozen+Food",
+    "depth": 0
+  },
+  {
+    "id": "frozen-vegetables",
+    "parent_id": "frozen-food",
+    "name": "Frozen Vegetables & Peas",
+    "nodeId": "212925577031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925577031&title=Frozen+Vegetables+%26+Peas",
+    "depth": 1
+  },
+  {
+    "id": "frozen-fries-potatoes",
+    "parent_id": "frozen-food",
+    "name": "Frozen French Fries & Wedges",
+    "nodeId": "212925578031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925578031&title=Frozen+French+Fries+%26+Wedges",
+    "depth": 1
+  },
+  {
+    "id": "frozen-ready-meals",
+    "parent_id": "frozen-food",
+    "name": "Frozen Nuggets & Ready Meals",
+    "nodeId": "212925579031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925579031&title=Frozen+Nuggets+%26+Ready+Meals",
+    "depth": 1
+  },
+  {
+    "id": "frozen-pastry-dough",
+    "parent_id": "frozen-food",
+    "name": "Frozen Dough, Sambousek & Pastry",
+    "nodeId": "212925580031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925580031&title=Frozen+Dough%2C+Sambousek+%26+Pastry",
+    "depth": 1
+  },
+  {
+    "id": "frozen-ice-cream",
+    "parent_id": "frozen-food",
+    "name": "Ice Cream & Frozen Desserts",
+    "nodeId": "212925581031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925581031&title=Ice+Cream+%26+Frozen+Desserts",
+    "depth": 1
+  },
+  {
+    "id": "frozen-seafood-items",
+    "parent_id": "frozen-food",
+    "name": "Frozen Fish Fillet & Shrimps",
+    "nodeId": "212925582031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=212925582031&title=Frozen+Fish+Fillet+%26+Shrimps",
+    "depth": 1
+  },
+  {
+    "id": "household-cleaning",
+    "parent_id": null,
+    "name": "Home Care & Cleaning",
+    "nodeId": "215103357031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103357031&title=Home+Care+%26+Cleaning",
+    "depth": 0
+  },
+  {
+    "id": "laundry",
+    "parent_id": "household-cleaning",
+    "name": "Laundry Detergent & Pods",
+    "nodeId": "215103359031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103359031&title=Laundry+Detergent+%26+Pods",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-fabric-softener",
+    "parent_id": "household-cleaning",
+    "name": "Fabric Softener & Scent Boosters",
+    "nodeId": "215103360031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103360031&title=Fabric+Softener+%26+Scent+Boosters",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-dishwashing",
+    "parent_id": "household-cleaning",
+    "name": "Dishwashing Liquids & Tablets",
+    "nodeId": "215103361031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103361031&title=Dishwashing+Liquids+%26+Tablets",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-surface-cleaners",
+    "parent_id": "household-cleaning",
+    "name": "Surface, Floor & Glass Cleaners",
+    "nodeId": "215103362031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103362031&title=Surface%2C+Floor+%26+Glass+Cleaners",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-bleach-disinfectant",
+    "parent_id": "household-cleaning",
+    "name": "Bleach & Antiseptic Disinfectants",
+    "nodeId": "215103363031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103363031&title=Bleach+%26+Antiseptic+Disinfectants",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-toilet-bathroom",
+    "parent_id": "household-cleaning",
+    "name": "Toilet & Bathroom Cleaners",
+    "nodeId": "215103364031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103364031&title=Toilet+%26+Bathroom+Cleaners",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-tissues-paper",
+    "parent_id": "household-cleaning",
+    "name": "Toilet Paper, Facial Tissues & Towels",
+    "nodeId": "215103365031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103365031&title=Toilet+Paper%2C+Facial+Tissues+%26+Towels",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-trash-bags-foil",
+    "parent_id": "household-cleaning",
+    "name": "Trash Bags, Foil & Cling Film",
+    "nodeId": "215103366031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103366031&title=Trash+Bags%2C+Foil+%26+Cling+Film",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-air-fresheners",
+    "parent_id": "household-cleaning",
+    "name": "Air Fresheners & Scent Diffusers",
+    "nodeId": "215103367031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103367031&title=Air+Fresheners+%26+Scent+Diffusers",
+    "depth": 1
+  },
+  {
+    "id": "cleaning-pest-control",
+    "parent_id": "household-cleaning",
+    "name": "Insecticides & Pest Control",
+    "nodeId": "215103368031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215103368031&title=Insecticides+%26+Pest+Control",
+    "depth": 1
+  },
+  {
+    "id": "personal-care",
+    "parent_id": null,
+    "name": "Health & Personal Care",
+    "nodeId": "215032325031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032325031&title=Health+%26+Personal+Care",
+    "depth": 0
+  },
+  {
+    "id": "personal-hair-care",
+    "parent_id": "personal-care",
+    "name": "Shampoo & Hair Conditioners",
+    "nodeId": "215032326031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032326031&title=Shampoo+%26+Hair+Conditioners",
+    "depth": 1
+  },
+  {
+    "id": "personal-body-wash-soap",
+    "parent_id": "personal-care",
+    "name": "Body Wash, Shower Gel & Soap",
+    "nodeId": "215032327031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032327031&title=Body+Wash%2C+Shower+Gel+%26+Soap",
+    "depth": 1
+  },
+  {
+    "id": "personal-deodorants",
+    "parent_id": "personal-care",
+    "name": "Deodorants & Body Sprays",
+    "nodeId": "215032328031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032328031&title=Deodorants+%26+Body+Sprays",
+    "depth": 1
+  },
+  {
+    "id": "personal-oral-care",
+    "parent_id": "personal-care",
+    "name": "Toothpaste & Toothbrushes",
+    "nodeId": "215032329031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032329031&title=Toothpaste+%26+Toothbrushes",
+    "depth": 1
+  },
+  {
+    "id": "personal-shaving",
+    "parent_id": "personal-care",
+    "name": "Shaving Razors, Foam & Blades",
+    "nodeId": "215032330031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032330031&title=Shaving+Razors%2C+Foam+%26+Blades",
+    "depth": 1
+  },
+  {
+    "id": "personal-feminine-care",
+    "parent_id": "personal-care",
+    "name": "Feminine Pads & Panty Liners",
+    "nodeId": "215032331031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032331031&title=Feminine+Pads+%26+Panty+Liners",
+    "depth": 1
+  },
+  {
+    "id": "personal-first-aid",
+    "parent_id": "personal-care",
+    "name": "First Aid, Bandages & Antiseptics",
+    "nodeId": "215032332031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032332031&title=First+Aid%2C+Bandages+%26+Antiseptics",
+    "depth": 1
+  },
+  {
+    "id": "personal-skin-lotions",
+    "parent_id": "personal-care",
+    "name": "Hand Creams & Body Lotions",
+    "nodeId": "215032333031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032333031&title=Hand+Creams+%26+Body+Lotions",
+    "depth": 1
+  },
+  {
+    "id": "personal-cotton-wipes",
+    "parent_id": "personal-care",
+    "name": "Cotton Buds & Wet Wipes",
+    "nodeId": "215032334031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215032334031&title=Cotton+Buds+%26+Wet+Wipes",
+    "depth": 1
+  },
+  {
+    "id": "beauty",
+    "parent_id": null,
+    "name": "Beauty Essentials",
+    "nodeId": "215021840031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021840031&title=Beauty+Essentials",
+    "depth": 0
+  },
+  {
+    "id": "beauty-skin-care",
+    "parent_id": "beauty",
+    "name": "Face Care & Cleansers",
+    "nodeId": "215021841031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021841031&title=Face+Care+%26+Cleansers",
+    "depth": 1
+  },
+  {
+    "id": "beauty-hair-styling",
+    "parent_id": "beauty",
+    "name": "Hair Oils, Serums & Styling Gels",
+    "nodeId": "215021842031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021842031&title=Hair+Oils%2C+Serums+%26+Styling+Gels",
+    "depth": 1
+  },
+  {
+    "id": "beauty-perfumes",
+    "parent_id": "beauty",
+    "name": "Fragrances & Perfumes",
+    "nodeId": "215021843031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021843031&title=Fragrances+%26+Perfumes",
+    "depth": 1
+  },
+  {
+    "id": "beauty-makeup",
+    "parent_id": "beauty",
+    "name": "Cosmetics & Makeup Tools",
+    "nodeId": "215021844031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021844031&title=Cosmetics+%26+Makeup+Tools",
+    "depth": 1
+  },
+  {
+    "id": "baby-care",
+    "parent_id": null,
+    "name": "Baby Care",
+    "nodeId": "215021807031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021807031&title=Baby+Care",
+    "depth": 0
+  },
+  {
+    "id": "baby-diapers",
+    "parent_id": "baby-care",
+    "name": "Baby Diapers & Pants",
+    "nodeId": "215021808031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021808031&title=Baby+Diapers+%26+Pants",
+    "depth": 1
+  },
+  {
+    "id": "baby-wipes",
+    "parent_id": "baby-care",
+    "name": "Baby Wipes",
+    "nodeId": "215021809031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021809031&title=Baby+Wipes",
+    "depth": 1
+  },
+  {
+    "id": "baby-food-formula",
+    "parent_id": "baby-care",
+    "name": "Baby Formula & Cereals",
+    "nodeId": "215021810031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021810031&title=Baby+Formula+%26+Cereals",
+    "depth": 1
+  },
+  {
+    "id": "baby-bath-shampoo",
+    "parent_id": "baby-care",
+    "name": "Baby Shampoo, Lotion & Bath",
+    "nodeId": "215021811031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021811031&title=Baby+Shampoo%2C+Lotion+%26+Bath",
+    "depth": 1
+  },
+  {
+    "id": "home-kitchen",
+    "parent_id": null,
+    "name": "Home & Kitchen",
+    "nodeId": "215021792031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021792031&title=Home+%26+Kitchen",
+    "depth": 0
+  },
+  {
+    "id": "kitchen-storage-tools",
+    "parent_id": "home-kitchen",
+    "name": "Food Storage & Kitchen Utensils",
+    "nodeId": "215021793031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021793031&title=Food+Storage+%26+Kitchen+Utensils",
+    "depth": 1
+  },
+  {
+    "id": "electronics",
+    "parent_id": null,
+    "name": "Electronics & Accessories",
+    "nodeId": "215078183031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215078183031&title=Electronics+%26+Accessories",
+    "depth": 0
+  },
+  {
+    "id": "electronics-batteries-cables",
+    "parent_id": "electronics",
+    "name": "Batteries, Cables & Chargers",
+    "nodeId": "215078184031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215078184031&title=Batteries%2C+Cables+%26+Chargers",
+    "depth": 1
+  },
+  {
+    "id": "stationery",
+    "parent_id": null,
+    "name": "Stationery & Books",
+    "nodeId": "215021827031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021827031&title=Stationery+%26+Books",
+    "depth": 0
+  },
+  {
+    "id": "stationery-pens-notebooks",
+    "parent_id": "stationery",
+    "name": "Pens, Notebooks & Office Supplies",
+    "nodeId": "215021828031",
+    "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021828031&title=Pens%2C+Notebooks+%26+Office+Supplies",
+    "depth": 1
+  }
+]

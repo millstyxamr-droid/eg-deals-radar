@@ -1,0 +1,97 @@
+name: Deploy Deals Site to GitHub Pages
+
+on:
+  workflow_run:
+    workflows: ["Scrape Amazon Egypt Tez Catalog"]
+    types: [completed]
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'data/**'
+      - 'package.json'
+      - '.github/workflows/pages.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy Static Catalog Site
+    runs-on: ubuntu-latest
+    # If triggered by scrape workflow, only run if the scrape run succeeded
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    env:
+      AMAZON_AFFILIATE_TAG: ${{ secrets.AMAZON_AFFILIATE_TAG }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Ensure Data Directory Exists
+        run: mkdir -p data
+
+      # Restore SQLite database from cache or artifacts
+      - name: Restore SQLite Database from Cache
+        id: db-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/catalog.db
+          key: catalog-db-${{ github.run_id }}
+          restore-keys: |
+            catalog-db-
+
+      - name: Restore SQLite Database from Artifact (Fallback)
+        if: steps.db-cache.outputs.cache-hit != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -f data/catalog.db ]; then
+            echo "[*] Cache missed. Attempting to download snapshot artifact..."
+            gh run download --name catalog-db-snapshot --dir data || true
+            if [ -f data/catalog.db.gz ]; then
+              gunzip -f data/catalog.db.gz
+            fi
+          fi
+          if [ -f data/catalog.db ]; then
+            echo "[✔] SQLite database successfully restored for site build."
+          else
+            echo "[i] Database not found. Site will initialize from available seed or catalog."
+          fi
+
+      - name: Build Static Deals and Brand Pages (HTML/CSS/JS)
+        run: npm run build:site
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

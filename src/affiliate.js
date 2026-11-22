@@ -4,7 +4,7 @@
  * Evaluated at display/posting time, not at storage time.
  */
 
-const DEFAULT_AFFILIATE_TAG = 'amazonegt0c-21';
+const DEFAULT_AFFILIATE_TAG = 'egdealsradar-21';
 let warnedMissingTag = false;
 
 /**

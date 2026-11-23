@@ -144,10 +144,10 @@ describe('Telegram Channel Post & Queue Tests', () => {
   test('Post Formatter: concise Egyptian Arabic with unit price and affiliate link', () => {
     const mockProduct = {
       asin: 'B08MILK01',
-      title: 'لبن جهينة كامل الدسم 1 لتر',
+      title: 'لبن جهينة كامل الدسم 2 لتر',
       category_name: 'ألبان وجبن',
-      current_price: 42.5,
-      old_price: 50.0,
+      current_price: 85.0,
+      old_price: 100.0,
       historical_discount_pct: 15,
       unit_price: 42.5,
       unit_price_unit: 'ج.م/لتر',
@@ -157,12 +157,17 @@ describe('Telegram Channel Post & Queue Tests', () => {
 
     const postText = buildPostContent(mockProduct, '2026-11-21_09:00');
 
-    assert.match(postText, /^🔥 لبن جهينة كامل الدسم 1 لتر/m);
-    assert.match(postText, /السعر: 42\.50 ج\.م \(كان 50 ج\.م\) — أقل من سعره المعتاد 15%/);
-    assert.match(postText, /الوحدة: 42\.5 ج\.م\/لتر/);
+    assert.match(postText, /^🔥 لبن جهينة كامل الدسم 2 لتر/m);
+    assert.match(postText, /السعر: 85 ج\.م \(كان 100 ج\.م\) — أقل من سعره المعتاد 15%/);
+    assert.match(postText, /💡 سعر اللتر: 42\.5 ج\.م/);
     assert.match(postText, /🛒 <b>رابط الشراء:<\/b> <a href="https:\/\/www\.amazon\.eg\/dp\/B08MILK01\?tag=dealegypt-21&utm_source=telegram&utm_medium=channel&utm_campaign=2026-11-21_09%3A00">اضغط هنا للشراء من أمازون مصر<\/a>/);
     assert.match(postText, /#ألبان_وجبن #عروض_النهاردة/);
     assert.doesNotMatch(postText, /أرخص سعر/);
+
+    // Test redundant unit price omission on single-unit items (e.g. 1L at 42.5)
+    const singleItem = { ...mockProduct, current_price: 42.5, unit_price: 42.5 };
+    const singlePostText = buildPostContent(singleItem, 'slot');
+    assert.doesNotMatch(singlePostText, /سعر اللتر|الوحدة/);
   });
 
   test('Truthful Marketing Rule: "أرخص سعر" is ONLY added when all_time_low === 1', () => {

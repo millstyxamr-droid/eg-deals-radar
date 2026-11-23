@@ -123,11 +123,25 @@ function buildPostContent(product, slot = 'channel') {
     lines.push(`🏷️ خصم معلن من أمازون: ${Math.round(advertisedDiscount)}% (مقارنة بالسعر المعلن)`);
   }
 
-  // 3. Unit price line (only if available)
+  // 3. Smart Unit price line (only when truly useful and not redundant with total price)
   if (product.unit_price && product.unit_price_unit) {
     const unitPriceNum = Number(product.unit_price);
-    const unitPriceStr = unitPriceNum % 1 === 0 ? unitPriceNum.toFixed(0) : unitPriceNum.toFixed(1);
-    lines.push(`الوحدة: ${unitPriceStr} ${product.unit_price_unit}`);
+    const isRedundantSingleUnit = currentPrice > 0 && Math.abs(currentPrice - unitPriceNum) < 1;
+
+    // Only show if it provides real value (e.g. multipack, bulk, or distinct unit price)
+    if (!isRedundantSingleUnit || (product.pack_count && product.pack_count > 1)) {
+      const unitPriceStr = unitPriceNum % 1 === 0 ? unitPriceNum.toFixed(0) : unitPriceNum.toFixed(1);
+      const unitUnit = String(product.unit_price_unit);
+      let label = 'الوحدة';
+      if (unitUnit.includes('قطعة')) label = 'سعر القطعة';
+      else if (unitUnit.includes('حفاضة')) label = 'سعر الحفاضة';
+      else if (unitUnit.includes('كيس')) label = 'سعر الكيس';
+      else if (unitUnit.includes('لتر')) label = 'سعر اللتر';
+      else if (unitUnit.includes('كجم')) label = 'سعر الكيلو';
+      else if (unitUnit.includes('جم')) label = 'سعر الـ 100 جم';
+
+      lines.push(`💡 ${label}: ${unitPriceStr} ج.م`);
+    }
   }
 
   // 4. Affiliate link (formatted as clean, high-converting HTML hyperlink)

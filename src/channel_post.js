@@ -130,20 +130,20 @@ function buildPostContent(product, slot = 'channel') {
     lines.push(`الوحدة: ${unitPriceStr} ${product.unit_price_unit}`);
   }
 
-  // 4. Affiliate link
+  // 4. Affiliate link (formatted as clean, high-converting HTML hyperlink)
   const productUrl = product.product_url || product.productUrl || '';
   const affiliateUrl = withAffiliate(productUrl, slot);
-  lines.push(`🛒 ${affiliateUrl}`);
+  lines.push(`🛒 <b>رابط الشراء:</b> <a href="${affiliateUrl}">اضغط هنا للشراء من أمازون مصر</a>`);
 
   // 5. Trust & Seller notes (Yousif Ayman style)
   lines.push(`🚚 توصيل سريع برايم | البائع: أمازون مصر`);
   lines.push(`⚠️ لو السعر أو البائع اتغير = العرض انتهى`);
 
-  // 6. Hub links for stacked conversions
+  // 6. Hub links for stacked conversions (clean HTML hyperlinks)
   const hubUrl = withAffiliate('https://www.amazon.eg/b?node=21863836031', `${slot}_hub`);
   lines.push(`══════════════════`);
-  lines.push(`» عروض وتخفيضات السوبرماركت اليوم: ${hubUrl}`);
-  lines.push(`» قناة رادار العروض والتوفير: https://t.me/eg_deals_radar`);
+  lines.push(`» <a href="${hubUrl}">جميع عروض وتخفيضات السوبرماركت اليوم من هنا</a>`);
+  lines.push(`» <a href="https://t.me/eg_deals_radar">قناة رادار العروض والتوفير على تليجرام</a>`);
 
   // 7. Category tag
   const catTag = categoryToHashtag(product.category_name || product.category);

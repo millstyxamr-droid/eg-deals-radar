@@ -37,7 +37,7 @@ async function main() {
     const scheduledToday = repo.getScheduledAsinsForDate(today);
     if (scheduledToday.size === 0) {
       console.log(`[post_channel] Queue empty for today (${today}). Generating daily schedule...`);
-      generateDailySchedule({ dateStr: today, allowFallback: isDryRun });
+      generateDailySchedule({ dateStr: today, allowFallback: true });
     }
   }
 
@@ -63,13 +63,25 @@ async function main() {
     const item = pendingPosts[i];
     console.log(`\n[post_channel] Processing [${i + 1}/${pendingPosts.length}] ASIN: ${item.asin} (Slot: ${item.slot}, Scheduled: ${item.scheduled_at})...`);
 
-    // Build post content in Egyptian Arabic with affiliate link
+    // Build post content in Egyptian Arabic with clean HTML hyperlink
     const text = buildPostContent(item, item.slot);
+
+    // Generate Desktop Amazon Screenshot Card (Yousif Ayman style)
+    let imageUrl = item.image_url;
+    try {
+      const { generateDealCardImage } = require('../src/screenshot_card');
+      const cardPath = await generateDealCardImage(item);
+      if (cardPath && require('fs').existsSync(cardPath)) {
+        imageUrl = cardPath;
+      }
+    } catch (err) {
+      console.warn(`[post_channel] Screenshot card generation failed (${err.message}), fallback to image_url`);
+    }
 
     try {
       const res = await sendPostToChannel({
         text,
-        imageUrl: item.image_url,
+        imageUrl,
         asin: item.asin,
         slot: item.slot,
         dryRun: isDryRun

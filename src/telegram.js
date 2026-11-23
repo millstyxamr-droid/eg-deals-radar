@@ -9,6 +9,8 @@
  * - Channel post publisher with --dry-run mode
  */
 
+const fs = require('fs');
+const path = require('path');
 const https = require('https');
 const { URL } = require('url');
 
@@ -149,10 +151,14 @@ async function callTelegramApi(token, method, payload, options = {}) {
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
+      const isFormData = typeof FormData !== 'undefined' && payload instanceof FormData;
+      const reqHeaders = isFormData ? {} : { 'Content-Type': 'application/json' };
+      const reqBody = isFormData ? payload : JSON.stringify(payload);
+
       const res = await fetchFn(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: reqHeaders,
+        body: reqBody
       });
 
       if (res.status === 429) {
@@ -229,6 +235,24 @@ async function sendMessage(chatId, text, options = {}) {
 async function sendPhoto(chatId, photoUrl, caption, options = {}) {
   const token = options.token || process.env.TELEGRAM_BOT_TOKEN;
   if (!token) throw new Error('TELEGRAM_BOT_TOKEN is required');
+
+  // If photoUrl is an existing local file (e.g. generated desktop screenshot card)
+  if (typeof photoUrl === 'string' && fs.existsSync(photoUrl)) {
+    await applyThrottle(chatId);
+    try {
+      const formData = new FormData();
+      formData.append('chat_id', chatId);
+      const fileBytes = fs.readFileSync(photoUrl);
+      const blob = new Blob([fileBytes], { type: 'image/png' });
+      formData.append('photo', blob, path.basename(photoUrl));
+      formData.append('caption', caption);
+      formData.append('parse_mode', options.parse_mode || 'HTML');
+      return await callTelegramApi(token, 'sendPhoto', formData, options);
+    } catch (err) {
+      console.warn(`[telegram] sendPhoto local file failed (${err.message}), falling back to sendMessage`);
+      return sendMessage(chatId, caption, options);
+    }
+  }
 
   const imgCheck = validateProductImage(photoUrl);
 

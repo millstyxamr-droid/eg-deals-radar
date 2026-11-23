@@ -160,7 +160,7 @@ describe('Telegram Channel Post & Queue Tests', () => {
     assert.match(postText, /^🔥 لبن جهينة كامل الدسم 1 لتر/m);
     assert.match(postText, /السعر: 42\.50 ج\.م \(كان 50 ج\.م\) — أقل من سعره المعتاد 15%/);
     assert.match(postText, /الوحدة: 42\.5 ج\.م\/لتر/);
-    assert.match(postText, /🛒 https:\/\/www\.amazon\.eg\/dp\/B08MILK01\?tag=dealegypt-21&utm_source=telegram&utm_medium=channel&utm_campaign=2026-11-21_09%3A00/);
+    assert.match(postText, /🛒 <b>رابط الشراء:<\/b> <a href="https:\/\/www\.amazon\.eg\/dp\/B08MILK01\?tag=dealegypt-21&utm_source=telegram&utm_medium=channel&utm_campaign=2026-11-21_09%3A00">اضغط هنا للشراء من أمازون مصر<\/a>/);
     assert.match(postText, /#ألبان_وجبن #عروض_النهاردة/);
     assert.doesNotMatch(postText, /أرخص سعر/);
   });

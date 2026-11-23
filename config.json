@@ -1,0 +1,30 @@
+{
+  "_وصف_الملف": "ملف الإعدادات المبسط لرادار عروض أمازون مصر — عدل أي قيمة هنا وستتحدث تلقائياً",
+
+  "affiliate": {
+    "amazon_tag": "egdealsradar-21",
+    "_شرح": "كود الأفلييت المعتمد لأمازون مصر لجلب عمولاتك لحسابك البنكي"
+  },
+
+  "telegram": {
+    "channel_id": "@eg_deals_radar",
+    "bot_token": "9207764002:AAHrxnsEdDpejaeeW9GFq7uW8oyat8hJ0Qw",
+    "posts_per_slot": 2,
+    "include_hub_links": true,
+    "include_trust_notes": true,
+    "use_screenshot_cards": true,
+    "_شرح": "إعدادات القناة: اسم القناة، التوكن، عدد الصفقات بكل ميعاد، وتفعيل كروت الصور وروابط الأقسام"
+  },
+
+  "deals_filter": {
+    "min_discount_pct": 15,
+    "max_posts_per_category": 2,
+    "cairo_publishing_hours": [9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23],
+    "_شرح": "الحد الأدنى للخصم المقبول (15%)، وأقصى عدد منتجات من نفس القسم لمنع التكرار، وساعات النشر بتوقيت القاهرة"
+  },
+
+  "scraper": {
+    "schedule_cron": "0 */2 * * *",
+    "cron_description": "تشغيل الكشط وفحص العروض كل ساعتين تلقائياً عبر GitHub Actions"
+  }
+}

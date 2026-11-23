@@ -27,11 +27,39 @@ function loadEnv() {
   }
 }
 
+function loadJsonConfig() {
+  const jsonPath = path.join(__dirname, '..', 'config.json');
+  if (fs.existsSync(jsonPath)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+      if (data.affiliate && data.affiliate.amazon_tag && !process.env.AMAZON_AFFILIATE_TAG) {
+        process.env.AMAZON_AFFILIATE_TAG = data.affiliate.amazon_tag;
+      }
+      if (data.telegram) {
+        if (data.telegram.bot_token && !process.env.TELEGRAM_BOT_TOKEN) {
+          process.env.TELEGRAM_BOT_TOKEN = data.telegram.bot_token;
+        }
+        if (data.telegram.channel_id) {
+          if (!process.env.TELEGRAM_CHAT_ID) process.env.TELEGRAM_CHAT_ID = data.telegram.channel_id;
+          if (!process.env.TELEGRAM_CHANNEL_ID) process.env.TELEGRAM_CHANNEL_ID = data.telegram.channel_id;
+        }
+      }
+      return data;
+    } catch (e) {}
+  }
+  return null;
+}
+
 // Initial load
 loadEnv();
+const userSettings = loadJsonConfig();
 
 module.exports = {
   loadEnv,
+  loadJsonConfig,
+  get userSettings() {
+    return loadJsonConfig();
+  },
   get TELEGRAM_BOT_TOKEN() {
     return process.env.TELEGRAM_BOT_TOKEN || '';
   },

@@ -2,8 +2,8 @@ name: Scrape Amazon Egypt Tez Catalog
 
 on:
   schedule:
-    # Runs every 6 hours at 00:00, 06:00, 12:00, 18:00 UTC
-    - cron: "0 */6 * * *"
+    # Runs every 2 hours at 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, 16:00, 18:00, 20:00, 22:00 UTC
+    - cron: "0 */2 * * *"
   workflow_dispatch:
     inputs:
       limit:
@@ -150,6 +150,12 @@ jobs:
 
       - name: Build Static Deals & Brand Site
         run: npm run build:site
+
+      - name: Publish Scheduled Deals to Telegram Channel
+        if: env.TELEGRAM_BOT_TOKEN != ''
+        env:
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node scripts/post_channel.js --schedule --limit 2 || true
 
       - name: Run Catalog Healthcheck
         id: healthcheck

@@ -7,6 +7,7 @@
  */
 
 const path = require('path');
+require('../src/config');
 const db = require('../src/db');
 const repo = require('../src/repo');
 const { buildPostContent, generateDailySchedule, getCairoDateString } = require('../src/channel_post');

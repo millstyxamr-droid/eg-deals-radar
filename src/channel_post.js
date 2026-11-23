@@ -135,7 +135,17 @@ function buildPostContent(product, slot = 'channel') {
   const affiliateUrl = withAffiliate(productUrl, slot);
   lines.push(`🛒 ${affiliateUrl}`);
 
-  // 5. Hashtags line
+  // 5. Trust & Seller notes (Yousif Ayman style)
+  lines.push(`🚚 توصيل سريع برايم | البائع: أمازون مصر`);
+  lines.push(`⚠️ لو السعر أو البائع اتغير = العرض انتهى`);
+
+  // 6. Hub links for stacked conversions
+  const hubUrl = withAffiliate('https://www.amazon.eg/b?node=21863836031', `${slot}_hub`);
+  lines.push(`══════════════════`);
+  lines.push(`» عروض وتخفيضات السوبرماركت اليوم: ${hubUrl}`);
+  lines.push(`» قناة رادار العروض والتوفير: https://t.me/eg_deals_radar`);
+
+  // 7. Category tag
   const catTag = categoryToHashtag(product.category_name || product.category);
   lines.push(`#${catTag} #عروض_النهاردة`);
 

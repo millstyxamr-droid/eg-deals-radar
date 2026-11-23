@@ -670,7 +670,7 @@
 
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:0.75rem;">
               <span style="color:#64748b;">ASIN: ${item.asin}</span>
-              <a href="${formatAffiliateUrl(item.productUrl)}" target="_blank" style="color:#7c3aed; font-weight:700; text-decoration:none;">عرض بأمازون ↗</a>
+              <a href="${item.productUrl}" target="_blank" style="color:#7c3aed; font-weight:700; text-decoration:none;">عرض بأمازون ↗</a>
             </div>
           </div>
         `;
@@ -779,18 +779,6 @@
       updateWatchlistUI();
     }
 
-    const AFFILIATE_TAG = 'egdealsradar-21';
-    function formatAffiliateUrl(url) {
-      if (!url) return '#';
-      try {
-        const u = new URL(url);
-        u.searchParams.set('tag', AFFILIATE_TAG);
-        return u.toString();
-      } catch (e) {
-        return url + (url.includes('?') ? '&' : '?') + 'tag=' + AFFILIATE_TAG;
-      }
-    }
-
     function removeFromWatch(idx) {
       myWatchlist.splice(idx, 1);
       updateWatchlistUI();
@@ -834,7 +822,7 @@
               <span class="asin-tag" style="margin:0;">ASIN: ${p.asin}</span>
               <button onclick="addCurrentToWatch('${p.asin}')" style="background:#ede9fe; color:#6d28d9; border:none; padding:3px 8px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;" title="إضافة لقائمة المراقبة">⭐ راقب السعر</button>
             </div>
-            <a href="${formatAffiliateUrl(p.productUrl)}" target="_blank" class="btn-buy">عرض على أمازون ↗</a>
+            <a href="${p.productUrl}" target="_blank" class="btn-buy">عرض على أمازون ↗</a>
           </div>
         `;
       }).join('');
@@ -864,7 +852,7 @@
           <td>
             ${p.is_real_deal ? '<span style="color:var(--deal-green); font-weight:700;">🔥 عرض حقيقي</span>' : (p.confidence === 'low' ? '<span style="color:#888;">⏳ قيد المراقبة</span>' : '<span style="color:#888;">سعر عادي</span>')}
           </td>
-          <td><a href="${formatAffiliateUrl(p.productUrl)}" target="_blank" style="color:var(--secondary); font-weight:700; text-decoration:none;">عرض المنتج ↗</a></td>
+          <td><a href="${p.productUrl}" target="_blank" style="color:var(--secondary); font-weight:700; text-decoration:none;">عرض المنتج ↗</a></td>
         </tr>
       `).join('');
     }

@@ -1,5 +1,16 @@
 [
   {
+    "brand": "Pampers",
+    "product_count": 22,
+    "priced_count": 3,
+    "stockout_count": 92,
+    "price_changes": 0,
+    "priority_score": 986,
+    "priority_tier": "أولوية قصوى",
+    "categories": "Baby Care",
+    "sample_trigger": "Pampers: 22 منتج مرصود، 92 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
     "brand": "Almarai",
     "product_count": 19,
     "priced_count": 1,
@@ -26,11 +37,11 @@
     "product_count": 46,
     "priced_count": 46,
     "stockout_count": 2,
-    "price_changes": 5,
-    "priority_score": 183,
+    "price_changes": 0,
+    "priority_score": 158,
     "priority_tier": "أولوية قصوى",
     "categories": "Bakery / Water and Beverages",
-    "sample_trigger": "Domty: 46 منتج مرصود، 2 رصد نفاد مخزون، 5 تقلبات سعرية"
+    "sample_trigger": "Domty: 46 منتج مرصود، 2 رصد نفاد مخزون، 0 تقلبات سعرية"
   },
   {
     "brand": "الأصدقاء",
@@ -55,6 +66,17 @@
     "sample_trigger": "Danone: 8 منتج مرصود، 7 رصد نفاد مخزون، 0 تقلبات سعرية"
   },
   {
+    "brand": "Molfix",
+    "product_count": 3,
+    "priced_count": 0,
+    "stockout_count": 7,
+    "price_changes": 0,
+    "priority_score": 79,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Baby Care",
+    "sample_trigger": "Molfix: 3 منتج مرصود، 7 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
     "brand": "Dina Farms",
     "product_count": 5,
     "priced_count": 0,
@@ -64,6 +86,17 @@
     "priority_tier": "أولوية مرتفعة",
     "categories": "Dairy, Eggs & Cheese / Yogurt",
     "sample_trigger": "Dina Farms: 5 منتج مرصود، 6 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "موفليكس",
+    "product_count": 1,
+    "priced_count": 0,
+    "stockout_count": 4,
+    "price_changes": 0,
+    "priority_score": 43,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Baby Care",
+    "sample_trigger": "موفليكس: 1 منتج مرصود، 4 رصد نفاد مخزون، 0 تقلبات سعرية"
   },
   {
     "brand": "Lamar",
@@ -97,6 +130,17 @@
     "priority_tier": "أولوية مرتفعة",
     "categories": "Cheese / Eggs",
     "sample_trigger": "Kiri: 3 منتج مرصود، 3 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Johnson's",
+    "product_count": 3,
+    "priced_count": 0,
+    "stockout_count": 3,
+    "price_changes": 0,
+    "priority_score": 39,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Baby Diapers & Pants",
+    "sample_trigger": "Johnson's: 3 منتج مرصود، 3 رصد نفاد مخزون، 0 تقلبات سعرية"
   },
   {
     "brand": "Abu El Walad",
@@ -154,69 +198,25 @@
     "sample_trigger": "لبنة: 2 منتج مرصود، 2 رصد نفاد مخزون، 0 تقلبات سعرية"
   },
   {
-    "brand": "Fresh",
-    "product_count": 4,
-    "priced_count": 4,
-    "stockout_count": 0,
-    "price_changes": 1,
-    "priority_score": 17,
-    "priority_tier": "أولوية متوسطة",
-    "categories": "Meat & Poultry / Make Your Home Better, For Less",
-    "sample_trigger": "Fresh: 4 منتج مرصود، 0 رصد نفاد مخزون، 1 تقلبات سعرية"
-  },
-  {
-    "brand": "Dobella",
+    "brand": "كريم",
     "product_count": 2,
-    "priced_count": 2,
-    "stockout_count": 0,
-    "price_changes": 2,
-    "priority_score": 16,
-    "priority_tier": "أولوية متوسطة",
-    "categories": "Dried Food",
-    "sample_trigger": "Dobella: 2 منتج مرصود، 0 رصد نفاد مخزون، 2 تقلبات سعرية"
-  },
-  {
-    "brand": "Oreo",
-    "product_count": 2,
-    "priced_count": 2,
-    "stockout_count": 0,
-    "price_changes": 2,
-    "priority_score": 16,
-    "priority_tier": "أولوية متوسطة",
-    "categories": "Ice Cream",
-    "sample_trigger": "Oreo: 2 منتج مرصود، 0 رصد نفاد مخزون، 2 تقلبات سعرية"
-  },
-  {
-    "brand": "Limitless",
-    "product_count": 3,
-    "priced_count": 3,
-    "stockout_count": 0,
-    "price_changes": 1,
-    "priority_score": 14,
-    "priority_tier": "أولوية متوسطة",
-    "categories": "Lifestyle",
-    "sample_trigger": "Limitless: 3 منتج مرصود، 0 رصد نفاد مخزون، 1 تقلبات سعرية"
-  },
-  {
-    "brand": "Pampers",
-    "product_count": 3,
-    "priced_count": 3,
-    "stockout_count": 0,
-    "price_changes": 1,
-    "priority_score": 14,
-    "priority_tier": "أولوية متوسطة",
-    "categories": "Home & Personal Care",
-    "sample_trigger": "Pampers: 3 منتج مرصود، 0 رصد نفاد مخزون، 1 تقلبات سعرية"
-  },
-  {
-    "brand": "Safi",
-    "product_count": 1,
     "priced_count": 0,
+    "stockout_count": 2,
+    "price_changes": 0,
+    "priority_score": 26,
+    "priority_tier": "أولوية مرتفعة",
+    "categories": "Baby Diapers & Pants",
+    "sample_trigger": "كريم: 2 منتج مرصود، 2 رصد نفاد مخزون، 0 تقلبات سعرية"
+  },
+  {
+    "brand": "Axe",
+    "product_count": 2,
+    "priced_count": 1,
     "stockout_count": 1,
     "price_changes": 0,
-    "priority_score": 13,
+    "priority_score": 16,
     "priority_tier": "أولوية متوسطة",
-    "categories": "Butter & Margarine",
-    "sample_trigger": "Safi: 1 منتج مرصود، 1 رصد نفاد مخزون، 0 تقلبات سعرية"
+    "categories": "Dried Food / Baby Diapers & Pants",
+    "sample_trigger": "Axe: 2 منتج مرصود، 1 رصد نفاد مخزون، 0 تقلبات سعرية"
   }
 ]

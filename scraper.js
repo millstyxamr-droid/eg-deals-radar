@@ -26,6 +26,17 @@ async function scrapeAmazonTez(targetUrl = TARGET_URL) {
     viewport: { width: 1366, height: 768 }
   });
 
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+  });
+
+  try {
+    const extractScriptPath = path.join(__dirname, 'src', 'extract_price.js');
+    if (fs.existsSync(extractScriptPath)) {
+      await context.addInitScript({ path: extractScriptPath });
+    }
+  } catch (e) {}
+
   const page = await context.newPage();
 
   try {
@@ -97,22 +108,15 @@ async function scrapeAmazonTez(targetUrl = TARGET_URL) {
           const img = card.querySelector('img');
           if (img) imgSrc = img.getAttribute('src') || '';
 
-          // Find price elements
-          const priceEls = card.querySelectorAll('[aria-label*="EGP"], [aria-label*="جنيه"]');
-          if (priceEls.length > 0) {
-            currentPrice = priceEls[0].getAttribute('aria-label') || priceEls[0].innerText || '';
-            const match = currentPrice.match(/[\d,.]+/);
-            if (match) currentPriceNum = parseFloat(match[0].replace(/,/g, ''));
-          }
-          if (priceEls.length > 1) {
-            oldPrice = priceEls[1].getAttribute('aria-label') || priceEls[1].innerText || '';
-            const match = oldPrice.match(/[\d,.]+/);
-            if (match) oldPriceNum = parseFloat(match[0].replace(/,/g, ''));
-          }
+          const priceInfo = (typeof window.extractPricesFromCard === 'function')
+            ? window.extractPricesFromCard(card)
+            : { currentPrice: '', currentPriceNum: null, oldPrice: null, oldPriceNum: null, discount: null };
 
-          // Discount badge
-          const badgeEl = Array.from(card.querySelectorAll('p, span')).find(el => el.innerText && el.innerText.includes('% OFF'));
-          if (badgeEl) discount = badgeEl.innerText.trim();
+          currentPrice = priceInfo.currentPrice;
+          currentPriceNum = priceInfo.currentPriceNum;
+          oldPrice = priceInfo.oldPrice;
+          oldPriceNum = priceInfo.oldPriceNum;
+          discount = priceInfo.discount;
         }
 
         if (asin && title) {

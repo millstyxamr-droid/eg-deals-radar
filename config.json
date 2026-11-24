@@ -10,18 +10,18 @@
     "channel_name": "رادار الصفقات | Deals Radar 🎯",
     "channel_id": "@eg_deals_radar",
     "bot_token": "9207764002:AAHrxnsEdDpejaeeW9GFq7uW8oyat8hJ0Qw",
-    "posts_per_slot": 2,
+    "posts_per_slot": 4,
     "include_hub_links": true,
     "include_trust_notes": true,
     "use_screenshot_cards": true,
-    "_شرح": "إعدادات القناة: اسم القناة، التوكن، عدد الصفقات بكل ميعاد، وتفعيل كروت الصور وروابط الأقسام"
+    "_شرح": "إعدادات القناة: اسم القناة، التوكن، عدد الصفقات بكل ميعاد (4 صفقات بدل 2)، وتفعيل كروت الصور وروابط الأقسام"
   },
 
   "deals_filter": {
-    "min_discount_pct": 15,
+    "min_discount_pct": 25,
     "max_posts_per_category": 2,
     "cairo_publishing_hours": [9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23],
-    "_شرح": "الحد الأدنى للخصم المقبول (15%)، وأقصى عدد منتجات من نفس القسم لمنع التكرار، وساعات النشر بتوقيت القاهرة"
+    "_شرح": "الحد الأدنى للخصم المقبول (25% بدل 15%)، وأقصى عدد منتجات من نفس القسم لمنع التكرار، وساعات النشر بتوقيت القاهرة"
   },
 
   "scraper": {

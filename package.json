@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node full_store_scraper.js",
     "scrape:full": "node full_store_scraper.js",
+    "scrape:amazon": "node full_store_scraper.js --store=amazon",
+    "scrape:jumia": "node full_store_scraper.js --store=jumia",
+    "scrape:deals": "node full_store_scraper.js --category=amazon-deals",
     "scrape:search": "node full_store_scraper.js --search-file search_keywords.json",
     "scrape:home": "node scraper.js",
     "track": "node track_product.js",
@@ -30,7 +33,8 @@
     "report:lead": "node scripts/lead_report.js",
     "prospects": "node scripts/prospect_list.js",
     "weekly:digest": "node scripts/weekly_digest.js",
-    "healthcheck": "node scripts/healthcheck.js"
+    "healthcheck": "node scripts/healthcheck.js",
+    "build:exe": "powershell -ExecutionPolicy Bypass -File ./scripts/build_exe.ps1"
   },
   "keywords": [
     "scraper",

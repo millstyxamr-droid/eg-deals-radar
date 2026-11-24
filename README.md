@@ -1,8 +1,37 @@
-# رادار كشف عروض وتخفيضات أمازون مصر (Amazon Egypt Deals Radar & Scraper)
+# رادار كشف عروض وتخفيضات مصر الشامل (Egypt Deals Radar & Multi-Store Scraper)
 
 [![Scrape Amazon Egypt Tez Catalog](https://github.com/millstyxamr-droid/amazon-deals-radar/actions/workflows/scrape.yml/badge.svg)](https://github.com/millstyxamr-droid/amazon-deals-radar/actions/workflows/scrape.yml)
 
-مشروع متكامل ومتقدم لكشط بيانات منتجات متجر أمازون مصر (Amazon Now / Tez) مع **محرك ذكي لكشف العروض الحقيقية وتتبع تاريخ الأسعار** واستبعاد التخفيضات الوهمية، مع جدولة سحابية مجانية كل 6 ساعات عبر GitHub Actions.
+مشروع متكامل ومتقدم لكشط بيانات عروض وتخفيضات **أمازون مصر بالكامل (Amazon Egypt)** و **جوميا مصر (Jumia Egypt)** مع **بنية متعددة المتاجر (Multi-Store Architecture)** ومحرك ذكي لكشف العروض الحقيقية، مقارنة الأسعار بين المتاجر لرصد المتجر الأرخص، وتتبع تاريخ الأسعار واستبعاد التخفيضات الوهمية.
+
+---
+
+## 🛒 تغطية المتاجر المدعومة (Supported Stores)
+1. **أمازون مصر بالكامل (Amazon Egypt):**
+   * عروض وتخفيضات اليوم (`/deals`).
+   * الموبايلات والتابلت (`amazon-mobiles`).
+   * اللابتوبات والكمبيوتر (`amazon-computers`).
+   * الإلكترونيات والتلفزيونات (`amazon-electronics`).
+   * الأجهزة المنزلية الكبيرة والصغيرة (`amazon-appliances`).
+   * مستلزمات المنزل والمطبخ (`amazon-kitchen`).
+   * الأزياء والملابس رجالي وحريمي (`amazon-fashion-men` / `amazon-fashion-women`).
+   * الجمال والعطور ومستلزمات الأطفال (`amazon-beauty` / `amazon-baby`).
+   * سوبر ماركت وبقالة أمازون تيز (`amazon-supermarket` و 110 قسم Tez).
+2. **جوميا مصر (Jumia Egypt):**
+   * عروض الفلاش اليومية (`jumia-flash-sales`).
+   * الموبايلات والتابلت (`jumia-phones-tablets`).
+   * التلفزيونات والإلكترونيات (`jumia-electronics`).
+   * الأجهزة المنزلية والسوبرماركت والأزياء.
+
+---
+
+## 💻 أوامر التشغيل السريعة (CLI Commands)
+* `npm run scrape:full`: كشط كامل الأقسام لجميع المتاجر.
+* `npm run scrape:amazon`: كشط أقسام أمازون مصر فقط.
+* `npm run scrape:jumia`: كشط أقسام وعروض جوميا مصر فقط.
+* `npm run scrape:deals`: كشط عروض اليوم الكبرى من أمازون مصر.
+* `npm run build:site`: بناء وتحديث لوحة التحكم والموقع الثابت `dist/index.html`.
+* `npm test`: تشغيل كامل حزمة الاختبارات (106 اختبار آلي).
 
 ---
 
@@ -249,4 +278,22 @@ npm run weekly:digest
 
 # 10. تشغيل اختبارات الجودة وحساب الأسعار:
 npm test
+
+# 11. إعادة تجميع تطبيق سطح المكتب (EXE with GUI):
+npm run build:exe
 ```
+
+---
+
+## 🖥️ تطبيق سطح المكتب (Windows Desktop GUI — `AmazonDealsRadar.exe`)
+
+يتضمن المشروع الآن برنامجاً تنفيذياً مستقلاً ذو واجهة رسومية حديثة باللغة العربية:
+* **مسار الملف:** [`AmazonDealsRadar.exe`](file:///AmazonDealsRadar.exe) (أو داخل مجلد [`dist/AmazonDealsRadar.exe`](file:///dist/AmazonDealsRadar.exe)).
+* **طريقة التشغيل:** انقر نقراً مزدوجاً على الملف مباشرة من Windows Explorer بدون الحاجة لفتح Terminal.
+
+### مميزات الواجهة الرسومية:
+1. **لوحة التحكم السريعة (Dashboard):** عرض فوري لعدد المنتجات والصفقات الحقيقية وتخفيضات الأسعار.
+2. **مركز العمليات بنقرة واحدة:** تشغيل الكشط، فحص وتحديث الصفقات، نشر التليجرام (تجريبي ومباشر)، تصدير Excel، وبناء الموقع.
+3. **جدول استعراض الصفقات التفاعلي:** فحص المنتجات والأسعار ونسب الخصم والوفر مع زر فتح رابط المنتج على أمازون مصر مباشرة مع كود الأفلييت.
+4. **محرر الإعدادات (`config.json`):** تعديل كود الأفلييت، توكن البوت، معرف القناة، عدد الصفقات، والحد الأدنى للخصم مع حفظ وتطبيق فوري.
+5. **شاشة السجل الحي (Terminal):** متابعة مخرجات أوامر Node في الوقت الفعلي مع إمكانية إيقاف أي مهمة بضغطة زر.

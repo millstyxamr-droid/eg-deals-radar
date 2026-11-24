@@ -1705,6 +1705,21 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0FX2S7QGT</Data></Cell>
+      <Cell><Data ss:Type="String">افانتي شرائح جبنة شيدر حمراء فاخرة 250 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">افانتي</Data></Cell>
+      <Cell><Data ss:Type="String">250 جرام</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FX2S7QGT&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B08Y8Z8BGG</Data></Cell>
       <Cell><Data ss:Type="String">اكسترا هايجين مناديل مبللة مائية للأطفال اكسترا نظافه 120 منديل (قطع60x2)</Data></Cell>
       <Cell><Data ss:Type="String">Baby Diapers &amp; Pants</Data></Cell>
@@ -1752,7 +1767,7 @@
     <Row>
       <Cell><Data ss:Type="String">B099PQBWWT</Data></Cell>
       <Cell><Data ss:Type="String">الأصدقاء جبنة رومي قديمة 250 جم</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
       <Cell><Data ss:Type="String">الأصدقاء</Data></Cell>
       <Cell><Data ss:Type="String">250 جم</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -1767,7 +1782,7 @@
     <Row>
       <Cell><Data ss:Type="String">B097K43J2B</Data></Cell>
       <Cell><Data ss:Type="String">الأصدقاء جبنة شيدر بيضاء مستوردة 250 جم</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
       <Cell><Data ss:Type="String">الأصدقاء</Data></Cell>
       <Cell><Data ss:Type="String">250 جم</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -1782,7 +1797,7 @@
     <Row>
       <Cell><Data ss:Type="String">B0FWCJ1297</Data></Cell>
       <Cell><Data ss:Type="String">الأصدقاء جبنة قريش 800 جم</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
       <Cell><Data ss:Type="String">الأصدقاء</Data></Cell>
       <Cell><Data ss:Type="String">800 جم</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -1807,6 +1822,21 @@
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FY3CGYNY&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0FWCJKV6L</Data></Cell>
+      <Cell><Data ss:Type="String">الأصدقاء زبادي قشطة منه فيه 110 جم</Data></Cell>
+      <Cell><Data ss:Type="String">Yogurt</Data></Cell>
+      <Cell><Data ss:Type="String">الأصدقاء</Data></Cell>
+      <Cell><Data ss:Type="String">110 جم</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FWCJKV6L&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
     </Row>
 
     <Row>
@@ -2022,7 +2052,7 @@
     <Row>
       <Cell><Data ss:Type="String">B0842HKTMQ</Data></Cell>
       <Cell><Data ss:Type="String">المراعي لبن كامل الدسم 1 لتر بلاستيك</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Milk</Data></Cell>
       <Cell><Data ss:Type="String">Almarai</Data></Cell>
       <Cell><Data ss:Type="String">1 لتر</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -2070,9 +2100,9 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">56 قطعة</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">111.29</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">111.29</Data></Cell>
       <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
@@ -2085,10 +2115,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">18 كغ.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">380</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٢١.١ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">380</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">458</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B07FPHFVMM&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2125,9 +2155,39 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0FY2XFV8D</Data></Cell>
+      <Cell><Data ss:Type="String">جبنة روكفورت دنماركية من فريش فارم، 125 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">—</Data></Cell>
+      <Cell><Data ss:Type="String">125 جرام</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FY2XFV8D&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0FY2WP2XY</Data></Cell>
+      <Cell><Data ss:Type="String">جبنة رومي خفيفة من فريش فارم، 250 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">—</Data></Cell>
+      <Cell><Data ss:Type="String">250 جرام</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FY2WP2XY&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B0GF35GMPR</Data></Cell>
       <Cell><Data ss:Type="String">جبنة رومي قديمة من عم صلاح، 250 جرام</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
       <Cell><Data ss:Type="String">—</Data></Cell>
       <Cell><Data ss:Type="String">250 جرام</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -2170,6 +2230,36 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0FY2R7XKH</Data></Cell>
+      <Cell><Data ss:Type="String">جبنة فلامنجو ايدام من فريش فارم، 125 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">—</Data></Cell>
+      <Cell><Data ss:Type="String">125 جرام</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FY2R7XKH&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0FZHL95MD</Data></Cell>
+      <Cell><Data ss:Type="String">جبنة فيتا بيضاء طبيعية فاخرة مع زيتون من دومتي جولد، 500 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Domty</Data></Cell>
+      <Cell><Data ss:Type="String">500 جم</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">١٦٤ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FZHL95MD&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B0FZHBVDFJ</Data></Cell>
       <Cell><Data ss:Type="String">جبنة فيتا بيضاء طبيعية فاخرة من دومتي جولد، 250 جرام</Data></Cell>
       <Cell><Data ss:Type="String">Cheese</Data></Cell>
@@ -2182,6 +2272,21 @@
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FZHBVDFJ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0FZH6TPCP</Data></Cell>
+      <Cell><Data ss:Type="String">جبنة فيتا بيضاء طبيعية فاخرة من دومتي جولد، 500 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Domty</Data></Cell>
+      <Cell><Data ss:Type="String">500 جم</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">١٥١.٥ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FZH6TPCP&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
     </Row>
 
     <Row>
@@ -2200,6 +2305,21 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0FXMX653K</Data></Cell>
+      <Cell><Data ss:Type="String">جبنة فيتا من دينا فارمز، 450 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Dina Farms</Data></Cell>
+      <Cell><Data ss:Type="String">450 جرام</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FXMX653K&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B0FXMSMVY4</Data></Cell>
       <Cell><Data ss:Type="String">جبنة قليلة الملح من دينا فارمز، 450 جرام</Data></Cell>
       <Cell><Data ss:Type="String">Cheese</Data></Cell>
@@ -2215,9 +2335,24 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0FWKMVB6T</Data></Cell>
+      <Cell><Data ss:Type="String">جبنة كريمية سادة من يوبوليس 225 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">—</Data></Cell>
+      <Cell><Data ss:Type="String">225 جرام</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FWKMVB6T&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B0HB16FBKH</Data></Cell>
       <Cell><Data ss:Type="String">جبنة كريمية قابلة للدهن من ابو الولد - كيس 20 جرام</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Cheese</Data></Cell>
       <Cell><Data ss:Type="String">Abu El Walad</Data></Cell>
       <Cell><Data ss:Type="String">20 جرام</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -2305,6 +2440,36 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0FWCXYTGD</Data></Cell>
+      <Cell><Data ss:Type="String">جهينة زبادي لايت 105 جم 5+1</Data></Cell>
+      <Cell><Data ss:Type="String">Yogurt</Data></Cell>
+      <Cell><Data ss:Type="String">Juhayna</Data></Cell>
+      <Cell><Data ss:Type="String">105 جم</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FWCXYTGD&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0FW523P53</Data></Cell>
+      <Cell><Data ss:Type="String">جهينة زبادي لايت سادة 105 جم</Data></Cell>
+      <Cell><Data ss:Type="String">Yogurt</Data></Cell>
+      <Cell><Data ss:Type="String">Juhayna</Data></Cell>
+      <Cell><Data ss:Type="String">105 جم</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FW523P53&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B0FWCZDZZV</Data></Cell>
       <Cell><Data ss:Type="String">جهينة زبادي يوناني إكسترا 7% دسم 180 جم</Data></Cell>
       <Cell><Data ss:Type="String">Fresh Cream &amp; Labneh</Data></Cell>
@@ -2322,7 +2487,7 @@
     <Row>
       <Cell><Data ss:Type="String">B0FWCYYYJJ</Data></Cell>
       <Cell><Data ss:Type="String">جهينة زبادي يوناني خالي الدسم 0.2% 180 جم</Data></Cell>
-      <Cell><Data ss:Type="String">Fresh Cream &amp; Labneh</Data></Cell>
+      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
       <Cell><Data ss:Type="String">Juhayna</Data></Cell>
       <Cell><Data ss:Type="String">180 جم</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -2332,6 +2497,21 @@
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FWCYYYJJ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0FW4VR1TJ</Data></Cell>
+      <Cell><Data ss:Type="String">جهينة زبادي يوناني كامل الدسم 5% 180 جم</Data></Cell>
+      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Juhayna</Data></Cell>
+      <Cell><Data ss:Type="String">180 جم</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0FW4VR1TJ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
     </Row>
 
     <Row>
@@ -2430,10 +2610,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">10 كجم)</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">428.4</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٠.٧ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">428.4</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">504</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF5BN7M4&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2445,10 +2625,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">36 قطعة.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">372.74</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">١٠.٣ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">372.74</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">458</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B07FPJTGSY&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2460,10 +2640,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">380 قطعة.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">425</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">١.١ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">425</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">504</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF59SRF1&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2475,10 +2655,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">56 قطعة.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">406.35</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٧.٣ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">406.35</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">458</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B07FPM7HZ5&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2490,10 +2670,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">58 قطعة.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">433.5</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٧.٥ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">433.5</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">504</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF5DP9RN&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2505,10 +2685,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">5 كجم</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">319.2</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">٦٣.٨ ج.م/كجم</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">319.2</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">407</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B08WJM9FRQ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2520,10 +2700,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">18 كجم</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">438.9</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">٢٤.٤ ج.م/كجم</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">438.9</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">536</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0976ZF83N&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2535,10 +2715,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">80 قطعة</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">450.44</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">٥.٦ ج.م/قطعة</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">450.44</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">536</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B097713S53&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2550,10 +2730,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">84 قطعة.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">470.4</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٥.٦ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">470.4</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">624</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF5C2S2Y&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2565,10 +2745,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">70 قطعة.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">396.9</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٥.٧ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">396.9</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">504</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF591PWJ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2580,10 +2760,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Molfix</Data></Cell>
       <Cell><Data ss:Type="String">70 قطعة</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">451.24</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٦.٥ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">451.24</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">609</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0CCSK85XZ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2595,10 +2775,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Molfix</Data></Cell>
       <Cell><Data ss:Type="String">80 قطعة</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">451.24</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٥.٦ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">451.24</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">579</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B089CX78BZ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2610,10 +2790,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">8 كجم.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">510.3</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٦٣.٨ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">510.3</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">624</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF5BVRZC&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2625,10 +2805,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">16 كجم.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">438.9</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٢٧.٤ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">438.9</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">536</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0976YW93B&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2640,10 +2820,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">18 كجم.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">481.95</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٢٦.٨ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">481.95</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">611</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF5BLPG2&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2655,10 +2835,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">25 كجم.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">481.95</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">١٩.٣ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">481.95</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">624</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF58XZR5&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2670,10 +2850,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">25 كجم.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">428.4</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">١٧.١ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">428.4</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">504</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BF5DWYFD&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2685,10 +2865,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">48 قطعة</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">463.05</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">463.05</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">553</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0976Z2D1G&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -2740,6 +2920,21 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0893KRNGQ</Data></Cell>
+      <Cell><Data ss:Type="String">حليب المراعي كامل الدسم - 1 لتر</Data></Cell>
+      <Cell><Data ss:Type="String">Milk</Data></Cell>
+      <Cell><Data ss:Type="String">Almarai</Data></Cell>
+      <Cell><Data ss:Type="String">1 لتر</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0893KRNGQ&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B08YDR6TJ1</Data></Cell>
       <Cell><Data ss:Type="String">حليب النمو بتركيبة نان اوبتيبرو للمرحلة 3 من نستله من عمر 1 الى 3 سنوات، 800 جرام</Data></Cell>
       <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
@@ -2770,9 +2965,24 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B0D95ZMKLR</Data></Cell>
+      <Cell><Data ss:Type="String">حليب سائل من المراعي بنكهة الشوكولاتة، عبوة كرتون من 6 قطع، سعة 200 مل لكل قطعة</Data></Cell>
+      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Almarai</Data></Cell>
+      <Cell><Data ss:Type="String">6 قطع.</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0D95ZMKLR&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B0FQWD845J</Data></Cell>
       <Cell><Data ss:Type="String">حليب سائل من المراعي، سادة، زجاجة، عبوة من 4 قطع، سعة 1.5 لتر للقطعة</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Milk</Data></Cell>
       <Cell><Data ss:Type="String">Almarai</Data></Cell>
       <Cell><Data ss:Type="String">4 قطع.</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -2830,9 +3040,24 @@
     </Row>
 
     <Row>
+      <Cell><Data ss:Type="String">B08YY1J37K</Data></Cell>
+      <Cell><Data ss:Type="String">حليب شوكولاتة ميكس من جهينة، 200 مل</Data></Cell>
+      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Juhayna</Data></Cell>
+      <Cell><Data ss:Type="String">200 مل</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B08YY1J37K&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
       <Cell><Data ss:Type="String">B0CFY57PWK</Data></Cell>
       <Cell><Data ss:Type="String">حليب عبور لاند الطبيعي كامل الدسم - عبوة تترا 1 لتر</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Milk</Data></Cell>
       <Cell><Data ss:Type="String">—</Data></Cell>
       <Cell><Data ss:Type="String">1 لتر</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -2849,7 +3074,7 @@
       <Cell><Data ss:Type="String">حليب كامل الدسم من المراعي، 6 × 1 لتر، توفير 10 جنيه مصري</Data></Cell>
       <Cell><Data ss:Type="String">Milk</Data></Cell>
       <Cell><Data ss:Type="String">Almarai</Data></Cell>
-      <Cell><Data ss:Type="String">6 × 1 لتر.</Data></Cell>
+      <Cell><Data ss:Type="String">6 × 1 لتر</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">6</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">١ ج.م/لتر</Data></Cell>
       <Cell ss:StyleID="Currency"><Data ss:Type="Number">6</Data></Cell>
@@ -2892,7 +3117,7 @@
     <Row>
       <Cell><Data ss:Type="String">B0CVW9DPCB</Data></Cell>
       <Cell><Data ss:Type="String">حليب كرتون كامل الدسم من جهينة عبوة متعددة 1 لتر الترا ايدج - 6 عبوات، وفر 10 جنيه</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Milk</Data></Cell>
       <Cell><Data ss:Type="String">Juhayna</Data></Cell>
       <Cell><Data ss:Type="String">1 لتر</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">1</Data></Cell>
@@ -3112,6 +3337,21 @@
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0G2SV98HP&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0G1YRLNY9</Data></Cell>
+      <Cell><Data ss:Type="String">زبادي لايت اند فري من دانون 160 جرام</Data></Cell>
+      <Cell><Data ss:Type="String">Yogurt</Data></Cell>
+      <Cell><Data ss:Type="String">Danone</Data></Cell>
+      <Cell><Data ss:Type="String">160 جرام</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0G1YRLNY9&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
     </Row>
 
     <Row>
@@ -3405,10 +3645,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">14 كجم.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">406.35</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٢٩.٠ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">406.35</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">458</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B07FPQ9F4H&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -3457,6 +3697,21 @@
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B09X3SJPNV&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B0CMD54PT5</Data></Cell>
+      <Cell><Data ss:Type="String">سمن جانا سوبر 1.5 كجم</Data></Cell>
+      <Cell><Data ss:Type="String">Butter &amp; Margarine</Data></Cell>
+      <Cell><Data ss:Type="String">—</Data></Cell>
+      <Cell><Data ss:Type="String">1.5 كجم</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0CMD54PT5&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
     </Row>
 
     <Row>
@@ -3622,6 +3877,21 @@
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B0BL3YYSVG&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
+    </Row>
+
+    <Row>
+      <Cell><Data ss:Type="String">B08YY2LG1B</Data></Cell>
+      <Cell><Data ss:Type="String">شوكولاتة المراعي 200 مل</Data></Cell>
+      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Almarai</Data></Cell>
+      <Cell><Data ss:Type="String">200 مل</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
+      <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B08YY2LG1B&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
     </Row>
 
     <Row>
@@ -3792,7 +4062,7 @@
     <Row>
       <Cell><Data ss:Type="String">B0H2JCSSN6</Data></Cell>
       <Cell><Data ss:Type="String">لبن مكثف محلى بالمكونات المحلاة من سولو، سعة 250 مل</Data></Cell>
-      <Cell><Data ss:Type="String">Dairy, Eggs &amp; Cheese</Data></Cell>
+      <Cell><Data ss:Type="String">Milk</Data></Cell>
       <Cell><Data ss:Type="String">—</Data></Cell>
       <Cell><Data ss:Type="String">250 مل</Data></Cell>
       <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
@@ -3885,10 +4155,10 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">4 قطع.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">303.45</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٧٥.٩ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">303.45</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">371</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
       <Cell ss:Formula="=HYPERLINK(&quot;https://www.amazon.eg/dp/B09RB7VC5D&quot;,&quot;عرض على أمازون&quot;)"><Data ss:Type="String">عرض على أمازون</Data></Cell>
@@ -3900,9 +4170,9 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">64 قطعة</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">110.25</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">110.25</Data></Cell>
       <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
@@ -3945,9 +4215,9 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">Pampers</Data></Cell>
       <Cell><Data ss:Type="String">3 قطع</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">389.55</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">١٢٩.٨ ج.م/قطعة</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">389.55</Data></Cell>
       <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>
@@ -3960,9 +4230,9 @@
       <Cell><Data ss:Type="String">Baby Care</Data></Cell>
       <Cell><Data ss:Type="String">موفليكس</Data></Cell>
       <Cell><Data ss:Type="String">14 كجم.</Data></Cell>
-      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">0</Data></Cell>
-      <Cell ss:StyleID="Default"><Data ss:Type="String">—</Data></Cell>
-      <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
+      <Cell ss:StyleID="CurrentPrice"><Data ss:Type="Number">451.49</Data></Cell>
+      <Cell ss:StyleID="Default"><Data ss:Type="String">٣٢.٣ ج.م/كجم</Data></Cell>
+      <Cell ss:StyleID="Currency"><Data ss:Type="Number">451.49</Data></Cell>
       <Cell ss:StyleID="Currency"><Data ss:Type="String">-</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">لسه بنجمع بيانات</Data></Cell>
       <Cell ss:StyleID="Default"><Data ss:Type="String">سعر عادي</Data></Cell>

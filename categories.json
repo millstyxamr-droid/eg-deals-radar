@@ -878,5 +878,215 @@
     "nodeId": "215021828031",
     "url": "https://www.amazon.eg/tez/browse/explore/category?qcbrand=sAuWWBROaG&nodeId=215021828031&title=Pens%2C+Notebooks+%26+Office+Supplies",
     "depth": 1
+  },
+  {
+    "id": "amazon-deals",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Today's Deals",
+    "name_ar": "عروض اليوم وتخفيضات أمازون",
+    "nodeId": "amz-deals-all",
+    "url": "https://www.amazon.eg/deals",
+    "depth": 0
+  },
+  {
+    "id": "amazon-mobiles",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Mobile Phones & Tablets",
+    "name_ar": "الموبايلات والتابلت",
+    "nodeId": "21832883031",
+    "url": "https://www.amazon.eg/s?i=electronics&rh=n%3A21832883031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-computers",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Laptops & Computers",
+    "name_ar": "اللابتوبات والكمبيوتر",
+    "nodeId": "21832884031",
+    "url": "https://www.amazon.eg/s?i=computers&rh=n%3A21832884031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-electronics",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "TVs, Audio & Electronics",
+    "name_ar": "التلفزيونات والإلكترونيات",
+    "nodeId": "21832882031",
+    "url": "https://www.amazon.eg/s?i=electronics&rh=n%3A21832882031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-appliances",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Large & Small Appliances",
+    "name_ar": "الأجهزة المنزلية",
+    "nodeId": "21832886031",
+    "url": "https://www.amazon.eg/s?i=appliances&rh=n%3A21832886031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-kitchen",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Home & Kitchen",
+    "name_ar": "المنزل والمطبخ",
+    "nodeId": "21832885031",
+    "url": "https://www.amazon.eg/s?i=kitchen&rh=n%3A21832885031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-fashion-men",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Men's Fashion & Shoes",
+    "name_ar": "أزياء وملابس رجالي",
+    "nodeId": "21832887031",
+    "url": "https://www.amazon.eg/s?i=fashion&rh=n%3A21832887031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-fashion-women",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Women's Fashion & Shoes",
+    "name_ar": "أزياء وملابس حريمي",
+    "nodeId": "21832888031",
+    "url": "https://www.amazon.eg/s?i=fashion&rh=n%3A21832888031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-beauty",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Beauty & Perfumes",
+    "name_ar": "العطور ومنتجات الجمال",
+    "nodeId": "21832889031",
+    "url": "https://www.amazon.eg/s?i=beauty&rh=n%3A21832889031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-baby",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Baby Products & Diapers",
+    "name_ar": "مستلزمات الأطفال والبيبي",
+    "nodeId": "21832890031",
+    "url": "https://www.amazon.eg/s?i=baby-products&rh=n%3A21832890031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-sports",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Sports & Outdoors",
+    "name_ar": "الرياضة واللياقة البدنية",
+    "nodeId": "21832891031",
+    "url": "https://www.amazon.eg/s?i=sporting-goods&rh=n%3A21832891031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-tools",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Tools & Home Improvement",
+    "name_ar": "العدد والأدوات وتحسين المنزل",
+    "nodeId": "21832892031",
+    "url": "https://www.amazon.eg/s?i=diy&rh=n%3A21832892031",
+    "depth": 0
+  },
+  {
+    "id": "amazon-automotive",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Automotive & Accessories",
+    "name_ar": "مستلزمات السيارات",
+    "nodeId": "21832893031",
+    "url": "https://www.amazon.eg/s?i=automotive&rh=n%3A21832893031",
+    "depth": 0
+  },
+  {
+    "id": "jumia-flash-sales",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Flash Sales",
+    "name_ar": "جوميا عروض الفلاش اليومية",
+    "nodeId": "jumia-node-flash",
+    "url": "https://www.jumia.com.eg/flash-sales/",
+    "depth": 0
+  },
+  {
+    "id": "jumia-phones-tablets",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Phones & Tablets",
+    "name_ar": "جوميا الموبايلات والتابلت",
+    "nodeId": "jumia-node-phones",
+    "url": "https://www.jumia.com.eg/phones-tablets/",
+    "depth": 0
+  },
+  {
+    "id": "jumia-electronics",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Electronics & TVs",
+    "name_ar": "جوميا التلفزيونات والإلكترونيات",
+    "nodeId": "jumia-node-electronics",
+    "url": "https://www.jumia.com.eg/electronics/",
+    "depth": 0
+  },
+  {
+    "id": "jumia-appliances",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Home Appliances",
+    "name_ar": "جوميا الأجهزة المنزلية",
+    "nodeId": "jumia-node-appliances",
+    "url": "https://www.jumia.com.eg/appliances/",
+    "depth": 0
+  },
+  {
+    "id": "jumia-supermarket",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Supermarket & Groceries",
+    "name_ar": "جوميا السوبر ماركت والبقالة",
+    "nodeId": "jumia-node-groceries",
+    "url": "https://www.jumia.com.eg/groceries/",
+    "depth": 0
+  },
+  {
+    "id": "jumia-fashion",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Fashion & Clothing",
+    "name_ar": "جوميا الأزياء والملابس",
+    "nodeId": "jumia-node-fashion",
+    "url": "https://www.jumia.com.eg/category-fashion-by-jumia/",
+    "depth": 0
+  },
+  {
+    "id": "jumia-beauty",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Health & Beauty",
+    "name_ar": "جوميا الصحة والجمال",
+    "nodeId": "jumia-node-beauty",
+    "url": "https://www.jumia.com.eg/health-beauty/",
+    "depth": 0
+  },
+  {
+    "id": "jumia-baby",
+    "store": "jumia",
+    "parent_id": null,
+    "name": "Jumia Baby Products",
+    "name_ar": "جوميا مستلزمات الأطفال",
+    "nodeId": "jumia-node-baby",
+    "url": "https://www.jumia.com.eg/baby-products/",
+    "depth": 0
   }
 ]

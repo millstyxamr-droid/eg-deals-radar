@@ -142,9 +142,13 @@ function buildDealsPage(options = {}) {
       ? `${deal.typical_price.toFixed(2)} ج.م`
       : '—';
 
+    const store = deal.store || 'amazon';
+    const isJumia = store === 'jumia';
+
     return `
       <article class="deal-card"
         data-asin="${escapeHtml(deal.asin)}"
+        data-store="${escapeHtml(store)}"
         data-category="${escapeHtml(deal.category || 'أخرى')}"
         data-brand="${escapeHtml(deal.brand || '')}"
         data-price="${deal.currentPriceNum}"
@@ -157,6 +161,7 @@ function buildDealsPage(options = {}) {
         <div class="card-media">
           <img src="${escapeHtml(deal.imgSrc)}" alt="${escapeHtml(deal.title)}" loading="lazy" width="220" height="220" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'220\\' height=\\'220\\' viewBox=\\'0 0 220 220\\'><rect fill=\\'%23e2e8f0\\' width=\\'220\\' height=\\'220\\'/><text fill=\\'%2394a3b8\\' font-family=\\'sans-serif\\' font-size=\\'14\\' x=\\'50%\\' y=\\'50%\\' text-anchor=\\'middle\\'>صورة غير متاحة</text></svg>'">
           <div class="card-badges">
+            ${isJumia ? '<span class="badge badge-jumia">🛍️ جوميا مصر</span>' : '<span class="badge badge-amazon">🛒 أمازون مصر</span>'}
             ${deal.all_time_low ? '<span class="badge badge-atl">🔥 أقل سعر تاريخي</span>' : ''}
             ${historicalDiscount > 0 ? `<span class="badge badge-discount">-${historicalDiscount}% خصم حقيقي</span>` : ''}
             ${deal.is_real_deal && !deal.all_time_low && historicalDiscount <= 0 ? '<span class="badge badge-real">عرض حقيقي</span>' : ''}
@@ -194,8 +199,8 @@ function buildDealsPage(options = {}) {
           </div>
 
           <div class="card-footer">
-            <a href="${escapeHtml(affiliateUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy">
-              <span>عرض على أمازون</span>
+            <a href="${escapeHtml(affiliateUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy ${isJumia ? 'btn-jumia' : 'btn-amazon'}">
+              <span>${isJumia ? 'عرض على جوميا' : 'عرض على أمازون'}</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
             </a>
           </div>
@@ -586,6 +591,22 @@ function buildDealsPage(options = {}) {
       background: #ecfdf5;
       color: #065f46;
     }
+    .badge-amazon {
+      background: #fff8e7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+    .badge-jumia {
+      background: #fff7ed;
+      color: #ea580c;
+      border: 1px solid #fed7aa;
+    }
+    .btn-jumia {
+      background: #f68b1e !important;
+    }
+    .btn-jumia:hover {
+      background: #e07b12 !important;
+    }
 
     .card-body {
       padding: 16px;
@@ -801,6 +822,16 @@ function buildDealsPage(options = {}) {
     <!-- Filters Bar -->
     <section class="filters-section">
       <div class="filters-grid">
+        <!-- Store -->
+        <div class="filter-group">
+          <label class="filter-label" for="filterStore">المتجر:</label>
+          <select id="filterStore" class="filter-select">
+            <option value="">جميع المتاجر (الكل)</option>
+            <option value="amazon">أمازون مصر 🛒</option>
+            <option value="jumia">جوميا مصر 🛍️</option>
+          </select>
+        </div>
+
         <!-- Search -->
         <div class="filter-group">
           <label class="filter-label" for="filterSearch">البحث عن منتج أو ماركة:</label>
@@ -905,6 +936,7 @@ function buildDealsPage(options = {}) {
   <!-- Instant Client-Side Filter & Sort Logic (Vanilla JS, Zero Frameworks) -->
   <script>
     (function() {
+      const storeSelect = document.getElementById('filterStore');
       const searchInput = document.getElementById('filterSearch');
       const categorySelect = document.getElementById('filterCategory');
       const discountSelect = document.getElementById('filterDiscount');
@@ -920,6 +952,7 @@ function buildDealsPage(options = {}) {
       const cards = Array.from(grid.querySelectorAll('.deal-card'));
 
       function applyFilters() {
+        const selectedStore = storeSelect ? storeSelect.value : '';
         const query = searchInput.value.trim().toLowerCase();
         const selectedCat = categorySelect.value;
         const minDiscount = parseFloat(discountSelect.value) || 0;
@@ -940,6 +973,11 @@ function buildDealsPage(options = {}) {
           const hasUnit = card.dataset.hasUnitPrice === '1';
 
           let matches = true;
+
+          // Store filter
+          if (selectedStore && (card.dataset.store || 'amazon') !== selectedStore) {
+            matches = false;
+          }
 
           // Keyword search
           if (query && !title.includes(query) && !brand.includes(query)) {
@@ -1025,6 +1063,7 @@ function buildDealsPage(options = {}) {
       }
 
       // Attach event listeners
+      if (storeSelect) storeSelect.addEventListener('change', handleFilterChange);
       searchInput.addEventListener('input', handleFilterChange);
       categorySelect.addEventListener('change', handleFilterChange);
       discountSelect.addEventListener('change', handleFilterChange);
@@ -1035,6 +1074,7 @@ function buildDealsPage(options = {}) {
       sortSelect.addEventListener('change', handleSortChange);
 
       btnReset.addEventListener('click', () => {
+        if (storeSelect) storeSelect.value = '';
         searchInput.value = '';
         categorySelect.value = '';
         discountSelect.value = '0';

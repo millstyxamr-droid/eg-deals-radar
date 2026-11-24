@@ -8,11 +8,20 @@
 const path = require('path');
 const db = require('./db');
 const repo = require('./repo');
+const config = require('./config');
 const { withAffiliate } = require('./affiliate');
 const { validateProductImage } = require('./telegram');
 
 // Cairo publishing hours: 9,11,13,15,17,19,21,23 + peak hours (12, 14, 18, 20, 22) -> 13 slots
 const CAIRO_HOURS = [9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23];
+
+function getCairoPublishingHours() {
+  const settings = config.userSettings;
+  if (settings && settings.deals_filter && Array.isArray(settings.deals_filter.cairo_publishing_hours) && settings.deals_filter.cairo_publishing_hours.length > 0) {
+    return settings.deals_filter.cairo_publishing_hours;
+  }
+  return CAIRO_HOURS;
+}
 
 /**
  * Get current date string formatted as YYYY-MM-DD in Cairo timezone
@@ -37,8 +46,9 @@ function getCairoDateString(date = new Date()) {
  * Build Cairo schedule time slots for a specific date
  * Returns array of { slot: string, scheduled_at: string, hour: number }
  */
-function buildCairoScheduleSlots(dateStr = getCairoDateString()) {
-  return CAIRO_HOURS.map(hour => {
+function buildCairoScheduleSlots(dateStr = getCairoDateString(), customHours = null) {
+  const hours = customHours || getCairoPublishingHours();
+  return hours.map(hour => {
     const hourStr = String(hour).padStart(2, '0');
     const slot = `${dateStr}_${hourStr}:00`;
     // Scheduled time with Cairo UTC+02:00 offset
@@ -81,7 +91,7 @@ function categoryToHashtag(catName) {
  * - Amazon's advertised discount is labelled as such and never described as the
  *   product's "usual price".
  */
-function buildPostContent(product, slot = 'channel') {
+function buildPostContent(product, slot = 'channel', options = {}) {
   const lines = [];
 
   // 1. Title line with icon
@@ -150,14 +160,29 @@ function buildPostContent(product, slot = 'channel') {
   lines.push(`🛒 <b>رابط الشراء:</b> <a href="${affiliateUrl}">اضغط هنا للشراء من أمازون مصر</a>`);
 
   // 5. Trust & Seller notes (Yousif Ayman style)
-  lines.push(`🚚 توصيل سريع برايم | البائع: أمازون مصر`);
-  lines.push(`⚠️ لو السعر أو البائع اتغير = العرض انتهى`);
+  const settings = config.userSettings || {};
+  const tgSettings = settings.telegram || {};
+
+  const includeTrust = options.include_trust_notes !== undefined
+    ? options.include_trust_notes
+    : (tgSettings.include_trust_notes !== undefined ? tgSettings.include_trust_notes : true);
+
+  const includeHub = options.include_hub_links !== undefined
+    ? options.include_hub_links
+    : (tgSettings.include_hub_links !== undefined ? tgSettings.include_hub_links : true);
+
+  if (includeTrust) {
+    lines.push(`🚚 توصيل سريع برايم | البائع: أمازون مصر`);
+    lines.push(`⚠️ لو السعر أو البائع اتغير = العرض انتهى`);
+  }
 
   // 6. Hub links for stacked conversions (clean HTML hyperlinks)
-  const hubUrl = withAffiliate('https://www.amazon.eg/b?node=21863836031', `${slot}_hub`);
-  lines.push(`══════════════════`);
-  lines.push(`» <a href="${hubUrl}">جميع عروض وتخفيضات السوبرماركت اليوم من هنا</a>`);
-  lines.push(`» <a href="https://t.me/eg_deals_radar">قناة رادار العروض والتوفير على تليجرام</a>`);
+  if (includeHub) {
+    const hubUrl = withAffiliate('https://www.amazon.eg/b?node=21863836031', `${slot}_hub`);
+    lines.push(`══════════════════`);
+    lines.push(`» <a href="${hubUrl}">جميع عروض وتخفيضات السوبرماركت اليوم من هنا</a>`);
+    lines.push(`» <a href="https://t.me/eg_deals_radar">قناة رادار العروض والتوفير على تليجرام</a>`);
+  }
 
   // 7. Category tag
   const catTag = categoryToHashtag(product.category_name || product.category);
@@ -169,18 +194,27 @@ function buildPostContent(product, slot = 'channel') {
 /**
  * Select candidate deals according to the required business logic:
  * - is_real_deal = 1 and confidence IN ('high', 'medium')
- * - Max 2 from the same department
+ * - Discount >= minDiscountPct (from config.json deals_filter.min_discount_pct)
+ * - Max posts per department (from config.json deals_filter.max_posts_per_category)
  * - Not posted in the last 7 days
  * - Not already queued for this date
  * - Ranked by unit price value and historical discount %
  */
 function selectCandidateDeals(options = {}) {
-  const {
-    limit = 13,
-    maxPerCategory = 2,
-    dateStr = getCairoDateString(),
-    allowFallback = false
-  } = options;
+  const settings = config.userSettings || {};
+  const dealsFilter = settings.deals_filter || {};
+
+  const minDiscountPct = options.minDiscountPct !== undefined
+    ? options.minDiscountPct
+    : (dealsFilter.min_discount_pct !== undefined ? dealsFilter.min_discount_pct : 25);
+
+  const maxPerCategory = options.maxPerCategory !== undefined
+    ? options.maxPerCategory
+    : (dealsFilter.max_posts_per_category !== undefined ? dealsFilter.max_posts_per_category : 2);
+
+  const limit = options.limit !== undefined ? options.limit : 13;
+  const dateStr = options.dateStr || getCairoDateString();
+  const allowFallback = options.allowFallback !== undefined ? options.allowFallback : false;
 
   // 1. Identify excluded ASINs (posted in last 7 days + already in queue for this date)
   const recentPosted = repo.getRecentPostedAsins(7);
@@ -233,9 +267,17 @@ function selectCandidateDeals(options = {}) {
 
   const allDeals = db.prepare(query).all();
 
-  // 3. Filter for real deals with high or medium confidence
+  const getDealDiscount = (d) => {
+    if (d.historical_discount_pct !== null && d.historical_discount_pct !== undefined) {
+      return d.historical_discount_pct;
+    }
+    return d.advertised_discount_pct || 0;
+  };
+
+  // 3. Filter for real deals with high or medium confidence AND discount >= minDiscountPct
   let eligible = allDeals.filter(d => {
     if (excludedAsins.has(d.asin)) return false;
+    if (getDealDiscount(d) < minDiscountPct) return false;
     return d.is_real_deal === 1 && (d.confidence === 'high' || d.confidence === 'medium');
   });
 
@@ -244,7 +286,13 @@ function selectCandidateDeals(options = {}) {
     console.warn('[channel] Note: No 7-day verified real deals found in catalog.db (insufficient historical snapshots).');
     if (allowFallback) {
       console.warn('[channel] Falling back to top active discounted products for dry-run/preview.');
-      eligible = allDeals.filter(d => !excludedAsins.has(d.asin));
+      eligible = allDeals.filter(d => {
+        if (excludedAsins.has(d.asin)) return false;
+        return getDealDiscount(d) >= minDiscountPct;
+      });
+      if (eligible.length === 0 && allowFallback) {
+        eligible = allDeals.filter(d => !excludedAsins.has(d.asin));
+      }
     }
   }
 
@@ -276,7 +324,7 @@ function selectCandidateDeals(options = {}) {
     return 0;
   });
 
-  // 5. Select items enforcing category diversity: maximum 2 per department
+  // 5. Select items enforcing category diversity: maximum maxPerCategory per department
   const selected = [];
   const categoryCounts = new Map();
 
@@ -296,20 +344,42 @@ function selectCandidateDeals(options = {}) {
 }
 
 /**
- * Generate and schedule the daily posts into channel_queue table.
+ * Generate and schedule daily posts into channel_queue table.
  * Idempotent: uses INSERT OR IGNORE / ON CONFLICT to avoid duplicate slots.
  *
  * @param {Object} options
  * @param {string} [options.dateStr] - YYYY-MM-DD
+ * @param {number} [options.postsPerSlot] - Number of deals scheduled per slot
+ * @param {number} [options.minDiscountPct] - Minimum discount threshold %
+ * @param {number} [options.maxPerCategory] - Max posts from same category
  * @param {boolean} [options.allowFallback=false] - Allow fallback to top items if no real deals yet
  * @returns {Array<Object>} Scheduled items with post texts
  */
 function generateDailySchedule(options = {}) {
+  const settings = config.userSettings || {};
+  const tgSettings = settings.telegram || {};
+  const dealsFilter = settings.deals_filter || {};
+
+  const postsPerSlot = options.postsPerSlot !== undefined
+    ? options.postsPerSlot
+    : (tgSettings.posts_per_slot !== undefined ? tgSettings.posts_per_slot : 4);
+
+  const maxPerCategory = options.maxPerCategory !== undefined
+    ? options.maxPerCategory
+    : (dealsFilter.max_posts_per_category !== undefined ? dealsFilter.max_posts_per_category : 2);
+
+  const minDiscountPct = options.minDiscountPct !== undefined
+    ? options.minDiscountPct
+    : (dealsFilter.min_discount_pct !== undefined ? dealsFilter.min_discount_pct : 25);
+
   const dateStr = options.dateStr || getCairoDateString();
   const slots = buildCairoScheduleSlots(dateStr);
+  const totalSlotsNeeded = slots.length * postsPerSlot;
+
   const candidates = selectCandidateDeals({
-    limit: slots.length,
-    maxPerCategory: 2,
+    limit: totalSlotsNeeded,
+    maxPerCategory,
+    minDiscountPct,
     dateStr,
     allowFallback: options.allowFallback !== undefined ? options.allowFallback : true
   });
@@ -330,9 +400,9 @@ function generateDailySchedule(options = {}) {
   `);
 
   const tx = db.transaction(() => {
-    for (let i = 0; i < candidates.length && i < slots.length; i++) {
+    for (let i = 0; i < candidates.length && i < totalSlotsNeeded; i++) {
       const candidate = candidates[i];
-      const slotInfo = slots[i];
+      const slotInfo = slots[i % slots.length];
 
       insertStmt.run({
         asin: candidate.asin,
@@ -356,7 +426,7 @@ function generateDailySchedule(options = {}) {
 
   tx();
 
-  console.log(`[channel] Successfully queued ${scheduled.length} posts for ${dateStr} across Cairo publishing hours.`);
+  console.log(`[channel] Successfully queued ${scheduled.length} posts for ${dateStr} across Cairo publishing hours (${postsPerSlot} per slot).`);
   return scheduled;
 }
 

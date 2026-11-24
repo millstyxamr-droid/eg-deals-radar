@@ -13,11 +13,12 @@ const {
 function upsertCategory(cat) {
   const stmt = db.prepare(`
     INSERT INTO categories (
-      id, parent_id, name, name_ar, node_id, url, depth, is_active, last_scraped_at
+      id, store, parent_id, name, name_ar, node_id, url, depth, is_active, last_scraped_at
     ) VALUES (
-      @id, @parent_id, @name, @name_ar, @node_id, @url, @depth, @is_active, @last_scraped_at
+      @id, @store, @parent_id, @name, @name_ar, @node_id, @url, @depth, @is_active, @last_scraped_at
     )
     ON CONFLICT(id) DO UPDATE SET
+      store = coalesce(excluded.store, categories.store),
       parent_id = coalesce(excluded.parent_id, categories.parent_id),
       name = excluded.name,
       name_ar = coalesce(excluded.name_ar, categories.name_ar),
@@ -30,6 +31,7 @@ function upsertCategory(cat) {
 
   const info = stmt.run({
     id: cat.id,
+    store: cat.store || 'amazon',
     parent_id: cat.parent_id || null,
     name: cat.name,
     name_ar: cat.name_ar || null,
@@ -49,15 +51,18 @@ function upsertCategory(cat) {
 function upsertProduct(prod) {
   const stmt = db.prepare(`
     INSERT INTO products (
-      asin, title, title_norm, brand, category_id, image_url, product_url,
+      asin, store, store_sku, canonical_id, title, title_norm, brand, category_id, image_url, product_url,
       weight_value, weight_unit, pack_count, size_text, unit_price, unit_price_unit,
       first_seen_at, last_seen_at, is_active
     ) VALUES (
-      @asin, @title, @title_norm, @brand, @category_id, @image_url, @product_url,
+      @asin, @store, @store_sku, @canonical_id, @title, @title_norm, @brand, @category_id, @image_url, @product_url,
       @weight_value, @weight_unit, @pack_count, @size_text, @unit_price, @unit_price_unit,
       @first_seen_at, @last_seen_at, @is_active
     )
     ON CONFLICT(asin) DO UPDATE SET
+      store = coalesce(excluded.store, products.store),
+      store_sku = coalesce(excluded.store_sku, products.store_sku),
+      canonical_id = coalesce(excluded.canonical_id, products.canonical_id),
       title = excluded.title,
       title_norm = coalesce(excluded.title_norm, products.title_norm),
       brand = coalesce(excluded.brand, products.brand),
@@ -86,6 +91,9 @@ function upsertProduct(prod) {
 
   return stmt.run({
     asin: prod.asin,
+    store: prod.store || 'amazon',
+    store_sku: prod.store_sku || prod.storeSku || null,
+    canonical_id: prod.canonical_id || prod.canonicalId || null,
     title: prod.title,
     title_norm: titleNorm,
     brand: brand || null,
@@ -110,9 +118,9 @@ function upsertProduct(prod) {
 function insertSnapshot(snap) {
   const stmt = db.prepare(`
     INSERT INTO price_snapshots (
-      asin, run_id, scraped_at, price, list_price, in_stock, discount_badge, source
+      asin, store, run_id, scraped_at, price, list_price, in_stock, discount_badge, source
     )
-    SELECT @asin, @run_id, @scraped_at, @price, @list_price, @in_stock, @discount_badge, @source
+    SELECT @asin, @store, @run_id, @scraped_at, @price, @list_price, @in_stock, @discount_badge, @source
     WHERE NOT EXISTS (
       SELECT 1 FROM price_snapshots WHERE asin = @asin AND scraped_at = @scraped_at
     )
@@ -120,6 +128,7 @@ function insertSnapshot(snap) {
 
   return stmt.run({
     asin: snap.asin,
+    store: snap.store || 'amazon',
     run_id: snap.run_id || null,
     scraped_at: snap.scraped_at || snap.date || new Date().toISOString(),
     price: snap.price !== undefined ? snap.price : snap.currentPriceNum,
@@ -348,6 +357,9 @@ function getProductsForExport() {
   const stmt = db.prepare(`
     SELECT
       p.asin,
+      p.store,
+      p.store_sku,
+      p.canonical_id,
       p.title,
       coalesce(c.name, p.category_id, 'Other') AS category,
       p.category_id,
@@ -438,6 +450,9 @@ function getProductsForExport() {
 
     return {
       asin: p.asin,
+      store: p.store || 'amazon',
+      store_sku: p.store_sku || null,
+      canonical_id: p.canonical_id || null,
       title: p.title,
       category: p.category,
       category_id: p.category_id,
@@ -498,6 +513,9 @@ function saveDepartmentBatch({ items, runId, categoryId, categoryName, pageIdent
       for (const item of items) {
         upsertProduct({
           asin: item.asin,
+          store: item.store || 'amazon',
+          store_sku: item.store_sku || null,
+          canonical_id: item.canonical_id || null,
           title: item.title,
           category_id: categoryId,
           image_url: item.imgSrc,
@@ -505,15 +523,22 @@ function saveDepartmentBatch({ items, runId, categoryId, categoryName, pageIdent
           last_seen_at: now
         });
 
-        insertSnapshot({
-          asin: item.asin,
-          run_id: runId,
-          scraped_at: now,
-          price: item.currentPriceNum,
-          list_price: item.oldPriceNum,
-          discount_badge: item.discount,
-          source: 'full_store_scraper'
-        });
+        // Data integrity: never persist a snapshot without a real price.
+        // Null-price rows used to dominate price_snapshots and made coverage
+        // look healthy while no actual price had been captured.
+        const numericPrice = Number(item.currentPriceNum);
+        if (Number.isFinite(numericPrice) && numericPrice > 0) {
+          insertSnapshot({
+            asin: item.asin,
+            store: item.store || 'amazon',
+            run_id: runId,
+            scraped_at: now,
+            price: numericPrice,
+            list_price: item.oldPriceNum,
+            discount_badge: item.discount,
+            source: 'full_store_scraper'
+          });
+        }
 
         upsertedCount++;
       }
@@ -925,6 +950,54 @@ function getAllCategories() {
   return db.prepare(`SELECT * FROM categories`).all();
 }
 
+/**
+ * Cross-store comparison helper
+ * Groups active products with matching canonical_id or normalized title across different stores.
+ */
+function getCrossStoreComparisons() {
+  const products = getProductsForExport();
+  const groups = new Map();
+
+  for (const p of products) {
+    if (!p.currentPriceNum) continue;
+    const key = p.canonical_id || (p.title_norm ? p.title_norm.toLowerCase().trim() : p.title.toLowerCase().trim());
+    if (!groups.has(key)) {
+      groups.set(key, []);
+    }
+    groups.get(key).push(p);
+  }
+
+  const multiStoreDeals = [];
+  for (const [key, items] of groups.entries()) {
+    const stores = new Set(items.map(i => i.store));
+    if (stores.size > 1) {
+      items.sort((a, b) => a.currentPriceNum - b.currentPriceNum);
+      const cheapest = items[0];
+      const expensive = items[items.length - 1];
+      const priceDiff = +(expensive.currentPriceNum - cheapest.currentPriceNum).toFixed(2);
+      const savingsPct = expensive.currentPriceNum > 0
+        ? Math.round((priceDiff / expensive.currentPriceNum) * 100)
+        : 0;
+
+      multiStoreDeals.push({
+        canonical_key: key,
+        title: cheapest.title,
+        brand: cheapest.brand,
+        cheapest_store: cheapest.store,
+        cheapest_price: cheapest.currentPriceNum,
+        cheapest_url: cheapest.productUrl,
+        expensive_store: expensive.store,
+        expensive_price: expensive.currentPriceNum,
+        price_difference: priceDiff,
+        savings_pct: savingsPct,
+        items
+      });
+    }
+  }
+
+  return multiStoreDeals.sort((a, b) => b.savings_pct - a.savings_pct);
+}
+
 module.exports = {
   db,
   upsertCategory,
@@ -941,6 +1014,7 @@ module.exports = {
   getLatestDealScore,
   updateProductUnitPrice,
   getProductsForExport,
+  getCrossStoreComparisons,
   saveDepartmentBatch,
   getLastCheckpointRun,
   getLastRun,

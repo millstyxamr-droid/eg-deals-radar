@@ -16,6 +16,15 @@ data/*.gz
 .env.local
 .env.*.local
 
+# Local debug captures (raw HTML snapshots can be very large)
+data/debug/
+
+# Built Windows binaries
+*.exe
+
+# Generated product screenshots
+assets/screenshots/
+
 # Logs
 *.log
 npm-debug.log*

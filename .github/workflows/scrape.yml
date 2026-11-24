@@ -155,7 +155,7 @@ jobs:
         if: env.TELEGRAM_BOT_TOKEN != ''
         env:
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: node scripts/post_channel.js --schedule --limit 2 || true
+        run: node scripts/post_channel.js --schedule || true
 
       - name: Run Catalog Healthcheck
         id: healthcheck

@@ -27,21 +27,23 @@ function loadEnv() {
   }
 }
 
-function loadJsonConfig() {
+function loadJsonConfig(applyEnv = false) {
   const jsonPath = path.join(__dirname, '..', 'config.json');
   if (fs.existsSync(jsonPath)) {
     try {
       const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-      if (data.affiliate && data.affiliate.amazon_tag && !process.env.AMAZON_AFFILIATE_TAG) {
-        process.env.AMAZON_AFFILIATE_TAG = data.affiliate.amazon_tag;
-      }
-      if (data.telegram) {
-        if (data.telegram.bot_token && !process.env.TELEGRAM_BOT_TOKEN) {
-          process.env.TELEGRAM_BOT_TOKEN = data.telegram.bot_token;
+      if (applyEnv) {
+        if (data.affiliate && data.affiliate.amazon_tag) {
+          process.env.AMAZON_AFFILIATE_TAG = data.affiliate.amazon_tag;
         }
-        if (data.telegram.channel_id) {
-          if (!process.env.TELEGRAM_CHAT_ID) process.env.TELEGRAM_CHAT_ID = data.telegram.channel_id;
-          if (!process.env.TELEGRAM_CHANNEL_ID) process.env.TELEGRAM_CHANNEL_ID = data.telegram.channel_id;
+        if (data.telegram) {
+          if (data.telegram.bot_token && !process.env.TELEGRAM_BOT_TOKEN) {
+            process.env.TELEGRAM_BOT_TOKEN = data.telegram.bot_token;
+          }
+          if (data.telegram.channel_id) {
+            if (!process.env.TELEGRAM_CHAT_ID) process.env.TELEGRAM_CHAT_ID = data.telegram.channel_id;
+            if (!process.env.TELEGRAM_CHANNEL_ID) process.env.TELEGRAM_CHANNEL_ID = data.telegram.channel_id;
+          }
         }
       }
       return data;
@@ -52,7 +54,7 @@ function loadJsonConfig() {
 
 // Initial load
 loadEnv();
-const userSettings = loadJsonConfig();
+const userSettings = loadJsonConfig(true);
 
 module.exports = {
   loadEnv,
@@ -71,5 +73,21 @@ module.exports = {
   },
   get AMAZON_AFFILIATE_TAG() {
     return process.env.AMAZON_AFFILIATE_TAG || '';
+  },
+  get postsPerSlot() {
+    const s = loadJsonConfig();
+    return (s && s.telegram && typeof s.telegram.posts_per_slot === 'number') ? s.telegram.posts_per_slot : 4;
+  },
+  get minDiscountPct() {
+    const s = loadJsonConfig();
+    return (s && s.deals_filter && typeof s.deals_filter.min_discount_pct === 'number') ? s.deals_filter.min_discount_pct : 25;
+  },
+  get maxPostsPerCategory() {
+    const s = loadJsonConfig();
+    return (s && s.deals_filter && typeof s.deals_filter.max_posts_per_category === 'number') ? s.deals_filter.max_posts_per_category : 2;
+  },
+  get cairoPublishingHours() {
+    const s = loadJsonConfig();
+    return (s && s.deals_filter && Array.isArray(s.deals_filter.cairo_publishing_hours)) ? s.deals_filter.cairo_publishing_hours : [9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23];
   }
 };

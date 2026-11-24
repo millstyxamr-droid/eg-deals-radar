@@ -28,6 +28,7 @@ function initSchema() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS categories (
       id TEXT PRIMARY KEY,
+      store TEXT DEFAULT 'amazon',
       parent_id TEXT,
       name TEXT NOT NULL,
       name_ar TEXT,
@@ -35,11 +36,15 @@ function initSchema() {
       url TEXT,
       depth INTEGER DEFAULT 0,
       is_active INTEGER DEFAULT 1,
-      last_scraped_at TEXT
+      last_scraped_at TEXT,
+      consecutive_zero_count INTEGER DEFAULT 0
     );
 
     CREATE TABLE IF NOT EXISTS products (
       asin TEXT PRIMARY KEY,
+      store TEXT DEFAULT 'amazon',
+      store_sku TEXT,
+      canonical_id TEXT,
       title TEXT NOT NULL,
       title_norm TEXT,
       brand TEXT,
@@ -61,6 +66,7 @@ function initSchema() {
     CREATE TABLE IF NOT EXISTS price_snapshots (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       asin TEXT NOT NULL,
+      store TEXT DEFAULT 'amazon',
       run_id TEXT,
       scraped_at TEXT NOT NULL,
       price REAL,
@@ -163,12 +169,42 @@ function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_channel_queue_status_sched ON channel_queue(status, scheduled_at);
     CREATE INDEX IF NOT EXISTS idx_channel_queue_asin ON channel_queue(asin);
     CREATE INDEX IF NOT EXISTS idx_channel_queue_slot ON channel_queue(slot);
-
-
   `);
 }
 
 function migrateSchema() {
+  // Multi-store schema migration
+  const prodCols = db.pragma('table_info(products)').map(c => c.name);
+  if (!prodCols.includes('store')) {
+    db.exec(`ALTER TABLE products ADD COLUMN store TEXT DEFAULT 'amazon';`);
+  }
+  if (!prodCols.includes('store_sku')) {
+    db.exec(`ALTER TABLE products ADD COLUMN store_sku TEXT;`);
+  }
+  if (!prodCols.includes('canonical_id')) {
+    db.exec(`ALTER TABLE products ADD COLUMN canonical_id TEXT;`);
+  }
+
+  const catCols = db.pragma('table_info(categories)').map(c => c.name);
+  if (!catCols.includes('store')) {
+    db.exec(`ALTER TABLE categories ADD COLUMN store TEXT DEFAULT 'amazon';`);
+  }
+  if (!catCols.includes('consecutive_zero_count')) {
+    db.exec(`ALTER TABLE categories ADD COLUMN consecutive_zero_count INTEGER DEFAULT 0;`);
+  }
+
+  const snapCols = db.pragma('table_info(price_snapshots)').map(c => c.name);
+  if (!snapCols.includes('store')) {
+    db.exec(`ALTER TABLE price_snapshots ADD COLUMN store TEXT DEFAULT 'amazon';`);
+  }
+
+  // Ensure indexes on migrated columns exist
+  db.exec(`
+    CREATE INDEX IF NOT EXISTS idx_products_store ON products(store);
+    CREATE INDEX IF NOT EXISTS idx_products_canonical ON products(canonical_id);
+    CREATE INDEX IF NOT EXISTS idx_snapshots_store ON price_snapshots(store);
+  `);
+
   // Check runs table
   const runCols = db.pragma('table_info(runs)').map(c => c.name);
   if (!runCols.includes('last_page')) {

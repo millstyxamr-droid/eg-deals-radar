@@ -19,17 +19,22 @@ async function main() {
   const forceNow = args.includes('--force-now') || args.includes('--preview');
   const autoSchedule = args.includes('--schedule') || args.includes('--preview');
 
-  // Parse --limit N
+  // Parse --limit N (defaults to posts_per_slot from config.json or 4)
+  const config = require('../src/config');
+  const userSettings = config.userSettings || {};
   let limit = null;
   const limitIdx = args.indexOf('--limit');
   if (limitIdx !== -1 && args[limitIdx + 1]) {
     limit = parseInt(args[limitIdx + 1], 10);
   } else if (args.includes('--preview')) {
     limit = 5;
+  } else if (userSettings.telegram && typeof userSettings.telegram.posts_per_slot === 'number') {
+    limit = userSettings.telegram.posts_per_slot;
   }
 
   console.log(`[post_channel] Starting publisher run at ${new Date().toISOString()}`);
   console.log(`[post_channel] Mode: ${isDryRun ? 'DRY-RUN (Simulated)' : 'PRODUCTION'}`);
+  console.log(`[post_channel] Publishing limit per run: ${limit ? limit : 'unlimited'}`);
 
   // 1. Auto-schedule daily posts if requested or if queue is empty for today
   if (autoSchedule) {

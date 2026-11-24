@@ -74,6 +74,8 @@ function checkBlockStatus({ status = 200, url = '', title = '', bodyText = '' } 
     { sig: 'to discuss automated access to amazon data', reason: 'Automated access throttling page' },
     { sig: 'enter the characters you see below', reason: 'Amazon CAPTCHA challenge', isCaptcha: true },
     { sig: 'أدخل الأحرف التي تراها أدناه', reason: 'Amazon Arabic CAPTCHA challenge', isCaptcha: true },
+    { sig: 'حدث خطأ عند محاولة معالجة طلبك', reason: 'Amazon Arabic 503 / temporary error page', is503: true },
+    { sig: 'نحن نعمل على حل المشكلة ونتوقع حلها', reason: 'Amazon Arabic temporary error page', is503: true },
     { sig: 'type the characters', reason: 'Amazon CAPTCHA challenge', isCaptcha: true },
     { sig: 'sorry, we just need to make sure you\'re not a robot', reason: 'Bot check detection', isCaptcha: true },
     { sig: '503 - service unavailable error', reason: 'Amazon 503 Service Unavailable page', is503: true }

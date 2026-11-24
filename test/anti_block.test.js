@@ -87,6 +87,16 @@ describe('Anti-Block & 503 Protection Tests', () => {
     assert.ok(c3 > c2);
   });
 
+  test('8. Detects Amazon Arabic 503 error page even when served as HTTP 200', () => {
+    const res = checkBlockStatus({
+      status: 200,
+      title: 'عذرًا!',
+      bodyText: 'عذرًا! حدث خطأ عند محاولة معالجة طلبك. نحن نعمل على حل المشكلة ونتوقع حلها قريبًا.'
+    });
+    assert.strictEqual(res.isBlocked, true);
+    assert.strictEqual(res.is503, true);
+  });
+
   test('7. AmazonBlockError carries error attributes properly', () => {
     const err = new AmazonBlockError('Throttled', { status: 503, is503: true, reason: 'Server Busy' });
     assert.strictEqual(err.name, 'AmazonBlockError');

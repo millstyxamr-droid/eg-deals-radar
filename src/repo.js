@@ -527,7 +527,9 @@ function saveDepartmentBatch({ items, runId, categoryId, categoryName, pageIdent
         // Null-price rows used to dominate price_snapshots and made coverage
         // look healthy while no actual price had been captured.
         const numericPrice = Number(item.currentPriceNum);
-        if (Number.isFinite(numericPrice) && numericPrice > 0) {
+        // Anything at or below 1 EGP is almost certainly a parsing artifact
+        // (e.g. "1 لتر" or "6 × 1 لتر" promo text), never a real Amazon EG price.
+        if (Number.isFinite(numericPrice) && numericPrice > 1) {
           insertSnapshot({
             asin: item.asin,
             store: item.store || 'amazon',

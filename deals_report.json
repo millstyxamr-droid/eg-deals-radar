@@ -1,11 +1,20 @@
 {
-  "analyzedAt": "2026-11-24T00:52:14.139Z",
-  "totalProducts": 279,
+  "analyzedAt": "2026-11-24T01:21:14.413Z",
+  "totalProducts": 471,
   "totalDealsCount": 0,
-  "gatheringDataCount": 279,
-  "withUnitPriceCount": 73,
-  "newPriceDropsCount": 0,
+  "gatheringDataCount": 471,
+  "withUnitPriceCount": 271,
+  "newPriceDropsCount": 1,
   "topDealsByPercentage": [],
   "topDealsByEgpSavings": [],
-  "priceDrops": []
+  "priceDrops": [
+    {
+      "asin": "B0FY2R878H",
+      "title": "مكعبات لحم بقري بلدي من فريش فارم، 500 جرام",
+      "oldPrice": 278.2,
+      "newPrice": 275.95,
+      "dropAmount": 2.25,
+      "discountPct": 0
+    }
+  ]
 }

@@ -217,4 +217,18 @@ describe('Price Extraction Engine Tests (Amazon Egypt)', () => {
     assert.strictEqual(res.oldPriceNum, 624);
     assert.strictEqual(res.discount, '18% OFF');
   });
+
+  test('11. Promo / pack text must never be parsed as a price', () => {
+    // Real titles seen in the catalog that previously produced 1 EGP / 6 EGP prices.
+    const titles = [
+      'حليب كرتون كامل الدسم من جهينة عبوة متعددة 1 لتر الترا ايدج - 6 عبوات، وفر 10 جنيه',
+      'حليب كامل الدسم من المراعي، 6 × 1 لتر، توفير 10 جنيه مصري',
+      '1 لتر',
+      'وفر 10 جنيه',
+      '6 عبوات'
+    ];
+    for (const t of titles) {
+      assert.strictEqual(parseCleanPrice(t), null, `should not parse a price from: ${t}`);
+    }
+  });
 });

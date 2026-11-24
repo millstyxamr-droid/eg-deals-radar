@@ -102,4 +102,28 @@ describe('saveDepartmentBatch data integrity', () => {
     `).get().n;
     assert.strictEqual(prodCount, 2);
   });
+
+  test('rejects impossible 1 EGP artifacts such as "1 لتر" / "6 × 1 لتر" promos', () => {
+    seedRun('run_test_batch_artifact');
+
+    repo.saveDepartmentBatch({
+      items: [
+        {
+          asin: 'B000000005',
+          title: 'حليب كرتون كامل الدسم 1 لتر - 6 عبوات، وفر 10 جنيه',
+          currentPriceNum: 1
+        }
+      ],
+      runId: 'run_test_batch_artifact',
+      categoryId: 'test-cat',
+      categoryName: 'Test Category',
+      pageIdentifier: 'test-cat',
+      isSuccess: true
+    });
+
+    const snapCount = db.prepare(`
+      SELECT COUNT(*) AS n FROM price_snapshots WHERE asin = 'B000000005'
+    `).get().n;
+    assert.strictEqual(snapCount, 0, 'a 1 EGP parse artifact must never become price history');
+  });
 });

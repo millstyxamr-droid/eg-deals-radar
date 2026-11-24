@@ -111,6 +111,33 @@
 
     { "keyword": "حفاضات", "category_id": "baby-diapers" },
     { "keyword": "pampers", "category_id": "baby-diapers" },
-    { "keyword": "molfix", "category_id": "baby-diapers" }
+    { "keyword": "molfix", "category_id": "baby-diapers" },
+
+    { "keyword": "عطر", "category_id": "beauty-perfumes" },
+    { "keyword": "مكياج", "category_id": "beauty-makeup" },
+    { "keyword": "كريم وجه", "category_id": "beauty-skin-care" },
+    { "keyword": "زيت شعر", "category_id": "beauty-hair-styling" },
+    { "keyword": "مناديل مبللة", "category_id": "baby-wipes" },
+    { "keyword": "سيريلاك", "category_id": "baby-food-formula" },
+    { "keyword": "شامبو أطفال", "category_id": "baby-bath-shampoo" },
+    { "keyword": "منعم أقمشة", "category_id": "cleaning-fabric-softener" },
+    { "keyword": "مبيد حشري", "category_id": "cleaning-pest-control" },
+    { "keyword": "خل", "category_id": "cooking-vinegar-dressings" },
+    { "keyword": "مرقة دجاج", "category_id": "cooking-stock-bouillon" },
+    { "keyword": "ملح", "category_id": "cooking-salt-seasoning" },
+    { "keyword": "فشار", "category_id": "snacks-popcorn" },
+    { "keyword": "حلاوة طحينية", "category_id": "snacks-halawa-tahina" },
+    { "keyword": "تمر", "category_id": "snacks-dried-fruits" },
+    { "keyword": "مشروب طاقة", "category_id": "beverages-energy-drinks" },
+    { "keyword": "لانشون", "category_id": "meat-cold-cuts" },
+    { "keyword": "صدور فراخ", "category_id": "chicken-fillet-strips" },
+    { "keyword": "برتقال", "category_id": "fruits-citrus" },
+    { "keyword": "كيك", "category_id": "bakery-cakes-muffins" },
+    { "keyword": "بقلاوة", "category_id": "bakery-oriental-sweets" },
+    { "keyword": "بيكنج بودر", "category_id": "cooking-baking" },
+    { "keyword": "منظف أرضيات", "category_id": "household-cleaning" },
+    { "keyword": "بلاستر", "category_id": "personal-first-aid" },
+    { "keyword": "أدوات مطبخ", "category_id": "home-kitchen" },
+    { "keyword": "أقلام", "category_id": "stationery-pens-notebooks" }
   ]
 }

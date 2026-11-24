@@ -2,8 +2,9 @@ name: Scrape Amazon Egypt Tez Catalog
 
 on:
   schedule:
-    # Runs every 2 hours at 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, 16:00, 18:00, 20:00, 22:00 UTC
-    - cron: "0 */2 * * *"
+    # Every 4 hours (6 runs/day). 2-hourly runs queued up because a full
+    # crawl can exceed 2h, and aggressive frequency triggers Amazon 503s.
+    - cron: "0 */4 * * *"
   workflow_dispatch:
     inputs:
       limit:
@@ -34,7 +35,7 @@ jobs:
   scrape:
     name: Scrape Catalog & Track Deals
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150
 
     env:
       AMAZON_AFFILIATE_TAG: ${{ secrets.AMAZON_AFFILIATE_TAG }}
@@ -116,8 +117,26 @@ jobs:
       # -----------------------------------------------------------
       # Scrape & Pipeline Steps
       # -----------------------------------------------------------
+      # Keyword search runs FIRST because it is the reliable coverage path:
+      # many category nodeIds are guessed/mis-mapped, so the full crawl below
+      # can spend its budget on empty pages. Failures here must not fail the run.
+      - name: Run Keyword Search Crawler (Coverage Backfill)
+        id: search-crawl
+        if: inputs.skip_search != true
+        continue-on-error: true
+        timeout-minutes: 70
+        run: |
+          if [ -f search_keywords.json ]; then
+            echo "[*] Executing: node full_store_scraper.js --search-file search_keywords.json"
+            node full_store_scraper.js --search-file search_keywords.json
+          else
+            echo "[i] search_keywords.json not found, skipping keyword crawl."
+          fi
+
       - name: Run Full Store Scraper
         id: run-scraper
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           ARGS=""
           if [ -n "${{ inputs.limit }}" ]; then
@@ -128,19 +147,6 @@ jobs:
           fi
           echo "[*] Executing: node full_store_scraper.js $ARGS"
           node full_store_scraper.js $ARGS
-
-      # Keyword search is the reliable coverage path because many category
-      # nodeIds are guessed/mis-mapped. Failures here must not fail the run.
-      - name: Run Keyword Search Crawler (Coverage Backfill)
-        if: inputs.skip_search != true
-        continue-on-error: true
-        run: |
-          if [ -f search_keywords.json ]; then
-            echo "[*] Executing: node full_store_scraper.js --search-file search_keywords.json"
-            node full_store_scraper.js --search-file search_keywords.json
-          else
-            echo "[i] search_keywords.json not found, skipping keyword crawl."
-          fi
 
       - name: Run Deals & Price Drops Tracker
         run: node deals_tracker.js

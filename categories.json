@@ -1088,5 +1088,175 @@
     "nodeId": "jumia-node-baby",
     "url": "https://www.jumia.com.eg/baby-products/",
     "depth": 0
+  },
+  {
+    "id": "amazon-deals",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Amazon Deals & Offers",
+    "name_ar": "عروض وتخفيضات أمازون",
+    "nodeId": "amz-deals",
+    "url": "https://www.amazon.eg/deals",
+    "depth": 0
+  },
+  {
+    "id": "smartphones-tablets",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Smartphones & Tablets",
+    "name_ar": "الموبايلات والتابلت",
+    "nodeId": "amz-mobiles",
+    "url": "https://www.amazon.eg/gp/bestsellers/electronics/21832883031",
+    "depth": 0
+  },
+  {
+    "id": "laptops-computers",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Laptops & Computers",
+    "name_ar": "لابتوب وكمبيوتر",
+    "nodeId": "amz-computers",
+    "url": "https://www.amazon.eg/gp/bestsellers/computers",
+    "depth": 0
+  },
+  {
+    "id": "tv-audio-cameras",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "TVs, Audio & Electronics",
+    "name_ar": "شاشات وصوتيات وإلكترونيات",
+    "nodeId": "amz-electronics",
+    "url": "https://www.amazon.eg/gp/bestsellers/electronics",
+    "depth": 0
+  },
+  {
+    "id": "home-appliances",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Home & Kitchen Appliances",
+    "name_ar": "أجهزة منزلية ومطبخ",
+    "nodeId": "amz-appliances",
+    "url": "https://www.amazon.eg/gp/bestsellers/appliances",
+    "depth": 0
+  },
+  {
+    "id": "home-kitchen",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Home & Kitchen",
+    "name_ar": "المنزل والمطبخ",
+    "nodeId": "amz-kitchen",
+    "url": "https://www.amazon.eg/gp/bestsellers/kitchen",
+    "depth": 0
+  },
+  {
+    "id": "video-games",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Video Games & Consoles",
+    "name_ar": "ألعاب الفيديو",
+    "nodeId": "amz-videogames",
+    "url": "https://www.amazon.eg/gp/bestsellers/videogames",
+    "depth": 0
+  },
+  {
+    "id": "fashion",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Fashion & Apparel",
+    "name_ar": "الأزياء والملابس",
+    "nodeId": "amz-fashion",
+    "url": "https://www.amazon.eg/gp/bestsellers/fashion",
+    "depth": 0
+  },
+  {
+    "id": "shoes-bags",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Shoes & Bags",
+    "name_ar": "أحذية وشنط",
+    "nodeId": "amz-shoes",
+    "url": "https://www.amazon.eg/s?k=shoes+sneakers",
+    "depth": 0
+  },
+  {
+    "id": "watches-accessories",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Watches & Accessories",
+    "name_ar": "ساعات وإكسسوارات",
+    "nodeId": "amz-watches",
+    "url": "https://www.amazon.eg/s?k=watches",
+    "depth": 0
+  },
+  {
+    "id": "beauty-perfumes",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Beauty & Perfumes",
+    "name_ar": "الجمال والعطور",
+    "nodeId": "amz-beauty",
+    "url": "https://www.amazon.eg/gp/bestsellers/beauty",
+    "depth": 0
+  },
+  {
+    "id": "health-devices",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Health & Personal Care",
+    "name_ar": "الصحة والعناية الشخصية",
+    "nodeId": "amz-hpc",
+    "url": "https://www.amazon.eg/gp/bestsellers/hpc",
+    "depth": 0
+  },
+  {
+    "id": "sports-fitness",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Sports & Fitness",
+    "name_ar": "رياضة ولياقة",
+    "nodeId": "amz-sporting-goods",
+    "url": "https://www.amazon.eg/gp/bestsellers/sporting-goods",
+    "depth": 0
+  },
+  {
+    "id": "tools-diy",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Tools & Home Improvement",
+    "name_ar": "أدوات ومعدات",
+    "nodeId": "amz-tools",
+    "url": "https://www.amazon.eg/gp/bestsellers/tools",
+    "depth": 0
+  },
+  {
+    "id": "automotive",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Automotive",
+    "name_ar": "مستلزمات السيارات",
+    "nodeId": "amz-automotive",
+    "url": "https://www.amazon.eg/gp/bestsellers/automotive",
+    "depth": 0
+  },
+  {
+    "id": "toys-games",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Toys & Games",
+    "name_ar": "ألعاب الأطفال",
+    "nodeId": "amz-toys",
+    "url": "https://www.amazon.eg/gp/bestsellers/toys",
+    "depth": 0
+  },
+  {
+    "id": "books-office",
+    "store": "amazon",
+    "parent_id": null,
+    "name": "Books & Office Supplies",
+    "name_ar": "كتب وأدوات مكتبية",
+    "nodeId": "amz-office",
+    "url": "https://www.amazon.eg/gp/bestsellers/office-products",
+    "depth": 0
   }
 ]

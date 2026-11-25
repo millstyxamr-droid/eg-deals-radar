@@ -149,25 +149,28 @@ async function scrapeDepartment(page, dept) {
     taskName: `Navigate to ${dept.name}`
   });
 
-  // Handle location sheet if present
-  try {
-    const skipBtn = page.locator('button:has-text("Skip for now"), button:has-text("تخطي"), button[data-testid="bottom-sheet-close-button"]');
-    if (await skipBtn.first().isVisible({ timeout: 2500 })) {
-      await skipBtn.first().click();
-    }
-  } catch (e) {}
+  // Handle location sheet if present (Tez/Now only)
+  if (dept.url.includes('/tez/')) {
+    try {
+      const skipBtn = page.locator('button:has-text("Skip for now"), button:has-text("تخطي"), button[data-testid="bottom-sheet-close-button"]');
+      if (await skipBtn.first().isVisible({ timeout: 2500 })) {
+        await skipBtn.first().click();
+      }
+    } catch (e) {}
+  }
 
   // Let the grid hydrate before scrolling — reading counts too early makes the
   // lazy-loaded results look complete when they are not.
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(dept.url.includes('/tez/') ? 2500 : 1500);
 
   // Scroll until all products load. The grid re-renders and can briefly report 0,
   // so track the maximum count seen and require a stable streak before stopping.
+  const isTez = dept.url.includes('/tez/');
   let maxCount = 0;
   let stableRounds = 0;
-  const MAX_SCROLLS = 40;
-  const MIN_SCROLLS = 10;
-  const STABLE_ROUNDS = 8;
+  const MAX_SCROLLS = isTez ? 40 : 12;
+  const MIN_SCROLLS = isTez ? 10 : 3;
+  const STABLE_ROUNDS = isTez ? 8 : 3;
 
   for (let i = 0; i < MAX_SCROLLS; i++) {
     await page.mouse.wheel(0, 3000);
@@ -437,8 +440,8 @@ async function scrapeDepartment(page, dept) {
       if (!asin || asin.length !== 10) return;
       if (card.classList.contains('AdHolder') && !card.querySelector('h2')) return;
 
-      const heading = card.querySelector('h2 a span, h2 span, h2 a, [data-cy="title-recipe"] h2');
-      const title = heading ? heading.innerText.trim() : '';
+      const heading = card.querySelector('h2 a span, h2 span, h2 a, [data-cy="title-recipe"] h2, a.a-link-normal span > div, [class*="p13n-sc-css-line-clamp"]');
+      const title = heading ? (heading.innerText || heading.textContent || '').trim() : '';
       if (!title) return;
 
       const img = card.querySelector('img.s-image, img');
@@ -557,6 +560,7 @@ async function scrapeFullStore(options = {}) {
   const searchCategory = options.searchCategory !== undefined ? options.searchCategory : cliSearchCategory;
   const searchFile = options.searchFile !== undefined ? options.searchFile : cliSearchFile;
   const isResume = options.resume !== undefined ? options.resume : (args.includes('--resume') || args.includes('-r'));
+  const isGeneralMode = options.general !== undefined ? options.general : args.includes('--general');
   const concurrency = options.concurrency !== undefined ? options.concurrency : (cliConcurrency !== null ? cliConcurrency : 1); // Default safe 1 tab
 
   const startTime = new Date().toISOString();
@@ -592,13 +596,17 @@ async function scrapeFullStore(options = {}) {
       return { error: 'search_file_invalid' };
     }
     const list = Array.isArray(parsed) ? parsed : (parsed.searches || []);
+    const defaultStore = (parsed && parsed.store) || (isGeneralMode ? 'general' : 'tez');
+    const defaultPages = (parsed && typeof parsed.pages === 'number') ? parsed.pages : 1;
     for (const entry of list) {
       if (typeof entry === 'string') {
-        searchTargets.push({ keyword: entry, categoryId: null });
+        searchTargets.push({ keyword: entry, categoryId: null, store: defaultStore, pages: defaultPages });
       } else if (entry && entry.keyword) {
         searchTargets.push({
           keyword: entry.keyword,
-          categoryId: entry.category_id || entry.categoryId || null
+          categoryId: entry.category_id || entry.categoryId || null,
+          store: entry.store || defaultStore,
+          pages: typeof entry.pages === 'number' ? entry.pages : defaultPages
         });
       }
     }
@@ -621,17 +629,26 @@ async function scrapeFullStore(options = {}) {
         return { error: 'search_category_not_found' };
       }
 
-      built.push({
-        id: cat.id,
-        pageId: `search:${cat.id}:${keyword.toLowerCase()}`,
-        name: `Search: ${keyword}`,
-        searchKeyword: keyword,
-        isSearch: true,
-        nodeId: null,
-        parent_id: cat.parent_id || null,
-        depth: cat.depth !== undefined ? cat.depth : 0,
-        url: `${BASE_URL}/tez/browse/search?qcbrand=${BRAND_ID}&searchKeyword=${encodeURIComponent(keyword)}`
-      });
+      const targetStore = t.store || (isGeneralMode ? 'general' : 'tez');
+      const numPages = targetStore === 'general' ? Math.max(1, Math.min(t.pages || 2, 5)) : 1;
+
+      for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+        const url = targetStore === 'general'
+          ? `${BASE_URL}/s?k=${encodeURIComponent(keyword)}${pageNum > 1 ? `&page=${pageNum}` : ''}`
+          : `${BASE_URL}/tez/browse/search?qcbrand=${BRAND_ID}&searchKeyword=${encodeURIComponent(keyword)}`;
+
+        built.push({
+          id: cat.id,
+          pageId: `search:${targetStore}:${cat.id}:${keyword.toLowerCase()}:p${pageNum}`,
+          name: `Search (${targetStore}): ${keyword}${numPages > 1 ? ` [p${pageNum}]` : ''}`,
+          searchKeyword: keyword,
+          isSearch: true,
+          nodeId: null,
+          parent_id: cat.parent_id || null,
+          depth: cat.depth !== undefined ? cat.depth : 0,
+          url
+        });
+      }
     }
 
     if (built.length === 0) {

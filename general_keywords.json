@@ -1,0 +1,86 @@
+{
+  "_comment": "General Amazon.eg search crawl targets covering electronics, appliances, fashion, beauty, gaming, home, sports, auto, and more. Run with: node full_store_scraper.js --search-file general_keywords.json",
+  "store": "general",
+  "pages": 2,
+  "searches": [
+    { "keyword": "samsung galaxy", "category_id": "smartphones-tablets" },
+    { "keyword": "iphone", "category_id": "smartphones-tablets" },
+    { "keyword": "xiaomi redmi", "category_id": "smartphones-tablets" },
+    { "keyword": "realme", "category_id": "smartphones-tablets" },
+    { "keyword": "oppo", "category_id": "smartphones-tablets" },
+    { "keyword": "ipad tablet", "category_id": "smartphones-tablets" },
+    { "keyword": "anker power bank", "category_id": "smartphones-tablets" },
+
+    { "keyword": "laptop", "category_id": "laptops-computers" },
+    { "keyword": "lenovo laptop", "category_id": "laptops-computers" },
+    { "keyword": "hp laptop", "category_id": "laptops-computers" },
+    { "keyword": "dell laptop", "category_id": "laptops-computers" },
+    { "keyword": "asus laptop", "category_id": "laptops-computers" },
+    { "keyword": "monitor", "category_id": "laptops-computers" },
+    { "keyword": "ssd nvme", "category_id": "laptops-computers" },
+    { "keyword": "wifi router", "category_id": "laptops-computers" },
+    { "keyword": "printer", "category_id": "laptops-computers" },
+
+    { "keyword": "smart tv", "category_id": "tv-audio-cameras" },
+    { "keyword": "samsung tv", "category_id": "tv-audio-cameras" },
+    { "keyword": "lg tv", "category_id": "tv-audio-cameras" },
+    { "keyword": "airpods", "category_id": "tv-audio-cameras" },
+    { "keyword": "jbl speaker", "category_id": "tv-audio-cameras" },
+    { "keyword": "bluetooth headphones", "category_id": "tv-audio-cameras" },
+    { "keyword": "smart watch", "category_id": "tv-audio-cameras" },
+
+    { "keyword": "air fryer", "category_id": "home-appliances" },
+    { "keyword": "espresso coffee machine", "category_id": "home-appliances" },
+    { "keyword": "vacuum cleaner", "category_id": "home-appliances" },
+    { "keyword": "microwave", "category_id": "home-appliances" },
+    { "keyword": "washing machine", "category_id": "home-appliances" },
+    { "keyword": "refrigerator", "category_id": "home-appliances" },
+    { "keyword": "air conditioner", "category_id": "home-appliances" },
+    { "keyword": "blender mixer", "category_id": "home-appliances" },
+    { "keyword": "water heater", "category_id": "home-appliances" },
+
+    { "keyword": "cookware set", "category_id": "home-kitchen" },
+    { "keyword": "thermos flask", "category_id": "home-kitchen" },
+    { "keyword": "bedding sheets", "category_id": "home-kitchen" },
+    { "keyword": "led lamp", "category_id": "home-kitchen" },
+
+    { "keyword": "playstation 5", "category_id": "video-games" },
+    { "keyword": "gaming mouse keyboard", "category_id": "video-games" },
+    { "keyword": "gaming headset", "category_id": "video-games" },
+    { "keyword": "gaming chair", "category_id": "video-games" },
+
+    { "keyword": "adidas", "category_id": "fashion" },
+    { "keyword": "nike", "category_id": "fashion" },
+    { "keyword": "defacto", "category_id": "fashion" },
+    { "keyword": "lc waikiki", "category_id": "fashion" },
+    { "keyword": "skechers", "category_id": "shoes-bags" },
+    { "keyword": "laptop backpack", "category_id": "shoes-bags" },
+    { "keyword": "casio watch", "category_id": "watches-accessories" },
+
+    { "keyword": "perfume", "category_id": "beauty-perfumes" },
+    { "keyword": "cerave", "category_id": "beauty-perfumes" },
+    { "keyword": "la roche posay", "category_id": "beauty-perfumes" },
+    { "keyword": "loreal paris", "category_id": "beauty-perfumes" },
+    { "keyword": "hair dryer straightener", "category_id": "beauty-perfumes" },
+
+    { "keyword": "electric toothbrush", "category_id": "health-devices" },
+    { "keyword": "blood pressure monitor", "category_id": "health-devices" },
+    { "keyword": "trimmer shaver", "category_id": "health-devices" },
+
+    { "keyword": "dumbbell weights", "category_id": "sports-fitness" },
+    { "keyword": "treadmill", "category_id": "sports-fitness" },
+    { "keyword": "bicycle", "category_id": "sports-fitness" },
+
+    { "keyword": "bosch drill", "category_id": "tools-diy" },
+    { "keyword": "tool kit", "category_id": "tools-diy" },
+
+    { "keyword": "car vacuum charger", "category_id": "automotive" },
+    { "keyword": "dash cam", "category_id": "automotive" },
+
+    { "keyword": "lego", "category_id": "toys-games" },
+    { "keyword": "board games", "category_id": "toys-games" },
+
+    { "keyword": "office chair", "category_id": "books-office" },
+    { "keyword": "arabic books", "category_id": "books-office" }
+  ]
+}

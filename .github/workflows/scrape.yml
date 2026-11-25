@@ -5,6 +5,12 @@ on:
     # Every 4 hours (6 runs/day). 2-hourly runs queued up because a full
     # crawl can exceed 2h, and aggressive frequency triggers Amazon 503s.
     - cron: "0 */4 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - 'general_keywords.json'
+      - '.github/workflows/scrape.yml'
   workflow_dispatch:
     inputs:
       limit:
@@ -35,12 +41,13 @@ jobs:
   scrape:
     name: Scrape Catalog & Track Deals
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 210
 
     env:
       AMAZON_AFFILIATE_TAG: ${{ secrets.AMAZON_AFFILIATE_TAG }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      ALLOWED_CHAT_IDS: ${{ secrets.ALLOWED_CHAT_IDS }}
 
     steps:
       - name: Checkout Repository
@@ -133,7 +140,20 @@ jobs:
             echo "[i] search_keywords.json not found, skipping keyword crawl."
           fi
 
-      - name: Run Full Store Scraper
+      - name: Run General Amazon.eg Search Crawler (All Departments)
+        id: general-search-crawl
+        if: inputs.skip_search != true
+        continue-on-error: true
+        timeout-minutes: 70
+        run: |
+          if [ -f general_keywords.json ]; then
+            echo "[*] Executing: node full_store_scraper.js --search-file general_keywords.json"
+            node full_store_scraper.js --search-file general_keywords.json
+          else
+            echo "[i] general_keywords.json not found, skipping general Amazon.eg crawl."
+          fi
+
+      - name: Run Full Store Scraper (Tez & Bestsellers Categories)
         id: run-scraper
         continue-on-error: true
         timeout-minutes: 60
@@ -151,6 +171,9 @@ jobs:
       - name: Run Deals & Price Drops Tracker
         run: node deals_tracker.js
 
+      - name: Send Instant Price Drop & Watchlist Alerts
+        run: node scripts/send_alerts.js || true
+
       - name: Export Catalog Data (CSV, Excel XML, HTML)
         run: node export_data.js
 
@@ -158,7 +181,6 @@ jobs:
         run: npm run build:site
 
       - name: Publish Scheduled Deals to Telegram Channel
-        if: env.TELEGRAM_BOT_TOKEN != ''
         env:
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: node scripts/post_channel.js --schedule || true

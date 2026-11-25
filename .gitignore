@@ -25,6 +25,9 @@ data/debug/
 # Generated product screenshots
 assets/screenshots/
 
+# Generated static site (rebuilt & deployed by .github/workflows/pages.yml)
+dist/
+
 # Logs
 *.log
 npm-debug.log*

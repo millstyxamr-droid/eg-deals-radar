@@ -182,7 +182,10 @@ jobs:
 
       - name: Save SQLite Database to Cache
         uses: actions/cache/save@v4
-        if: always() && steps.healthcheck.outcome == 'success'
+        # Always persist the crawl result. Previously this was gated on a
+        # successful healthcheck, so one bad healthcheck threw away the entire
+        # run's data and the next run restarted from a stale cache.
+        if: always()
         with:
           path: data/catalog.db
           key: catalog-db-${{ github.run_id }}

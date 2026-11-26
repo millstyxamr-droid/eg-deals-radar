@@ -9,7 +9,8 @@
   "telegram": {
     "channel_name": "رادار الصفقات | Deals Radar 🎯",
     "channel_id": "@eg_deals_radar",
-    "bot_token": "9207764002:AAHrxnsEdDpejaeeW9GFq7uW8oyat8hJ0Qw",
+    "bot_token": "",
+    "_شرح_التوكن": "لا تضع التوكن هنا أبداً — الريبو عام. ضعه في ملف .env محلياً أو في GitHub Secrets باسم TELEGRAM_BOT_TOKEN.",
     "posts_per_slot": 4,
     "include_hub_links": true,
     "include_trust_notes": true,

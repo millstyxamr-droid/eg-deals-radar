@@ -47,5 +47,8 @@
   "dependencies": {
     "better-sqlite3": "^13.2.0",
     "playwright": "^1.65.1"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

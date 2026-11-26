@@ -73,17 +73,24 @@ jobs:
           fi
 
       - name: Restore SQLite Database from Cloudflare R2 / S3 (Optional)
-        if: steps.db-cache.outputs.cache-hit != 'true' && secrets.R2_BUCKET_NAME != '' && secrets.AWS_ACCESS_KEY_ID != ''
+        # `secrets` is not allowed in step-level `if`; guard inside the script.
+        if: steps.db-cache.outputs.cache-hit != 'true'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
         run: |
+          if [ -z "$R2_BUCKET_NAME" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "[i] R2/S3 not configured, skipping cloud restore."
+            exit 0
+          fi
           if [ ! -f data/catalog.db ]; then
             ENDPOINT_FLAG=""
-            if [ -n "${{ secrets.R2_ENDPOINT_URL }}" ]; then
-              ENDPOINT_FLAG="--endpoint-url ${{ secrets.R2_ENDPOINT_URL }}"
+            if [ -n "$R2_ENDPOINT_URL" ]; then
+              ENDPOINT_FLAG="--endpoint-url $R2_ENDPOINT_URL"
             fi
-            aws s3 cp s3://${{ secrets.R2_BUCKET_NAME }}/catalog.db.gz data/catalog.db.gz $ENDPOINT_FLAG || true
+            aws s3 cp "s3://$R2_BUCKET_NAME/catalog.db.gz" data/catalog.db.gz $ENDPOINT_FLAG || true
             if [ -f data/catalog.db.gz ]; then
               gunzip -f data/catalog.db.gz
             fi

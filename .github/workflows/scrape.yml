@@ -103,18 +103,27 @@ jobs:
           fi
 
       - name: Restore SQLite Database from Cloudflare R2 / S3 (Optional)
-        if: steps.db-cache.outputs.cache-hit != 'true' && secrets.R2_BUCKET_NAME != '' && secrets.AWS_ACCESS_KEY_ID != ''
+        # NOTE: the `secrets` context is NOT allowed in step-level `if`
+        # expressions; referencing it there makes the whole workflow invalid
+        # (the run fails before any job is created). Guard inside the script.
+        if: steps.db-cache.outputs.cache-hit != 'true'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
         run: |
+          if [ -z "$R2_BUCKET_NAME" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "[i] R2/S3 not configured, skipping cloud restore."
+            exit 0
+          fi
           if [ ! -f data/catalog.db ]; then
-            echo "[*] Attempting restore from S3 / Cloudflare R2 bucket: ${{ secrets.R2_BUCKET_NAME }}..."
+            echo "[*] Attempting restore from S3 / Cloudflare R2 bucket: $R2_BUCKET_NAME..."
             ENDPOINT_FLAG=""
-            if [ -n "${{ secrets.R2_ENDPOINT_URL }}" ]; then
-              ENDPOINT_FLAG="--endpoint-url ${{ secrets.R2_ENDPOINT_URL }}"
+            if [ -n "$R2_ENDPOINT_URL" ]; then
+              ENDPOINT_FLAG="--endpoint-url $R2_ENDPOINT_URL"
             fi
-            aws s3 cp s3://${{ secrets.R2_BUCKET_NAME }}/catalog.db.gz data/catalog.db.gz $ENDPOINT_FLAG || true
+            aws s3 cp "s3://$R2_BUCKET_NAME/catalog.db.gz" data/catalog.db.gz $ENDPOINT_FLAG || true
             if [ -f data/catalog.db.gz ]; then
               gunzip -f data/catalog.db.gz
               echo "[✔] Successfully restored catalog.db from R2/S3."
@@ -213,18 +222,24 @@ jobs:
           key: catalog-db-${{ github.run_id }}
 
       - name: Backup to Cloudflare R2 / S3 (Optional)
-        if: always() && steps.healthcheck.outcome == 'success' && secrets.R2_BUCKET_NAME != '' && secrets.AWS_ACCESS_KEY_ID != ''
+        if: always() && steps.healthcheck.outcome == 'success'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
         run: |
+          if [ -z "$R2_BUCKET_NAME" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "[i] R2/S3 not configured, skipping cloud backup."
+            exit 0
+          fi
           if [ -f data/catalog.db.gz ]; then
             ENDPOINT_FLAG=""
-            if [ -n "${{ secrets.R2_ENDPOINT_URL }}" ]; then
-              ENDPOINT_FLAG="--endpoint-url ${{ secrets.R2_ENDPOINT_URL }}"
+            if [ -n "$R2_ENDPOINT_URL" ]; then
+              ENDPOINT_FLAG="--endpoint-url $R2_ENDPOINT_URL"
             fi
             echo "[*] Uploading snapshot to R2/S3..."
-            aws s3 cp data/catalog.db.gz s3://${{ secrets.R2_BUCKET_NAME }}/catalog.db.gz $ENDPOINT_FLAG
+            aws s3 cp data/catalog.db.gz "s3://$R2_BUCKET_NAME/catalog.db.gz" $ENDPOINT_FLAG
             echo "[✔] Backup to R2/S3 completed."
           fi
 

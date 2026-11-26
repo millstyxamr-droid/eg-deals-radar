@@ -79,6 +79,11 @@ function validateProductImage(imageUrl) {
     return { valid: false, reason: 'invalid_protocol' };
   }
 
+  // Reject Amazon Now/Tez grey placeholder image
+  if (trimmed.includes('21R6HAk0WUL')) {
+    return { valid: false, reason: 'placeholder_image' };
+  }
+
   // Detect Amazon size markers below 200px (e.g. ._SX150_, ._SY160_, ._AC_UL120_)
   const smallDimRegex = /\._(?:SX|SY|UL|SL|AC_UL|AC_US|CR\d+,\d+,)(\d{1,3})_/i;
   const match = trimmed.match(smallDimRegex);
@@ -226,6 +231,11 @@ async function sendMessage(chatId, text, options = {}) {
     parse_mode: options.parse_mode || 'HTML'
   };
 
+  const replyMarkup = options.replyMarkup || options.reply_markup;
+  if (replyMarkup) {
+    payload.reply_markup = replyMarkup;
+  }
+
   return callTelegramApi(token, 'sendMessage', payload, options);
 }
 
@@ -235,6 +245,8 @@ async function sendMessage(chatId, text, options = {}) {
 async function sendPhoto(chatId, photoUrl, caption, options = {}) {
   const token = options.token || process.env.TELEGRAM_BOT_TOKEN;
   if (!token) throw new Error('TELEGRAM_BOT_TOKEN is required');
+
+  const replyMarkup = options.replyMarkup || options.reply_markup;
 
   // If photoUrl is an existing local file (e.g. generated desktop screenshot card)
   if (typeof photoUrl === 'string' && fs.existsSync(photoUrl)) {
@@ -247,6 +259,9 @@ async function sendPhoto(chatId, photoUrl, caption, options = {}) {
       formData.append('photo', blob, path.basename(photoUrl));
       formData.append('caption', caption);
       formData.append('parse_mode', options.parse_mode || 'HTML');
+      if (replyMarkup) {
+        formData.append('reply_markup', typeof replyMarkup === 'string' ? replyMarkup : JSON.stringify(replyMarkup));
+      }
       return await callTelegramApi(token, 'sendPhoto', formData, options);
     } catch (err) {
       console.warn(`[telegram] sendPhoto local file failed (${err.message}), falling back to sendMessage`);
@@ -270,6 +285,9 @@ async function sendPhoto(chatId, photoUrl, caption, options = {}) {
       caption: caption,
       parse_mode: options.parse_mode || 'HTML'
     };
+    if (replyMarkup) {
+      payload.reply_markup = replyMarkup;
+    }
     return await callTelegramApi(token, 'sendPhoto', payload, options);
   } catch (err) {
     console.warn(`[telegram] sendPhoto failed (${err.message}), falling back to sendMessage`);
@@ -288,6 +306,7 @@ async function sendPostToChannel({
   imageUrl = null,
   asin = 'UNKNOWN',
   slot = 'channel',
+  replyMarkup = null,
   dryRun = false,
   fetchFn = null
 }) {
@@ -300,6 +319,12 @@ async function sendPostToChannel({
     console.log(`Image:    ${imgCheck.valid ? imgCheck.url : `[NO PHOTO - Fallback to text (${imgCheck.reason})]`}`);
     console.log(`------------------------ Message Content ------------------------`);
     console.log(text);
+    if (replyMarkup && Array.isArray(replyMarkup.inline_keyboard)) {
+      console.log(`------------------------ Inline Keyboard ------------------------`);
+      replyMarkup.inline_keyboard.forEach((row, idx) => {
+        console.log(`Row ${idx + 1}: ${row.map(b => `[${b.text}](${b.url || b.callback_data || ''})`).join(' | ')}`);
+      });
+    }
     console.log(`=================================================================\n`);
 
     return {
@@ -316,7 +341,7 @@ async function sendPostToChannel({
     throw new Error('TELEGRAM_CHANNEL_ID environment variable is missing or empty.');
   }
 
-  const res = await sendPhoto(chatId, imageUrl, text, { token, fetchFn });
+  const res = await sendPhoto(chatId, imageUrl, text, { token, fetchFn, replyMarkup });
   return {
     ok: true,
     message_id: (res && res.result && res.result.message_id) || 'unknown'

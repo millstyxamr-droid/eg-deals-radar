@@ -10,7 +10,7 @@ const path = require('path');
 require('../src/config');
 const db = require('../src/db');
 const repo = require('../src/repo');
-const { buildPostContent, generateDailySchedule, getCairoDateString } = require('../src/channel_post');
+const { buildPostContent, buildInlineKeyboard, generateDailySchedule, getCairoDateString } = require('../src/channel_post');
 const { sendPostToChannel, sleep, RATE_LIMIT_DELAY_MS } = require('../src/telegram');
 
 async function main() {
@@ -68,19 +68,25 @@ async function main() {
     const item = pendingPosts[i];
     console.log(`\n[post_channel] Processing [${i + 1}/${pendingPosts.length}] ASIN: ${item.asin} (Slot: ${item.slot}, Scheduled: ${item.scheduled_at})...`);
 
-    // Build post content in Egyptian Arabic with clean HTML hyperlink
+    // Build post content in Egyptian Arabic with clean HTML hyperlink + inline keyboard
     const text = buildPostContent(item, item.slot);
+    const replyMarkup = buildInlineKeyboard(item, item.slot);
 
     // Generate Desktop Amazon Screenshot Card (Yousif Ayman style)
     let imageUrl = item.image_url;
-    try {
-      const { generateDealCardImage } = require('../src/screenshot_card');
-      const cardPath = await generateDealCardImage(item);
-      if (cardPath && require('fs').existsSync(cardPath)) {
-        imageUrl = cardPath;
+    const { validateProductImage } = require('../src/telegram');
+    if (validateProductImage(imageUrl).valid) {
+      try {
+        const { generateDealCardImage } = require('../src/screenshot_card');
+        const cardPath = await generateDealCardImage(item);
+        if (cardPath && require('fs').existsSync(cardPath)) {
+          imageUrl = cardPath;
+        }
+      } catch (err) {
+        console.warn(`[post_channel] Screenshot card generation failed (${err.message}), fallback to image_url`);
       }
-    } catch (err) {
-      console.warn(`[post_channel] Screenshot card generation failed (${err.message}), fallback to image_url`);
+    } else {
+      imageUrl = null;
     }
 
     try {
@@ -89,6 +95,7 @@ async function main() {
         imageUrl,
         asin: item.asin,
         slot: item.slot,
+        replyMarkup,
         dryRun: isDryRun
       });
 

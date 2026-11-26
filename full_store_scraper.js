@@ -338,6 +338,26 @@ async function scrapeDepartment(page, dept) {
       return { currentPrice, currentPriceNum, oldPrice, oldPriceNum, discount };
     }
 
+    function extractStockNote(card) {
+      if (!card) return null;
+      const candidates = card.querySelectorAll('.a-color-price, .a-color-error, [data-cy="delivery-recipe"], #availability span, span.a-size-base');
+      const enRegex = /Only\s+\d+\s+left\s+in\s+stock(?:\s*-\s*order\s+soon)?/i;
+      const arRegex = /(?:باقي|متبقي|متوفر)\s+(?:\d+|قطعة\s+واحدة|قطعتان|قطعتين)\s*(?:فقط)?(?:\s+في\s+المخزون)?/i;
+      const limitedRegex = /كمية\s+محدودة/i;
+
+      for (const el of candidates) {
+        const text = (el.innerText || el.textContent || '').trim().replace(/\s+/g, ' ');
+        if (!text) continue;
+        const mEn = text.match(enRegex);
+        if (mEn) return mEn[0].trim();
+        const mAr = text.match(arRegex);
+        if (mAr) return mAr[0].trim();
+        const mLim = text.match(limitedRegex);
+        if (mLim) return mLim[0].trim();
+      }
+      return null;
+    }
+
     const host = window.location.hostname.toLowerCase();
     const isJumia = host.includes('jumia');
 
@@ -408,9 +428,11 @@ async function scrapeDepartment(page, dept) {
         if (!title) return;
 
         const img = card.querySelector('img');
-        const imgSrc = img ? (img.getAttribute('src') || '') : '';
+        const rawImg = img ? (img.getAttribute('data-src') || img.getAttribute('src') || '') : '';
+        const imgSrc = rawImg.includes('21R6HAk0WUL') ? '' : rawImg;
 
         const priceInfo = extractPrices(card);
+        const stockNote = extractStockNote(card);
 
         items.push({
           asin,
@@ -423,6 +445,7 @@ async function scrapeDepartment(page, dept) {
           oldPriceNum: priceInfo.oldPriceNum,
           currency: 'EGP',
           discount: priceInfo.discount,
+          stockNote,
           category: categoryName,
           categoryId: categoryId,
           productUrl: `https://www.amazon.eg/dp/${asin}`,
@@ -445,9 +468,11 @@ async function scrapeDepartment(page, dept) {
       if (!title) return;
 
       const img = card.querySelector('img.s-image, img');
-      const imgSrc = img ? (img.getAttribute('src') || '') : '';
+      const rawImg = img ? (img.getAttribute('data-src') || img.getAttribute('src') || '') : '';
+      const imgSrc = rawImg.includes('21R6HAk0WUL') ? '' : rawImg;
 
       const priceInfo = extractPrices(card);
+      const stockNote = extractStockNote(card);
 
       const link = card.querySelector('h2 a.a-link-normal, a.a-link-normal[href*="/dp/"]');
       let productUrl = (link && typeof link.getAttribute === 'function') ? link.getAttribute('href') : `/dp/${asin}`;
@@ -466,6 +491,7 @@ async function scrapeDepartment(page, dept) {
         oldPriceNum: priceInfo.oldPriceNum,
         currency: 'EGP',
         discount: priceInfo.discount,
+        stockNote,
         category: categoryName,
         categoryId: categoryId,
         productUrl,

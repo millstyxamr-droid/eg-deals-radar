@@ -240,6 +240,22 @@ async function sendMessage(chatId, text, options = {}) {
 }
 
 /**
+ * Acknowledge an inline-keyboard callback so Telegram stops the loading spinner.
+ * Safe to call even if it fails (the UI just times out otherwise).
+ */
+async function answerCallbackQuery(callbackQueryId, text, options = {}) {
+  const token = options.token || process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) throw new Error('TELEGRAM_BOT_TOKEN is required');
+  if (!callbackQueryId) return null;
+
+  const payload = { callback_query_id: callbackQueryId };
+  if (text) payload.text = text;
+  if (options.show_alert !== undefined) payload.show_alert = !!options.show_alert;
+
+  return callTelegramApi(token, 'answerCallbackQuery', payload, options);
+}
+
+/**
  * Send a photo to a chat/channel with fallback to sendMessage
  */
 async function sendPhoto(chatId, photoUrl, caption, options = {}) {
@@ -355,6 +371,7 @@ module.exports = {
   validateProductImage,
   callTelegramApi,
   sendMessage,
+  answerCallbackQuery,
   sendPhoto,
   sendPostToChannel,
   sleep,

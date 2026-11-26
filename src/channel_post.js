@@ -75,14 +75,46 @@ function categoryToHashtag(catName) {
 }
 
 /**
+ * Build a 2-row Telegram inline keyboard for a channel deal post.
+ * Row 1 (full width): Affiliate link to Amazon.eg
+ * Row 2 (2 buttons): Deep-link to bot tracking (when bot_username is configured) + info link
+ */
+function buildInlineKeyboard(product, slot = 'channel', options = {}) {
+  const productUrl = product.product_url || product.productUrl || (product.asin ? `https://www.amazon.eg/dp/${product.asin}` : '');
+  const affiliateUrl = withAffiliate(productUrl, slot);
+
+  const settings = config.userSettings || {};
+  const tgSettings = settings.telegram || {};
+  const rawBotUsername = options.botUsername !== undefined
+    ? options.botUsername
+    : (process.env.TELEGRAM_BOT_USERNAME || tgSettings.bot_username || '');
+  const botUsername = String(rawBotUsername).trim().replace(/^@/, '');
+
+  const infoUrl = options.infoUrl || tgSettings.deals_site_url || 'https://t.me/eg_deals_radar';
+
+  const row1 = [
+    { text: '🛒 شوفه على أمازون', url: affiliateUrl }
+  ];
+
+  const row2 = [];
+  if (botUsername && product.asin) {
+    row2.push({
+      text: '🎯 تتبع العرض',
+      url: `https://t.me/${botUsername}?start=track_${product.asin}`
+    });
+  }
+  row2.push({
+    text: 'ℹ️ الأسعار ممكن تتغير',
+    url: infoUrl
+  });
+
+  return {
+    inline_keyboard: [row1, row2]
+  };
+}
+
+/**
  * Format post message content in concise Egyptian Arabic
- *
- * Template:
- * 🔥 <اسم المنتج>
- * السعر: X ج.م (كان Y) — أقل من سعره المعتاد Z%
- * الوحدة: 45.5 ج.م/كجم
- * 🛒 <لينك أفلييت>
- * #<القسم> #عروض_النهاردة
  *
  * Rules:
  * - No fake exaggeration.
@@ -94,15 +126,22 @@ function categoryToHashtag(catName) {
 function buildPostContent(product, slot = 'channel', options = {}) {
   const lines = [];
 
-  // 1. Title line with icon
+  const hasVerifiedHistory =
+    product.historical_discount_pct !== null && product.historical_discount_pct !== undefined;
+  const historicalDiscount = Number(product.historical_discount_pct);
+
+  // 1. Urgency tier header & title line (with optional low-stock badge)
+  const isUrgent = product.all_time_low === 1 || (hasVerifiedHistory && !isNaN(historicalDiscount) && historicalDiscount >= 30);
+  const urgencyHeader = isUrgent ? '🔥 الحق 🔥' : '⚡ عرض ⚡';
   const title = (product.title || '').trim().replace(/\s+/g, ' ');
-  lines.push(`🔥 ${title}`);
+  const stockNote = (product.stock_note || product.stockNote || '').trim();
+  const stockSuffix = stockNote ? ` (⚠️ ${stockNote})` : '';
+
+  lines.push(urgencyHeader);
+  lines.push(`${title}${stockSuffix}`);
 
   // Optional truthful badge: only when we have verified history AND it is the lowest recorded price.
   // With a single snapshot, all_time_low is trivially true, so it must not be trusted on its own.
-  const hasVerifiedHistory =
-    product.historical_discount_pct !== null && product.historical_discount_pct !== undefined;
-
   if (product.all_time_low === 1 && hasVerifiedHistory) {
     lines.push(`📉 أرخص سعر اتسجل للمنتج ده!`);
   }
@@ -121,11 +160,17 @@ function buildPostContent(product, slot = 'channel', options = {}) {
   }
 
   // Only a historical discount may be described as "below its usual price".
-  const historicalDiscount = Number(product.historical_discount_pct);
   if (hasVerifiedHistory && historicalDiscount > 0) {
     priceLine += ` — أقل من سعره المعتاد ${Math.round(historicalDiscount)}%`;
   }
   lines.push(priceLine);
+
+  // 90-day typical price (median) when available
+  const typicalPrice = Number(product.typical_price);
+  if (!isNaN(typicalPrice) && typicalPrice > 0) {
+    const typicalPriceStr = typicalPrice % 1 === 0 ? typicalPrice.toFixed(0) : typicalPrice.toFixed(2);
+    lines.push(`📉 متوسط السعر: ${typicalPriceStr} ج.م`);
+  }
 
   // Unverified discounts are Amazon's own claim: label them explicitly, never as "usual price".
   const advertisedDiscount = Number(product.advertised_discount_pct);
@@ -184,11 +229,34 @@ function buildPostContent(product, slot = 'channel', options = {}) {
     lines.push(`» <a href="https://t.me/eg_deals_radar">قناة رادار العروض والتوفير على تليجرام</a>`);
   }
 
-  // 7. Category tag
+  // 7. Category tag + #إعلان
   const catTag = categoryToHashtag(product.category_name || product.category);
-  lines.push(`#${catTag} #عروض_النهاردة`);
+  lines.push(`#${catTag} #عروض_النهاردة #إعلان`);
 
   return lines.join('\n');
+}
+
+/**
+ * Hard safety gate for publishing.
+ *
+ * The project rule: never publish a "deal" before a product has at least
+ * 7 days / 5 real snapshots of history. `deals_scores.is_real_deal` is only 1
+ * when those thresholds are met, so anything else must never be sent to the
+ * channel — regardless of how attractive Amazon's advertised discount looks.
+ *
+ * A single snapshot makes `all_time_low` trivially true, so it is not a signal.
+ */
+function isPublishableDeal(item) {
+  if (!item) return false;
+
+  const confidence = String(item.confidence || '').toLowerCase();
+  const hasVerifiedConfidence = confidence === 'high' || confidence === 'medium';
+
+  const hist = item.historical_discount_pct;
+  const hasHistoricalDiscount =
+    hist !== null && hist !== undefined && Number.isFinite(Number(hist)) && Number(hist) > 0;
+
+  return item.is_real_deal === 1 && hasVerifiedConfidence && hasHistoricalDiscount;
 }
 
 /**
@@ -245,7 +313,8 @@ function selectCandidateDeals(options = {}) {
       p.unit_price_unit,
       s.price AS current_price,
       s.list_price AS old_price,
-      s.discount_badge
+      s.discount_badge,
+      s.stock_note
     FROM deals_scores d
     JOIN products p ON d.asin = p.asin
     LEFT JOIN categories c ON p.category_id = c.id
@@ -435,7 +504,9 @@ module.exports = {
   getCairoDateString,
   buildCairoScheduleSlots,
   categoryToHashtag,
+  buildInlineKeyboard,
   buildPostContent,
+  isPublishableDeal,
   selectCandidateDeals,
   generateDailySchedule
 };

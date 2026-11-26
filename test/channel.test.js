@@ -6,6 +6,7 @@ const {
   buildInlineKeyboard,
   categoryToHashtag,
   buildCairoScheduleSlots,
+  isPublishableDeal,
   CAIRO_HOURS
 } = require('../src/channel_post');
 const { validateProductImage } = require('../src/telegram');
@@ -303,6 +304,40 @@ describe('Telegram Channel Post & Queue Tests', () => {
     const missing = validateProductImage(null);
     assert.strictEqual(missing.valid, false);
     assert.strictEqual(missing.reason, 'missing');
+  });
+
+  test('isPublishableDeal blocks unverified deals and allows verified ones', () => {
+    // Unverified: single snapshot, Amazon's advertised discount only.
+    assert.strictEqual(isPublishableDeal({
+      is_real_deal: 0,
+      confidence: 'low',
+      historical_discount_pct: null,
+      advertised_discount_pct: 30,
+      all_time_low: 1
+    }), false);
+
+    // Verified: 7+ days / 5+ snapshots produced a real historical discount.
+    assert.strictEqual(isPublishableDeal({
+      is_real_deal: 1,
+      confidence: 'medium',
+      historical_discount_pct: 18
+    }), true);
+
+    // High confidence verified deal.
+    assert.strictEqual(isPublishableDeal({
+      is_real_deal: 1,
+      confidence: 'high',
+      historical_discount_pct: 25
+    }), true);
+
+    // is_real_deal without a real historical discount must not pass.
+    assert.strictEqual(isPublishableDeal({
+      is_real_deal: 1,
+      confidence: 'medium',
+      historical_discount_pct: null
+    }), false);
+
+    assert.strictEqual(isPublishableDeal(null), false);
   });
 
   test('Category Hashtag normalization: converts spaces and symbols to clean Arabic tags', () => {

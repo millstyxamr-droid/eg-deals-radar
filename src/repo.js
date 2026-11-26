@@ -118,9 +118,9 @@ function upsertProduct(prod) {
 function insertSnapshot(snap) {
   const stmt = db.prepare(`
     INSERT INTO price_snapshots (
-      asin, store, run_id, scraped_at, price, list_price, in_stock, discount_badge, source
+      asin, store, run_id, scraped_at, price, list_price, in_stock, discount_badge, stock_note, source
     )
-    SELECT @asin, @store, @run_id, @scraped_at, @price, @list_price, @in_stock, @discount_badge, @source
+    SELECT @asin, @store, @run_id, @scraped_at, @price, @list_price, @in_stock, @discount_badge, @stock_note, @source
     WHERE NOT EXISTS (
       SELECT 1 FROM price_snapshots WHERE asin = @asin AND scraped_at = @scraped_at
     )
@@ -135,6 +135,7 @@ function insertSnapshot(snap) {
     list_price: snap.list_price !== undefined ? snap.list_price : (snap.listedOldPrice || snap.oldPriceNum || null),
     in_stock: snap.in_stock !== undefined ? snap.in_stock : 1,
     discount_badge: snap.discount_badge || snap.discount || null,
+    stock_note: snap.stock_note || snap.stockNote || null,
     source: snap.source || 'scraper'
   });
 }
@@ -538,6 +539,7 @@ function saveDepartmentBatch({ items, runId, categoryId, categoryName, pageIdent
             price: numericPrice,
             list_price: item.oldPriceNum,
             discount_badge: item.discount,
+            stock_note: item.stock_note || item.stockNote || null,
             source: 'full_store_scraper'
           });
         }
@@ -871,6 +873,7 @@ function getPendingChannelQueue(maxScheduledTime = new Date().toISOString()) {
       p.unit_price_unit,
       s.price AS current_price,
       s.list_price AS old_price,
+      s.stock_note,
       ds.fair_price,
       ds.typical_price,
       ds.historical_discount_pct,

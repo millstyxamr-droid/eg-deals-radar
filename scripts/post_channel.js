@@ -71,17 +71,35 @@ async function main() {
     return;
   }
 
-  if (limit && limit > 0) {
-    pendingPosts = pendingPosts.slice(0, limit);
-  }
-
   console.log(`[post_channel] Found ${pendingPosts.length} post(s) ready to process.`);
 
   let postedCount = 0;
   let failedCount = 0;
+  let skippedCount = 0;
 
   for (let i = 0; i < pendingPosts.length; i++) {
     const item = pendingPosts[i];
+
+    // Hard gate: never publish an unverified deal. The queue may contain items
+    // generated before the 7-day / 5-snapshot threshold was met (or a fallback
+    // schedule); those must be skipped, not posted.
+    if (!isPublishableDeal(item)) {
+      skippedCount++;
+      console.log(`[post_channel] SKIP ${item.asin}: not a verified deal (is_real_deal=${item.is_real_deal}, confidence=${item.confidence}, historical_discount=${item.historical_discount_pct}).`);
+      if (!isDryRun) {
+        repo.updateChannelQueueItem(item.id, {
+          status: 'skipped',
+          error: 'unverified deal: requires is_real_deal=1, high/medium confidence and real historical discount'
+        });
+      }
+      continue;
+    }
+
+    if (limit && limit > 0 && postedCount >= limit) {
+      console.log(`[post_channel] Reached publish limit (${limit}); stopping this run.`);
+      break;
+    }
+
     console.log(`\n[post_channel] Processing [${i + 1}/${pendingPosts.length}] ASIN: ${item.asin} (Slot: ${item.slot}, Scheduled: ${item.scheduled_at})...`);
 
     // Build post content in Egyptian Arabic with clean HTML hyperlink + inline keyboard
@@ -144,7 +162,7 @@ async function main() {
     }
   }
 
-  console.log(`\n[post_channel] Run completed! Posted/Simulated: ${postedCount}, Failed: ${failedCount}.`);
+  console.log(`\n[post_channel] Run completed! Posted/Simulated: ${postedCount}, Failed: ${failedCount}, Skipped (unverified): ${skippedCount}.`);
 }
 
 if (require.main === module) {

@@ -73,6 +73,7 @@ function initSchema() {
       list_price REAL,
       in_stock INTEGER DEFAULT 1,
       discount_badge TEXT,
+      stock_note TEXT,
       source TEXT,
       FOREIGN KEY(asin) REFERENCES products(asin)
     );
@@ -196,6 +197,9 @@ function migrateSchema() {
   const snapCols = db.pragma('table_info(price_snapshots)').map(c => c.name);
   if (!snapCols.includes('store')) {
     db.exec(`ALTER TABLE price_snapshots ADD COLUMN store TEXT DEFAULT 'amazon';`);
+  }
+  if (!snapCols.includes('stock_note')) {
+    db.exec(`ALTER TABLE price_snapshots ADD COLUMN stock_note TEXT;`);
   }
 
   // Ensure indexes on migrated columns exist

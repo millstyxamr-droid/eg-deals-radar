@@ -25,6 +25,15 @@ function isChatAllowed(chatId) {
 }
 
 /**
+ * Helper to extract ASIN from /start track_<ASIN> deep-link
+ */
+function extractStartTrackAsin(text) {
+  if (!text || typeof text !== 'string') return null;
+  const match = text.trim().match(/^\/start(?:@\w+)?\s+track_([A-Z0-9]{10})\b/i);
+  return match ? match[1].toUpperCase() : null;
+}
+
+/**
  * Helper to extract ASIN and target price from text
  */
 function extractAsinAndTarget(text) {
@@ -76,8 +85,46 @@ async function handleMessage(msg) {
 
   const lowerText = rawText.toLowerCase();
 
-  // 1. /start or /help
+  // 1. /start or /help (including /start track_<ASIN> deep-link)
   if (lowerText.startsWith('/start') || lowerText.startsWith('/help')) {
+    const trackAsin = extractStartTrackAsin(rawText);
+    if (trackAsin) {
+      const product = db.prepare('SELECT * FROM products WHERE asin = ?').get(trackAsin);
+      const snap = repo.getLatestSnapshot(trackAsin);
+      const dealScore = repo.getLatestDealScore(trackAsin);
+      const stats90 = (!dealScore || !dealScore.typical_price) ? repo.getPriceStats(trackAsin, 90) : null;
+
+      const currentPrice = snap ? snap.price : null;
+      const typicalPrice = (dealScore && dealScore.typical_price)
+        ? dealScore.typical_price
+        : (stats90 ? stats90.median : null);
+
+      const title = product ? product.title : `منتج أمازون (${trackAsin})`;
+      const affiliateUrl = alerts.buildAffiliateUrl(product ? product.product_url : null, trackAsin);
+
+      const lines = [
+        '🎯 <b>تتبع سعر المنتج</b>',
+        '',
+        `📦 <b>المنتج:</b> ${telegram.escapeHtml(title)}`,
+        `💰 <b>السعر الحالي:</b> ${currentPrice ? `<code>EGP ${Number(currentPrice).toFixed(2)}</code>` : '<i>غير متاح حالياً</i>'}`,
+        `📉 <b>متوسط السعر (90 يوم):</b> ${typicalPrice ? `<code>EGP ${Number(typicalPrice).toFixed(2)}</code>` : '<i>غير متاح بعد</i>'}`,
+        '',
+        `🔗 <a href="${affiliateUrl}">عرض المنتج على أمازون مصر ↗</a>`,
+        '',
+        `هل تريد إضافته إلى قائمة المراقبة الآن؟ اضغط الزر بالأسفل أو أرسل:`,
+        `<code>/watch ${trackAsin}</code>`
+      ];
+
+      const replyMarkup = {
+        inline_keyboard: [
+          [{ text: '✅ أضف للمراقبة الآن', callback_data: `watch:${trackAsin}` }]
+        ]
+      };
+
+      await telegram.sendMessage(chatId, lines.join('\n'), { replyMarkup });
+      return;
+    }
+
     const helpHtml = [
       '👋 <b>أهلاً بك في رادار عروض وتنبيهات أمازون مصر!</b> 🛒🇪🇬',
       '',
@@ -251,6 +298,33 @@ async function handleMessage(msg) {
 async function handleUpdate(update) {
   if (update.message) {
     await handleMessage(update.message);
+  } else if (update.callback_query && update.callback_query.data) {
+    const cq = update.callback_query;
+    const chatId = (cq.message && cq.message.chat && cq.message.chat.id) || (cq.from && cq.from.id);
+    if (!chatId || !isChatAllowed(chatId)) {
+      try { await telegram.answerCallbackQuery(cq.id, 'غير مصرح'); } catch (e) {}
+      return;
+    }
+
+    const match = String(cq.data).trim().match(/^watch:([A-Z0-9]{10})$/i);
+    if (match) {
+      const asin = match[1].toUpperCase();
+      try {
+        repo.addToWatchlist({ chatId, asin, targetPrice: null });
+        // Always acknowledge the callback, otherwise the Telegram client keeps
+        // showing a loading spinner on the tapped button.
+        try { await telegram.answerCallbackQuery(cq.id, 'تمت الإضافة للمراقبة ✅'); } catch (e) {}
+        await telegram.sendMessage(
+          chatId,
+          `✅ <b>تمت إضافة المنتج <code>${asin}</code> إلى قائمة المراقبة بنجاح!</b>\nسننبهك فور انخفاض سعره.`
+        );
+      } catch (err) {
+        try { await telegram.answerCallbackQuery(cq.id, 'حصل خطأ، جرّب تاني'); } catch (e) {}
+        await telegram.sendMessage(chatId, '⚠️ حصل خطأ أثناء إضافة المنتج للمراقبة. جرّب تاني.');
+      }
+    } else {
+      try { await telegram.answerCallbackQuery(cq.id); } catch (e) {}
+    }
   }
 }
 
@@ -307,5 +381,6 @@ module.exports = {
   handleMessage,
   handleUpdate,
   extractAsinAndTarget,
+  extractStartTrackAsin,
   isChatAllowed
 };

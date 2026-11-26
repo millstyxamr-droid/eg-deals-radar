@@ -50,6 +50,35 @@ describe('Telegram Module & Bot Tests', () => {
     assert.strictEqual(capturedBody.parse_mode, 'HTML');
   });
 
+  test('answerCallbackQuery acknowledges inline-button taps', async () => {
+    let capturedUrl = '';
+    let capturedBody = null;
+
+    const mockFetch = async (url, options) => {
+      capturedUrl = url;
+      capturedBody = JSON.parse(options.body);
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ ok: true, result: true })
+      };
+    };
+
+    const res = await telegram.answerCallbackQuery('cbq_123', 'تم', {
+      token: 'TEST_TOKEN',
+      fetchFn: mockFetch
+    });
+
+    assert.ok(res.ok);
+    assert.strictEqual(capturedUrl, 'https://api.telegram.org/botTEST_TOKEN/answerCallbackQuery');
+    assert.strictEqual(capturedBody.callback_query_id, 'cbq_123');
+    assert.strictEqual(capturedBody.text, 'تم');
+
+    // Missing id must be a no-op, not an error.
+    const noop = await telegram.answerCallbackQuery(null, 'x', { token: 'TEST_TOKEN', fetchFn: mockFetch });
+    assert.strictEqual(noop, null);
+  });
+
   test('sendMessage handles 429 Too Many Requests with retry_after', async () => {
     let callCount = 0;
 
@@ -207,6 +236,48 @@ describe('Telegram Module & Bot Tests', () => {
     const url2 = alerts.buildAffiliateUrl('https://www.amazon.eg/dp/B0D4B1S9G3?qcbrand=sAuWWBROaG', 'B0D4B1S9G3');
     assert.strictEqual(url2, 'https://www.amazon.eg/dp/B0D4B1S9G3?qcbrand=sAuWWBROaG&tag=mydeals-21');
     delete process.env.AMAZON_AFFILIATE_TAG;
+  });
+
+  test('sendMessage and sendPhoto include reply_markup when replyMarkup is provided', async () => {
+    const payloads = [];
+    const mockFetch = async (url, options) => {
+      payloads.push({ url, body: JSON.parse(options.body) });
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ ok: true, result: { message_id: 555 } })
+      };
+    };
+
+    const replyMarkup = {
+      inline_keyboard: [
+        [{ text: '🛒 شوفه على أمازون', url: 'https://www.amazon.eg/dp/B08MILK01?tag=test-21' }]
+      ]
+    };
+
+    await telegram.sendMessage(12345, '<b>Deal</b>', {
+      token: 'TEST_TOKEN',
+      fetchFn: mockFetch,
+      replyMarkup
+    });
+
+    await telegram.sendPhoto(67890, 'https://m.media-amazon.com/images/I/61abc123._AC_UL450_.jpg', '<b>Photo Deal</b>', {
+      token: 'TEST_TOKEN',
+      fetchFn: mockFetch,
+      replyMarkup
+    });
+
+    assert.strictEqual(payloads.length, 2);
+    assert.deepStrictEqual(payloads[0].body.reply_markup, replyMarkup);
+    assert.deepStrictEqual(payloads[1].body.reply_markup, replyMarkup);
+  });
+
+  test('extractStartTrackAsin parses /start track_<ASIN> deep-links', () => {
+    assert.strictEqual(bot.extractStartTrackAsin('/start track_B0D4B1S9G3'), 'B0D4B1S9G3');
+    assert.strictEqual(bot.extractStartTrackAsin('/start@EgDealsBot track_b0ct8s41v8'), 'B0CT8S41V8');
+    assert.strictEqual(bot.extractStartTrackAsin('/start'), null);
+    assert.strictEqual(bot.extractStartTrackAsin('/start invalid_payload'), null);
+    assert.strictEqual(bot.extractStartTrackAsin('/help'), null);
   });
 
 });

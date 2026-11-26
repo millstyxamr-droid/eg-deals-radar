@@ -1,0 +1,117 @@
+name: Publish Scheduled Deals to Telegram
+
+on:
+  schedule:
+    # Runs every hour to publish scheduled deals without waiting for the 4h scrape
+    - cron: "0 * * * *"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Max posts to publish in this run (optional)"
+        required: false
+        default: ""
+        type: string
+
+concurrency:
+  group: catalog-db-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  publish:
+    name: Hourly Telegram Channel Publisher
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      AMAZON_AFFILIATE_TAG: ${{ secrets.AMAZON_AFFILIATE_TAG }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium (for Deal Screenshot Cards)
+        run: npx playwright install --with-deps chromium
+
+      - name: Ensure Data Directory Exists
+        run: mkdir -p data
+
+      - name: Restore SQLite Database from Cache
+        id: db-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/catalog.db
+          key: catalog-db-${{ github.run_id }}
+          restore-keys: |
+            catalog-db-
+
+      - name: Restore SQLite Database from Artifact (Fallback)
+        if: steps.db-cache.outputs.cache-hit != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -f data/catalog.db ]; then
+            gh run download --name catalog-db-snapshot --dir data || true
+            if [ -f data/catalog.db.gz ]; then
+              gunzip -f data/catalog.db.gz
+            fi
+          fi
+
+      - name: Restore SQLite Database from Cloudflare R2 / S3 (Optional)
+        if: steps.db-cache.outputs.cache-hit != 'true' && secrets.R2_BUCKET_NAME != '' && secrets.AWS_ACCESS_KEY_ID != ''
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          if [ ! -f data/catalog.db ]; then
+            ENDPOINT_FLAG=""
+            if [ -n "${{ secrets.R2_ENDPOINT_URL }}" ]; then
+              ENDPOINT_FLAG="--endpoint-url ${{ secrets.R2_ENDPOINT_URL }}"
+            fi
+            aws s3 cp s3://${{ secrets.R2_BUCKET_NAME }}/catalog.db.gz data/catalog.db.gz $ENDPOINT_FLAG || true
+            if [ -f data/catalog.db.gz ]; then
+              gunzip -f data/catalog.db.gz
+            fi
+          fi
+
+      - name: Publish Scheduled Deals to Telegram Channel
+        run: |
+          if [ ! -f data/catalog.db ]; then
+            echo "[i] No catalog.db found yet. Waiting for first scrape run to populate DB."
+            exit 0
+          fi
+          ARGS="--schedule"
+          if [ -n "${{ inputs.limit }}" ]; then
+            ARGS="$ARGS --limit ${{ inputs.limit }}"
+          fi
+          node scripts/post_channel.js $ARGS
+
+      - name: Checkpoint SQLite Database
+        if: always()
+        run: |
+          if [ -f data/catalog.db ]; then
+            node -e "try { const db = require('./src/db'); db.pragma('wal_checkpoint(TRUNCATE)'); db.close(); } catch(e) {}"
+            gzip -k -f data/catalog.db
+          fi
+
+      - name: Save Updated SQLite Database to Cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: data/catalog.db
+          key: catalog-db-publish-${{ github.run_id }}

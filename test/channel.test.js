@@ -3,6 +3,7 @@ const assert = require('node:assert');
 const Database = require('better-sqlite3');
 const {
   buildPostContent,
+  buildInlineKeyboard,
   categoryToHashtag,
   buildCairoScheduleSlots,
   CAIRO_HOURS
@@ -125,29 +126,22 @@ describe('Telegram Channel Post & Queue Tests', () => {
     assert.strictEqual(updated.posted_at, now);
   });
 
-  test('Cairo Schedule Slots: exactly 13 daily slots covering base & peak hours', () => {
+  test('Cairo Schedule Slots: 24 hourly slots covering all 24 hours', () => {
     const slots = buildCairoScheduleSlots('2026-11-21');
-    assert.strictEqual(slots.length, 13, 'Must produce 13 slots (10-15 posts/day)');
-    assert.strictEqual(CAIRO_HOURS.includes(9), true);
-    assert.strictEqual(CAIRO_HOURS.includes(11), true);
-    assert.strictEqual(CAIRO_HOURS.includes(13), true);
-    assert.strictEqual(CAIRO_HOURS.includes(15), true);
-    assert.strictEqual(CAIRO_HOURS.includes(17), true);
-    assert.strictEqual(CAIRO_HOURS.includes(19), true);
-    assert.strictEqual(CAIRO_HOURS.includes(21), true);
-    assert.strictEqual(CAIRO_HOURS.includes(23), true);
-    // Peak hours
-    assert.strictEqual(CAIRO_HOURS.includes(12), true);
-    assert.strictEqual(CAIRO_HOURS.includes(18), true);
+    assert.strictEqual(slots.length, 24, 'Must produce 24 hourly slots');
+    for (let h = 0; h < 24; h++) {
+      assert.strictEqual(slots.some(s => s.hour === h), true, `Missing hour ${h}`);
+    }
   });
 
-  test('Post Formatter: concise Egyptian Arabic with unit price and affiliate link', () => {
+  test('Post Formatter: concise Egyptian Arabic with unit price, typical price, #إعلان and affiliate link', () => {
     const mockProduct = {
       asin: 'B08MILK01',
       title: 'لبن جهينة كامل الدسم 2 لتر',
       category_name: 'ألبان وجبن',
       current_price: 85.0,
       old_price: 100.0,
+      typical_price: 100.0,
       historical_discount_pct: 15,
       unit_price: 42.5,
       unit_price_unit: 'ج.م/لتر',
@@ -157,17 +151,91 @@ describe('Telegram Channel Post & Queue Tests', () => {
 
     const postText = buildPostContent(mockProduct, '2026-11-21_09:00');
 
-    assert.match(postText, /^🔥 لبن جهينة كامل الدسم 2 لتر/m);
+    assert.match(postText, /^⚡ عرض ⚡$/m);
+    assert.match(postText, /^لبن جهينة كامل الدسم 2 لتر$/m);
     assert.match(postText, /السعر: 85 ج\.م \(كان 100 ج\.م\) — أقل من سعره المعتاد 15%/);
+    assert.match(postText, /📉 متوسط السعر: 100 ج\.م/);
     assert.match(postText, /💡 سعر اللتر: 42\.5 ج\.م/);
     assert.match(postText, /🛒 <b>رابط الشراء:<\/b> <a href="https:\/\/www\.amazon\.eg\/dp\/B08MILK01\?tag=dealegypt-21&utm_source=telegram&utm_medium=channel&utm_campaign=2026-11-21_09%3A00">اضغط هنا للشراء من أمازون مصر<\/a>/);
-    assert.match(postText, /#ألبان_وجبن #عروض_النهاردة/);
+    assert.match(postText, /#ألبان_وجبن #عروض_النهاردة #إعلان/);
     assert.doesNotMatch(postText, /أرخص سعر/);
 
     // Test redundant unit price omission on single-unit items (e.g. 1L at 42.5)
     const singleItem = { ...mockProduct, current_price: 42.5, unit_price: 42.5 };
     const singlePostText = buildPostContent(singleItem, 'slot');
     assert.doesNotMatch(singlePostText, /سعر اللتر|الوحدة/);
+  });
+
+  test('Urgency Tiers & Low-Stock Badge: selects 🔥 الحق 🔥 vs ⚡ عرض ⚡ and appends stock_note', () => {
+    const atlProduct = {
+      asin: 'B01ATL9999',
+      title: 'نسكافيه جولد 200 جم',
+      category_name: 'شاي وقهوة',
+      current_price: 250,
+      typical_price: 340,
+      historical_discount_pct: 26,
+      all_time_low: 1,
+      stock_note: 'باقي قطعة واحدة',
+      product_url: 'https://www.amazon.eg/dp/B01ATL9999'
+    };
+    const atlText = buildPostContent(atlProduct, 'slot_atl');
+    assert.match(atlText, /^🔥 الحق 🔥$/m);
+    assert.match(atlText, /^نسكافيه جولد 200 جم \(⚠️ باقي قطعة واحدة\)$/m);
+    assert.match(atlText, /📉 متوسط السعر: 340 ج\.م/);
+    assert.match(atlText, /#إعلان/);
+
+    const highDiscProduct = {
+      asin: 'B01DISC300',
+      title: 'مسحوق غسيل أريال 4 كجم',
+      category_name: 'منظفات',
+      current_price: 210,
+      typical_price: 300,
+      historical_discount_pct: 30,
+      all_time_low: 0,
+      stockNote: 'Only 2 left in stock',
+      product_url: 'https://www.amazon.eg/dp/B01DISC300'
+    };
+    const highDiscText = buildPostContent(highDiscProduct, 'slot_disc');
+    assert.match(highDiscText, /^🔥 الحق 🔥$/m);
+    assert.match(highDiscText, /^مسحوق غسيل أريال 4 كجم \(⚠️ Only 2 left in stock\)$/m);
+
+    const regularProduct = {
+      asin: 'B01REG1234',
+      title: 'مكرونة روجينا 400 جم',
+      category_name: 'بقالة',
+      current_price: 20,
+      typical_price: 25,
+      historical_discount_pct: 20,
+      all_time_low: 0,
+      product_url: 'https://www.amazon.eg/dp/B01REG1234'
+    };
+    const regularText = buildPostContent(regularProduct, 'slot_reg');
+    assert.match(regularText, /^⚡ عرض ⚡$/m);
+    assert.doesNotMatch(regularText, /\(⚠️/);
+  });
+
+  test('Inline Keyboard Builder: 2-row layout with affiliate URL, bot deep-link, and clean fallback', () => {
+    const product = {
+      asin: 'B08MILK01',
+      product_url: 'https://www.amazon.eg/dp/B08MILK01'
+    };
+
+    const kbWithBot = buildInlineKeyboard(product, '2026-11-26_12:00', { botUsername: '@EgDealsRadarBot' });
+    assert.strictEqual(kbWithBot.inline_keyboard.length, 2);
+    assert.strictEqual(kbWithBot.inline_keyboard[0].length, 1);
+    assert.strictEqual(kbWithBot.inline_keyboard[0][0].text, '🛒 شوفه على أمازون');
+    assert.match(kbWithBot.inline_keyboard[0][0].url, /tag=dealegypt-21/);
+
+    assert.strictEqual(kbWithBot.inline_keyboard[1].length, 2);
+    assert.strictEqual(kbWithBot.inline_keyboard[1][0].text, '🎯 تتبع العرض');
+    assert.strictEqual(kbWithBot.inline_keyboard[1][0].url, 'https://t.me/EgDealsRadarBot?start=track_B08MILK01');
+    assert.strictEqual(kbWithBot.inline_keyboard[1][1].text, 'ℹ️ الأسعار ممكن تتغير');
+    assert.strictEqual(kbWithBot.inline_keyboard[1][1].url, 'https://t.me/eg_deals_radar');
+
+    const kbWithoutBot = buildInlineKeyboard(product, '2026-11-26_12:00', { botUsername: '' });
+    assert.strictEqual(kbWithoutBot.inline_keyboard.length, 2);
+    assert.strictEqual(kbWithoutBot.inline_keyboard[1].length, 1);
+    assert.strictEqual(kbWithoutBot.inline_keyboard[1][0].text, 'ℹ️ الأسعار ممكن تتغير');
   });
 
   test('Truthful Marketing Rule: "أرخص سعر" is ONLY added when all_time_low === 1', () => {

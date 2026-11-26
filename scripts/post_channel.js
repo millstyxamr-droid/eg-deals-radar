@@ -10,7 +10,7 @@ const path = require('path');
 require('../src/config');
 const db = require('../src/db');
 const repo = require('../src/repo');
-const { buildPostContent, buildInlineKeyboard, generateDailySchedule, getCairoDateString } = require('../src/channel_post');
+const { buildPostContent, buildInlineKeyboard, generateDailySchedule, getCairoDateString, isPublishableDeal } = require('../src/channel_post');
 const { sendPostToChannel, sleep, RATE_LIMIT_DELAY_MS } = require('../src/telegram');
 
 async function main() {
@@ -36,13 +36,29 @@ async function main() {
   console.log(`[post_channel] Mode: ${isDryRun ? 'DRY-RUN (Simulated)' : 'PRODUCTION'}`);
   console.log(`[post_channel] Publishing limit per run: ${limit ? limit : 'unlimited'}`);
 
-  // 1. Auto-schedule daily posts if requested or if queue is empty for today
+  // 1. Purge stale pending/failed queue items older than 6 hours so outdated prices are never posted
+  if (!isDryRun) {
+    try {
+      const purged = db.prepare(`
+        DELETE FROM channel_queue
+        WHERE status IN ('pending', 'failed')
+          AND datetime(scheduled_at) < datetime('now', '-6 hours')
+      `).run();
+      if (purged.changes > 0) {
+        console.log(`[post_channel] Purged ${purged.changes} stale queue item(s) older than 6 hours.`);
+      }
+    } catch (e) {
+      console.warn(`[post_channel] Stale queue purge skipped: ${e.message}`);
+    }
+  }
+
+  // 2. Auto-schedule daily posts if requested or if queue is empty for today
   if (autoSchedule) {
     const today = getCairoDateString();
     const scheduledToday = repo.getScheduledAsinsForDate(today);
     if (scheduledToday.size === 0) {
       console.log(`[post_channel] Queue empty for today (${today}). Generating daily schedule...`);
-      generateDailySchedule({ dateStr: today, allowFallback: true });
+      generateDailySchedule({ dateStr: today, allowFallback: false });
     }
   }
 

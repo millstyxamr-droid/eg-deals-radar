@@ -132,10 +132,18 @@ async function main() {
 }
 
 if (require.main === module) {
-  main().catch(err => {
-    console.error(`[post_channel] Fatal error: ${err.message}`, err);
-    process.exit(1);
-  });
+  main()
+    .catch(err => {
+      console.error(`[post_channel] Fatal error: ${err.message}`, err);
+      process.exitCode = 1;
+    })
+    .finally(async () => {
+      try {
+        const { closeBrowser } = require('../src/screenshot_card');
+        await closeBrowser();
+      } catch (e) {}
+      process.exit(process.exitCode || 0);
+    });
 }
 
 module.exports = { main };

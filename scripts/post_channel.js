@@ -74,7 +74,17 @@ async function main() {
   let pendingPosts = repo.getPendingChannelQueue(forceNow ? '9999-12-31' : nowIso);
 
   if (pendingPosts.length === 0) {
-    console.log(`[post_channel] No pending posts ready to publish at this time.`);
+    const nextPending = db.prepare(`
+      SELECT slot, scheduled_at FROM channel_queue
+      WHERE status = 'pending'
+      ORDER BY datetime(scheduled_at) ASC
+      LIMIT 1
+    `).get();
+    if (nextPending) {
+      console.log(`[post_channel] No pending posts ready before ${nowIso}. Next scheduled: ${nextPending.slot} (${nextPending.scheduled_at}).`);
+    } else {
+      console.log(`[post_channel] No pending posts in queue at this time.`);
+    }
     return;
   }
 

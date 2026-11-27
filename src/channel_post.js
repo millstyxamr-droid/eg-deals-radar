@@ -131,7 +131,9 @@ function buildPostContent(product, slot = 'channel', options = {}) {
   const historicalDiscount = Number(product.historical_discount_pct);
 
   // 1. Urgency tier header & title line (with optional low-stock badge)
-  const isUrgent = product.all_time_low === 1 || (hasVerifiedHistory && !isNaN(historicalDiscount) && historicalDiscount >= 30);
+  const isUrgent = hasVerifiedHistory && (
+    product.all_time_low === 1 || (!isNaN(historicalDiscount) && historicalDiscount >= 30)
+  );
   const urgencyHeader = isUrgent ? '🔥 الحق 🔥' : '⚡ عرض ⚡';
   const title = (product.title || '').trim().replace(/\s+/g, ' ');
   const stockNote = (product.stock_note || product.stockNote || '').trim();
@@ -144,6 +146,8 @@ function buildPostContent(product, slot = 'channel', options = {}) {
   // With a single snapshot, all_time_low is trivially true, so it must not be trusted on its own.
   if (product.all_time_low === 1 && hasVerifiedHistory) {
     lines.push(`📉 أرخص سعر اتسجل للمنتج ده!`);
+  } else if (!hasVerifiedHistory) {
+    lines.push(`🔎 السعر تحت التتبع (بيانات أولية — لسه بنجمع تاريخ السعر 7 أيام)`);
   }
 
   // 2. Price line: current price, list price (if higher), and discount vs typical price
@@ -246,7 +250,7 @@ function buildPostContent(product, slot = 'channel', options = {}) {
  *
  * A single snapshot makes `all_time_low` trivially true, so it is not a signal.
  */
-function isPublishableDeal(item) {
+function isPublishableDeal(item, options = {}) {
   if (!item) return false;
 
   const confidence = String(item.confidence || '').toLowerCase();
@@ -256,7 +260,22 @@ function isPublishableDeal(item) {
   const hasHistoricalDiscount =
     hist !== null && hist !== undefined && Number.isFinite(Number(hist)) && Number(hist) > 0;
 
-  return item.is_real_deal === 1 && hasVerifiedConfidence && hasHistoricalDiscount;
+  if (item.is_real_deal === 1 && hasVerifiedConfidence && hasHistoricalDiscount) {
+    return true;
+  }
+
+  // Transitional mode (while collecting 7-day / 5-snapshot history):
+  // allow products with a real advertised strike-through discount >= minDiscountPct.
+  if (options.allowTransitional) {
+    const minDiscountPct = options.minDiscountPct !== undefined ? Number(options.minDiscountPct) : 25;
+    const adv = Number(item.advertised_discount_pct);
+    const currentPrice = Number(item.current_price !== undefined ? item.current_price : item.price);
+    const oldPrice = Number(item.old_price !== undefined ? item.old_price : item.list_price);
+    const hasPriceDrop = Number.isFinite(currentPrice) && currentPrice > 0 && Number.isFinite(oldPrice) && oldPrice > currentPrice;
+    return Number.isFinite(adv) && adv >= minDiscountPct && hasPriceDrop;
+  }
+
+  return false;
 }
 
 /**
@@ -350,18 +369,18 @@ function selectCandidateDeals(options = {}) {
     return d.is_real_deal === 1 && (d.confidence === 'high' || d.confidence === 'medium');
   });
 
-  // Fallback for initial setups or dry-runs if 0 real deals found
+  // Transitional fallback while 7-day history is still being collected (only when 0 verified deals exist)
   if (eligible.length === 0 && (allowFallback || allDeals.length > 0)) {
     console.warn('[channel] Note: No 7-day verified real deals found in catalog.db (insufficient historical snapshots).');
     if (allowFallback) {
-      console.warn('[channel] Falling back to top active discounted products for dry-run/preview.');
+      console.warn('[channel] Transitional mode: selecting active products with advertised discount >= ' + minDiscountPct + '% and strike-through price.');
       eligible = allDeals.filter(d => {
         if (excludedAsins.has(d.asin)) return false;
-        return getDealDiscount(d) >= minDiscountPct;
+        const adv = Number(d.advertised_discount_pct || 0);
+        const cur = Number(d.current_price || 0);
+        const old = Number(d.old_price || 0);
+        return adv >= minDiscountPct && cur > 0 && old > cur;
       });
-      if (eligible.length === 0 && allowFallback) {
-        eligible = allDeals.filter(d => !excludedAsins.has(d.asin));
-      }
     }
   }
 

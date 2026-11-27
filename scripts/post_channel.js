@@ -22,6 +22,9 @@ async function main() {
   // Parse --limit N (defaults to posts_per_slot from config.json or 4)
   const config = require('../src/config');
   const userSettings = config.userSettings || {};
+  const dealsFilter = userSettings.deals_filter || {};
+  const allowTransitional = Boolean(dealsFilter.allow_transitional_deals);
+  const minDiscountPct = dealsFilter.min_discount_pct !== undefined ? Number(dealsFilter.min_discount_pct) : 25;
   let limit = null;
   const limitIdx = args.indexOf('--limit');
   if (limitIdx !== -1 && args[limitIdx + 1]) {
@@ -52,13 +55,17 @@ async function main() {
     }
   }
 
-  // 2. Auto-schedule daily posts if requested or if queue is empty for today
+  // 2. Auto-schedule daily posts if requested or if queue has no active/posted items for today
   if (autoSchedule) {
     const today = getCairoDateString();
-    const scheduledToday = repo.getScheduledAsinsForDate(today);
-    if (scheduledToday.size === 0) {
-      console.log(`[post_channel] Queue empty for today (${today}). Generating daily schedule...`);
-      generateDailySchedule({ dateStr: today, allowFallback: false });
+    const activeToday = db.prepare(`
+      SELECT COUNT(*) AS cnt FROM channel_queue
+      WHERE (substr(scheduled_at, 1, 10) = ? OR slot LIKE ?)
+        AND status IN ('pending', 'posted')
+    `).get(today, `${today}%`).cnt;
+    if (activeToday === 0) {
+      console.log(`[post_channel] Queue empty for today (${today}). Generating daily schedule (transitional=${allowTransitional})...`);
+      generateDailySchedule({ dateStr: today, allowFallback: allowTransitional, minDiscountPct });
     }
   }
 
@@ -80,12 +87,11 @@ async function main() {
   for (let i = 0; i < pendingPosts.length; i++) {
     const item = pendingPosts[i];
 
-    // Hard gate: never publish an unverified deal. The queue may contain items
-    // generated before the 7-day / 5-snapshot threshold was met (or a fallback
-    // schedule); those must be skipped, not posted.
-    if (!isPublishableDeal(item)) {
+    // Hard gate: never publish an unverified deal unless transitional mode is enabled
+    // in config.json (while 7-day / 5-snapshot history is still being collected).
+    if (!isPublishableDeal(item, { allowTransitional, minDiscountPct })) {
       skippedCount++;
-      console.log(`[post_channel] SKIP ${item.asin}: not a verified deal (is_real_deal=${item.is_real_deal}, confidence=${item.confidence}, historical_discount=${item.historical_discount_pct}).`);
+      console.log(`[post_channel] SKIP ${item.asin}: not a verified deal (is_real_deal=${item.is_real_deal}, confidence=${item.confidence}, historical_discount=${item.historical_discount_pct}, advertised=${item.advertised_discount_pct}).`);
       if (!isDryRun) {
         repo.updateChannelQueueItem(item.id, {
           status: 'skipped',

@@ -340,6 +340,33 @@ describe('Telegram Channel Post & Queue Tests', () => {
     assert.strictEqual(isPublishableDeal(null), false);
   });
 
+  test('isPublishableDeal transitional mode allows >=25% advertised drops and buildPostContent labels them clearly', () => {
+    const transitionalItem = {
+      title: 'منتج تجريبي تحت التتبع',
+      is_real_deal: 0,
+      confidence: 'low',
+      historical_discount_pct: null,
+      advertised_discount_pct: 30,
+      current_price: 140,
+      old_price: 200,
+      all_time_low: 1
+    };
+
+    // Strict mode still blocks it
+    assert.strictEqual(isPublishableDeal(transitionalItem), false);
+    // Transitional mode allows it when >= 25% and old_price > current_price
+    assert.strictEqual(isPublishableDeal(transitionalItem, { allowTransitional: true, minDiscountPct: 25 }), true);
+    // Rejects below minDiscountPct or without a real strike-through price
+    assert.strictEqual(isPublishableDeal({ ...transitionalItem, advertised_discount_pct: 20 }, { allowTransitional: true, minDiscountPct: 25 }), false);
+    assert.strictEqual(isPublishableDeal({ ...transitionalItem, old_price: 140 }, { allowTransitional: true, minDiscountPct: 25 }), false);
+
+    const text = buildPostContent(transitionalItem, '2026-11-27_09:00');
+    assert.ok(text.includes('السعر تحت التتبع'), 'Must label transitional deals as under tracking');
+    assert.ok(text.includes('خصم معلن من أمازون'), 'Must label discount as advertised by Amazon');
+    assert.ok(!text.includes('أرخص سعر'), 'Must NOT claim all-time low without verified history');
+    assert.ok(text.startsWith('⚡ عرض ⚡'), 'Transitional deals must not use urgent 🔥 الحق 🔥 header');
+  });
+
   test('Category Hashtag normalization: converts spaces and symbols to clean Arabic tags', () => {
     assert.strictEqual(categoryToHashtag('أغذية ومشروبات'), 'أغذية_ومشروبات');
     assert.strictEqual(categoryToHashtag('بقالة / معلبات'), 'بقالة_معلبات');

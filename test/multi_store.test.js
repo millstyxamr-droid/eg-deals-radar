@@ -32,11 +32,14 @@ describe('Multi-Store Architecture Tests', () => {
   test('2. Generate affiliate links for Jumia and Noon', () => {
     const jumiaUrl = 'https://www.jumia.com.eg/appliances-cooker-456.html';
     const jumiaAff = withAffiliate(jumiaUrl, 'slot_noon_deal');
-    const parsedJumia = new URL(jumiaAff);
-    assert.strictEqual(parsedJumia.searchParams.get('utm_source'), 'kol');
-    assert.strictEqual(parsedJumia.searchParams.get('utm_medium'), 'affiliate');
-    assert.strictEqual(parsedJumia.searchParams.get('utm_campaign'), 'slot_noon_deal');
-    assert.ok(parsedJumia.searchParams.has('aff_sub'));
+    const parsedAdj = new URL(jumiaAff);
+    assert.strictEqual(parsedAdj.origin, 'https://aal4.adj.st');
+    assert.ok(parsedAdj.searchParams.has('adjust_t'));
+    const innerJumia = new URL(parsedAdj.searchParams.get('adjust_redirect'));
+    assert.strictEqual(innerJumia.searchParams.get('utm_source'), 'JFORCE');
+    assert.strictEqual(innerJumia.searchParams.get('utm_medium'), 'JF_Affiliate');
+    assert.strictEqual(innerJumia.searchParams.get('utm_campaign'), 'JF_Affiliate_EG');
+    assert.ok(innerJumia.searchParams.get('adj_label').includes('casid*'));
 
     const noonUrl = 'https://www.noon.com/egypt-en/p-12345/';
     const noonAff = withAffiliate(noonUrl, 'noon_slot');

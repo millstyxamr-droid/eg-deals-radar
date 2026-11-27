@@ -4,10 +4,25 @@
  * Evaluated at display/posting time, not at storage time.
  */
 
+const fs = require('fs');
+const path = require('path');
+
 const DEFAULT_AFFILIATE_TAG = 'egdealsradar-21';
-const DEFAULT_JUMIA_AFFILIATE_TAG = 'egdealsradar-jumia';
+const DEFAULT_JUMIA_AFFILIATE_TAG = '2ed19718-58e1-47a5-a5d2-c9778e6ac732';
+const DEFAULT_JUMIA_ADJUST_TRACKER = '1hao9f64_1heefw7z';
 const DEFAULT_NOON_AFFILIATE_TAG = 'egdealsradar-noon';
 let warnedMissingTag = false;
+
+function readAffiliateConfig() {
+  try {
+    const cfgPath = path.join(__dirname, '..', 'config.json');
+    if (fs.existsSync(cfgPath)) {
+      const raw = JSON.parse(fs.readFileSync(cfgPath, 'utf8'));
+      return (raw && raw.affiliate) || {};
+    }
+  } catch (e) {}
+  return {};
+}
 
 /**
  * Reset warning flag (primarily for test isolation)
@@ -20,8 +35,13 @@ function resetAffiliateWarning() {
  * Returns configured affiliate tag or fallback
  */
 function getAffiliateTag(store = 'amazon') {
+  const affCfg = readAffiliateConfig();
   if (store === 'jumia') {
-    return (process.env.JUMIA_AFFILIATE_TAG && process.env.JUMIA_AFFILIATE_TAG.trim()) || DEFAULT_JUMIA_AFFILIATE_TAG;
+    return (
+      (process.env.JUMIA_AFFILIATE_TAG && process.env.JUMIA_AFFILIATE_TAG.trim()) ||
+      (affCfg.jumia_casid && String(affCfg.jumia_casid).trim()) ||
+      DEFAULT_JUMIA_AFFILIATE_TAG
+    );
   }
   if (store === 'noon') {
     return (process.env.NOON_AFFILIATE_TAG && process.env.NOON_AFFILIATE_TAG.trim()) || DEFAULT_NOON_AFFILIATE_TAG;
@@ -132,20 +152,45 @@ function withAffiliate(url, slot = 'channel', tagOverride = null) {
     return parsed.toString();
   }
 
-  // Handle Jumia URLs
+  // Handle Jumia URLs (Jumia Force / Adjust attribution)
   if (isJumiaUrl(url)) {
-    const tag = (tagOverride || process.env.JUMIA_AFFILIATE_TAG || DEFAULT_JUMIA_AFFILIATE_TAG).trim();
-    parsed.searchParams.set('utm_source', 'kol');
-    parsed.searchParams.set('utm_medium', 'affiliate');
-    parsed.searchParams.set('utm_campaign', campaign);
-    if (tag) {
-      parsed.searchParams.set('aff_sub', tag);
+    const affCfg = readAffiliateConfig();
+    const casid = (
+      tagOverride ||
+      process.env.JUMIA_AFFILIATE_TAG ||
+      affCfg.jumia_casid ||
+      DEFAULT_JUMIA_AFFILIATE_TAG
+    ).trim();
+    const tracker = (
+      process.env.JUMIA_ADJUST_TRACKER ||
+      affCfg.jumia_adjust_tracker ||
+      DEFAULT_JUMIA_ADJUST_TRACKER
+    ).trim();
+
+    parsed.searchParams.set('utm_source', 'JFORCE');
+    parsed.searchParams.set('utm_medium', 'JF_Affiliate');
+    parsed.searchParams.set('utm_campaign', 'JF_Affiliate_EG');
+    if (casid) {
+      parsed.searchParams.set('adj_label', `casid*${casid}^type*jforce`);
     }
-    return parsed.toString();
+
+    const webRedirectUrl = parsed.toString();
+    if (tracker && casid) {
+      const adj = new URL('https://aal4.adj.st/');
+      adj.searchParams.set('adjust_t', tracker);
+      adj.searchParams.set('adjust_campaign', 'JF_Affiliate_EG');
+      adj.searchParams.set('adjust_redirect', webRedirectUrl);
+      return adj.toString();
+    }
+    return webRedirectUrl;
   }
 
-  // Handle Noon URLs
+  // Handle Noon URLs (supports NOON_AFFILIATE_TEMPLATE with {url} placeholder, or UTM fallback)
   if (isNoonUrl(url)) {
+    const template = (process.env.NOON_AFFILIATE_TEMPLATE || '').trim();
+    if (template && template.includes('{url}')) {
+      return template.replace(/\{url\}/g, encodeURIComponent(url));
+    }
     parsed.searchParams.set('utm_source', 'affiliate');
     parsed.searchParams.set('utm_medium', 'channel');
     parsed.searchParams.set('utm_campaign', campaign);

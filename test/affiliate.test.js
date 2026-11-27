@@ -88,4 +88,36 @@ describe('Affiliate Module (src/affiliate.js)', () => {
     const parsed = new URL(result);
     assert.strictEqual(parsed.searchParams.get('utm_campaign'), 'channel');
   });
+
+  test('Case 7: Jumia Egypt URL -> builds JForce Adjust attribution URL with casid', () => {
+    const rawUrl = 'https://www.jumia.com.eg/sample-product-12345.html';
+    const result = withAffiliate(rawUrl, 'slot_12');
+
+    const adj = new URL(result);
+    assert.strictEqual(adj.origin, 'https://aal4.adj.st');
+    assert.strictEqual(adj.searchParams.get('adjust_t'), '1hao9f64_1heefw7z');
+    assert.strictEqual(adj.searchParams.get('adjust_campaign'), 'JF_Affiliate_EG');
+
+    const inner = new URL(adj.searchParams.get('adjust_redirect'));
+    assert.strictEqual(inner.origin, 'https://www.jumia.com.eg');
+    assert.strictEqual(inner.searchParams.get('utm_source'), 'JFORCE');
+    assert.strictEqual(inner.searchParams.get('utm_medium'), 'JF_Affiliate');
+    assert.strictEqual(inner.searchParams.get('adj_label'), 'casid*2ed19718-58e1-47a5-a5d2-c9778e6ac732^type*jforce');
+  });
+
+  test('Case 8: Noon URL -> uses NOON_AFFILIATE_TEMPLATE when configured', () => {
+    const prev = process.env.NOON_AFFILIATE_TEMPLATE;
+    process.env.NOON_AFFILIATE_TEMPLATE = 'https://track.example.com/click?url={url}&sub=noon';
+    try {
+      const rawUrl = 'https://www.noon.com/egypt-en/sample/p/';
+      const result = withAffiliate(rawUrl, 'slot_12');
+      assert.strictEqual(
+        result,
+        `https://track.example.com/click?url=${encodeURIComponent(rawUrl)}&sub=noon`
+      );
+    } finally {
+      if (prev === undefined) delete process.env.NOON_AFFILIATE_TEMPLATE;
+      else process.env.NOON_AFFILIATE_TEMPLATE = prev;
+    }
+  });
 });

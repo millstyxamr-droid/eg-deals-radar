@@ -204,21 +204,20 @@ jobs:
       # Database Checkpoint, Compression & Caching
       # -----------------------------------------------------------
       - name: Checkpoint and Compress SQLite Database
-        if: always()
+        if: always() && steps.db-cache.outcome != 'skipped'
         run: |
-          echo "[*] Checkpointing SQLite WAL..."
-          node -e "try { const db = require('./src/db'); db.pragma('wal_checkpoint(TRUNCATE)'); db.close(); console.log('[✔] WAL Checkpoint finished.'); } catch(e) { console.warn('[-] Checkpoint note:', e.message); }"
           if [ -f data/catalog.db ]; then
+            echo "[*] Checkpointing SQLite WAL..."
+            node -e "try { const db = require('./src/db'); db.pragma('wal_checkpoint(TRUNCATE)'); db.close(); console.log('[✔] WAL Checkpoint finished.'); } catch(e) { console.warn('[-] Checkpoint note:', e.message); }"
             gzip -k -f data/catalog.db
             echo "[✔] Compressed data/catalog.db -> data/catalog.db.gz"
           fi
 
       - name: Save SQLite Database to Cache
         uses: actions/cache/save@v4
-        # Always persist the crawl result. Previously this was gated on a
-        # successful healthcheck, so one bad healthcheck threw away the entire
-        # run's data and the next run restarted from a stale cache.
-        if: always()
+        # Persist the crawl result whenever restore ran (so an early pre-restore test
+        # failure never overwrites the cache with an empty 3KB database).
+        if: always() && steps.db-cache.outcome != 'skipped' && hashFiles('data/catalog.db') != ''
         with:
           path: data/catalog.db
           key: catalog-db-${{ github.run_id }}
@@ -250,7 +249,7 @@ jobs:
       # -----------------------------------------------------------
       - name: Upload Compressed DB Snapshot Artifact
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.db-cache.outcome != 'skipped' && hashFiles('data/catalog.db.gz') != ''
         with:
           name: catalog-db-snapshot
           path: data/catalog.db.gz

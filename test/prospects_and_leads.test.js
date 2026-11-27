@@ -1,7 +1,13 @@
-const { test, describe } = require('node:test');
+const { test, describe, before, after } = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
+
+const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'amz-prospects-'));
+process.env.CATALOG_DB_PATH = path.join(tmpRoot, 'catalog.db');
+
+const db = require('../src/db');
 const {
   getProspectList,
   getBrandReportData,
@@ -10,6 +16,52 @@ const {
 const { readTrackerCsv, writeTrackerCsv } = require('../scripts/weekly_digest');
 
 describe('Prospect List & Lead Reports (Prompt 9 Tests)', () => {
+  before(() => {
+    db.prepare(`
+      INSERT OR REPLACE INTO categories (id, name, name_ar, url, is_active)
+      VALUES ('dairy-cheese', 'Dairy & Cheese', 'ألبان وأجبان', 'https://www.amazon.eg/dairy', 1)
+    `).run();
+
+    const products = [
+      { asin: 'PR_DOMTY_1', brand: 'Domty', title: 'جبنة دومتي فيتا 500 جم', price: 45 },
+      { asin: 'PR_DOMTY_2', brand: 'Domty', title: 'جبنة دومتي اسطنبولي 500 جم', price: 48 },
+      { asin: 'PR_COMP_1', brand: 'Obour Land', title: 'جبنة عبور لاند 500 جم', price: 42 }
+    ];
+
+    for (const p of products) {
+      db.prepare(`
+        INSERT OR REPLACE INTO products
+          (asin, title, title_norm, brand, category_id, image_url, product_url,
+           weight_value, weight_unit, pack_count, size_text, unit_price, unit_price_unit, is_active, first_seen_at)
+        VALUES
+          (@asin, @title, @title_norm, @brand, 'dairy-cheese', 'https://m.media-amazon.com/images/I/test.jpg',
+           'https://www.amazon.eg/dp/' || @asin, 500, 'جم', 1, '500 جم', @unit_price, 'كجم', 1, datetime('now'))
+      `).run({
+        asin: p.asin,
+        title: p.title,
+        title_norm: p.title.toLowerCase(),
+        brand: p.brand,
+        unit_price: p.price * 2
+      });
+
+      db.prepare(`
+        INSERT INTO price_snapshots (asin, price, list_price, scraped_at)
+        VALUES (@asin, @price, @list_price, datetime('now', '-1 day'))
+      `).run({ asin: p.asin, price: p.price, list_price: p.price + 10 });
+
+      db.prepare(`
+        INSERT INTO deals_scores
+          (asin, fair_price, typical_price, historical_discount_pct, advertised_discount_pct,
+           is_real_deal, confidence, all_time_low, price_index, computed_at)
+        VALUES (@asin, @price, @list_price, 18, 18, 1, 'medium', 1, 1.0, datetime('now'))
+      `).run({ asin: p.asin, price: p.price, list_price: p.price + 10 });
+    }
+  });
+
+  after(() => {
+    try { db.close(); } catch (e) {}
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  });
 
   test('Prospect List: extracts ranked top brands with positive scores and valid tiers', () => {
     const prospects = getProspectList(20);

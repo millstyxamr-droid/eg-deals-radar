@@ -2,8 +2,8 @@ name: Publish Scheduled Deals to Telegram
 
 on:
   schedule:
-    # Runs every hour to publish scheduled deals without waiting for the 4h scrape
-    - cron: "0 * * * *"
+    # Runs every 15 minutes (4 times/hour) to publish scheduled deals reliably
+    - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       limit:
@@ -106,6 +106,8 @@ jobs:
           ARGS="--schedule"
           if [ -n "${{ inputs.limit }}" ]; then
             ARGS="$ARGS --limit ${{ inputs.limit }}"
+          else
+            ARGS="$ARGS --limit 1"
           fi
           node scripts/post_channel.js $ARGS
 

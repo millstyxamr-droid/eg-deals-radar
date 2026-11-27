@@ -169,6 +169,9 @@ async function main() {
   }
 
   console.log(`\n[post_channel] Run completed! Posted/Simulated: ${postedCount}, Failed: ${failedCount}, Skipped (unverified): ${skippedCount}.`);
+  if (!isDryRun && postedCount === 0 && failedCount > 0) {
+    process.exitCode = 1;
+  }
 }
 
 if (require.main === module) {
